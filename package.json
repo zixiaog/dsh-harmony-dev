@@ -51,7 +51,6 @@
   "scripts": {
     "build:data": "python scripts/build_data.py",
     "build:client": "node scripts/build-client.mjs",
-    "prepare": "node scripts/build-client.mjs",
     "test": "node scripts/test_m0.mjs",
     "test:rules": "python scripts/check_rules.py",
     "test:golden": "node scripts/run_golden.mjs",
