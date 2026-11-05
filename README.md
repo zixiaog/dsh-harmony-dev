@@ -183,6 +183,15 @@ plugin_manager install_bundle  target = <workspace>/dsh-harmony-dev
 - **只改数据（`data/*.json`）不会触发重新 import**：模块被缓存，`apply` 里读到的还是旧数据。解决办法：给 `index.js` 加一行注释/版本标记（改变文件内容）→ 再 toggle；或者重启 Harness。
 - 客户端改动走 client HMR，不受影响。
 
+## 支持项目
+
+如果这个插件帮到了你，欢迎给仓库点个 ⭐ **Star**：<https://github.com/zixiaog/dsh-harmony-dev>
+
+- Star 是继续维护最直接的动力，也能让更多学鸿蒙的人搜到这个工具；
+- 建议 **Watch** 仓库接收版本通知；
+- 使用中发现问题请开 Issue（内容纠错请附官方链接），即便只是"这里好像写错了"也欢迎；
+- 觉得好用，欢迎在技术群/朋友圈推荐，或回来提一个真实使用案例。
+
 ## 贡献与许可
 
 - 贡献流程：[CONTRIBUTING.md](CONTRIBUTING.md)；内容规范：[内容贡献指南](docs/内容贡献指南.md)
