@@ -134,7 +134,7 @@ plugin_manager install_bundle  target = <workspace>/dsh-harmony-dev
 ## 装完怎么验
 
 1. 模型工具表出现 `harmony_search` / `harmony_get`（问一句「用 harmony_search 查一下间距」）。
-2. 左侧栏出现「鸿蒙开发台」图标，点开是整页面板，四个 Tab 可切换。
+2. 左侧栏出现「鸿蒙开发台」图标，点开是整页面板，五个 Tab 可切换。
 3. `harmony_search {query:"列表 懒加载"}` 命中 `comp.list` 并带官方出处。
 4. `harmony_get {ref:"R003"}` 返回规则与修法；`{ref:"Title_L"}` 返回 30vp/Bold。
 5. `harmony_get {ref:"24→26", kind:"version"}` 返回该区间的 API 变更；`harmony_search {query:"列表", targetApi:"API 6"}` 会排除 `since` 高于基线的卡片并给出警告。
@@ -165,7 +165,7 @@ plugin_manager install_bundle  target = <workspace>/dsh-harmony-dev
 ### 2. 函数式插件必须导出 `name`
 
 - 只导出 `apply` + `inject` 时：模块被 import 但 `apply` 不被调用（日志只有 `module imported`）。
-- 修复：`export const name = 'harmony-dev-kit';`。已装插件 `dsh-pet` 的导出正是 `export { apply, inject, name }`。
+- 修复：`export const name = 'dsh-harmony-dev';`。已装插件 `dsh-pet` 的导出正是 `export { apply, inject, name }`。
 
 ### 3. `export const Config` 不能是普通 JSON Schema
 
@@ -178,3 +178,9 @@ plugin_manager install_bundle  target = <workspace>/dsh-harmony-dev
 - **`plugin_manager set_bundle enabled=false → true` 会重新激活插件**；若 `index.js` 内容变了，宿主会重新 import（本次靠它热修成功）。
 - **只改数据（`data/*.json`）不会触发重新 import**：模块被缓存，`apply` 里读到的还是旧数据。解决办法：给 `index.js` 加一行注释/版本标记（改变文件内容）→ 再 toggle；或者重启 Harness。
 - 客户端改动走 client HMR，不受影响。
+
+## 贡献与许可
+
+- 贡献流程：[CONTRIBUTING.md](CONTRIBUTING.md)；内容规范：[内容贡献指南](docs/内容贡献指南.md)
+- 变更记录：[CHANGELOG.md](CHANGELOG.md)；安全策略：[SECURITY.md](SECURITY.md)；行为准则：[CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
+- 许可：[MIT](LICENSE)
