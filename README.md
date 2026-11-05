@@ -1,6 +1,7 @@
 # dsh-harmony-dev（鸿蒙开发台）· 全量版
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/dsh-harmony-dev?logo=npm)](https://www.npmjs.com/package/dsh-harmony-dev)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen)](package.json)
 [![DSH plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-0A59F7)](https://github.com/zixiaog/dsh-harmony-dev)
 
@@ -114,8 +115,8 @@ dsh plugin add https://github.com/zixiaog/dsh-harmony-dev
 dsh-harmony-dev
 ```
 
-> 维护者发布：`npm login && npm publish --access public`（包名当前未被占用）。
-> 发布后「添加插件」里填 `dsh-harmony-dev` 即可安装。
+已发布到 npm：<https://www.npmjs.com/package/dsh-harmony-dev>（当前 `latest = 0.1.0`）。
+在「添加插件」里填 `dsh-harmony-dev` 即可安装（实测通过）。
 
 ### 方式 3：本地目录
 
