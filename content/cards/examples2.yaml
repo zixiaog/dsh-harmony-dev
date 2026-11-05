@@ -1,0 +1,95 @@
+# 配套示例（06~10），代码在 examples/ 下。
+- id: example.form
+  domain: tutorial
+  kind: example
+  title: 示例 6：表单校验
+  summary: 手机号输入 + 即时错误提示 + 提交拦截。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：TextInput 输入类型、错误态用 alert 色、校验失败阻止提交。文件：examples/06-form/FormPage.ets"
+    example: "if (this.phone.length !== 11) { this.error = '请输入 11 位手机号'; }"
+    pitfalls: [错误提示与字段不绑定, 校验只在提交时做]
+  file: examples/06-form/FormPage.ets
+  tokens: [radius.button, color.alert, color.font_primary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.theme-switch
+  domain: tutorial
+  kind: example
+  title: 示例 7：主题切换（跟随系统/深色）
+  summary: 三态外观切换并调用 setColorMode。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：ColorMode 设置、跟随系统开关、切换后状态持久化（接 PersistenceV2 可扩展）。文件：examples/07-theme-switch/ThemeSwitchPage.ets"
+    example: "getApplicationContext().setColorMode(ColorMode.DARK);"
+    pitfalls: [切换后部分页面不刷新, 只做两套但不跟随系统]
+  file: examples/07-theme-switch/ThemeSwitchPage.ets
+  tokens: [color.background_primary, color.font_primary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.network-retry
+  domain: tutorial
+  kind: example
+  title: 示例 8：网络请求 + 重试
+  summary: 带超时、状态码判断与有限重试的请求封装。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：createHttp/request/destroy、非 2xx 判断、retry 递减、loading/error 三态。文件：examples/08-network-retry/NetworkListPage.ets"
+    example: "if (res.responseCode !== 200) throw new Error(`HTTP ${res.responseCode}`);"
+    pitfalls: [无重试上限, 忘记 destroy]
+  file: examples/08-network-retry/NetworkListPage.ets
+  tokens: []
+  version_note: "权限：ohos.permission.INTERNET"
+  sources: []
+  updated: 2026-11-04
+
+- id: example.dialog
+  domain: tutorial
+  kind: example
+  title: 示例 9：确认弹窗流程
+  summary: 破坏性操作的二次确认与结果反馈。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：AlertDialog 主次按钮、危险操作用 alert 色、确认后状态更新。文件：examples/09-dialog/DialogPage.ets"
+    example: "AlertDialog.show({ title: '删除这条记录？', primaryButton: { value: '取消' }, secondaryButton: { value: '删除' } });"
+    pitfalls: [危险操作无二次确认, 按钮文案用「确定/取消」]
+  file: examples/09-dialog/DialogPage.ets
+  tokens: [color.alert, radius.sheet]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.token-card
+  domain: tutorial
+  kind: example
+  title: 示例 10：Token 化卡片组件
+  summary: 卡片组件的间距/圆角/颜色全部走 token。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：@ComponentV2 组件参数、72vp 卡片高度、16vp 卡片圆角、12vp 内间距、零魔法值。文件：examples/10-token-card/TokenCardPage.ets"
+    example: ".height(72).padding({ left: 16, right: 16 }).borderRadius(16)"
+    pitfalls: [卡片圆角写 12, 颜色写死字面量]
+  file: examples/10-token-card/TokenCardPage.ets
+  tokens: [radius.card, space.elements.cardGap, color.background_primary, color.font_secondary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04

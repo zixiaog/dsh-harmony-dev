@@ -1,0 +1,23 @@
+# 依赖与构建产物
+node_modules/
+oh_modules/
+.hvigor/
+build/
+__pycache__/
+*.pyc
+
+# 本地备份 / 临时文件
+*.bak
+*.bak-*
+*.log
+.tmp/
+_ids.txt
+
+# 生成的示例工程（harmony_create 默认输出）
+harmony-projects/
+
+# 编辑器
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

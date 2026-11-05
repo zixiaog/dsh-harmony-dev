@@ -1,0 +1,27 @@
+{
+  "builtAt": "2026-11-05T06:53:01+00:00",
+  "tokensSource": "设计Token规格.md",
+  "tokensFetched": "2026-11-04",
+  "versionsCurrent": "26.0.0",
+  "versionsDefaultTarget": "6.1.1(24)",
+  "counts": {
+    "cards": 366,
+    "rules": 34,
+    "versions": 14,
+    "apiDiff": 9,
+    "cardsWithSources": 281,
+    "apiSourcesEnriched": 166,
+    "rulesByLayer": {
+      "L1": 24,
+      "L2": 7,
+      "L3": 3
+    },
+    "tokens": 72
+  },
+  "checksums": {
+    "tokens.json": "21db784e9441dc87",
+    "versions.json": "d0a90b007b78b966",
+    "cards.json": "2c4e39b4ebbabcfc",
+    "rules.json": "f4eb1aace6821a6f"
+  }
+}

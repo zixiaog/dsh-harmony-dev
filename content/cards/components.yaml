@@ -1,0 +1,308 @@
+# 组件卡（批次 2）：补 9 张，与 cards.yaml 合并后共 12 张。
+# since 未逐条核对 apidiff 的，version_note 里标注「待校准」。
+- id: comp.text
+  domain: component
+  title: Text 文本
+  summary: 展示文本的基础组件，字号/字重/颜色必须取 token。
+  designClass: display
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: fontSize, type: number, default: 16, desc: 字号，取 font token（fp） }
+    - { name: fontWeight, type: FontWeight, default: FontWeight.Normal, desc: 与层级匹配 }
+    - { name: maxLines, type: number, default: null, desc: 最大行数，配合 textOverflow }
+  events:
+    - { name: onClick, params: "(event: ClickEvent) => void", desc: 点击回调 }
+  sections:
+    usage: 文本层级按 Display/Title/Subtitle/Body/Caption 取，不自定义字号。
+    example: "Text('页面标题')\n  .fontSize(30)                 // Title_L（按设备取 token）\n  .fontWeight(FontWeight.Bold)\n  .fontColor($r('app.color.font_primary'))"
+    pitfalls: [fontSize(17) 非阶梯值, 用纯黑当文本色]
+    a11y: [纯文本不需要 accessibilityText，但图片化文字需要]
+    adapt: [长文本在窄屏设置 maxLines + ellipsis]
+    perf: [避免在 build 中拼接大段字符串]
+  tokens: [font.Title_L, color.font_primary]
+  version_note: ""
+  sources:
+    - { title: 文本（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/text-0000001956975261.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.image
+  domain: component
+  title: Image 图片
+  summary: 展示图片，需设置 objectFit、占位与加载失败兜底。
+  designClass: display
+  codeClass: media
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: objectFit, type: ImageFit, default: ImageFit.Cover, desc: 图片填充方式 }
+    - { name: syncLoad, type: boolean, default: false, desc: 是否同步加载小图 }
+    - { name: alt, type: ResourceStr, default: null, desc: 占位图 }
+  events:
+    - { name: onComplete, params: "(event) => void", desc: 加载完成回调 }
+  sections:
+    usage: 图片圆角取 8vp；列表内图片统一 objectFit，避免拉伸。
+    example: "Image($r('app.media.cover'))\n  .objectFit(ImageFit.Cover)\n  .borderRadius(8)\n  .alt($r('app.media.placeholder'))"
+    pitfalls: [不设 objectFit 导致变形, 大图同步加载卡顿]
+    a11y: [信息型图片需要 accessibilityText]
+    adapt: [宽屏下限制最大宽度，避免无限拉伸]
+    perf: [长列表图片用懒加载 + 占位]
+  tokens: [radius.image, color.background_secondary]
+  version_note: ""
+  sources:
+    - { title: 图片（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/image-0000001956975273.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.textinput
+  domain: component
+  title: TextInput 文本框
+  summary: 单行文本输入，需处理焦点、键盘避让、错误态与无障碍。
+  designClass: input
+  codeClass: text-input
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: placeholder, type: ResourceStr, default: null, desc: 占位提示 }
+    - { name: maxLength, type: number, default: null, desc: 最大长度 }
+    - { name: type, type: InputType, default: InputType.Normal, desc: 输入类型（密码/邮箱/数字） }
+  events:
+    - { name: onChange, params: "(value: string) => void", desc: 输入变化 }
+    - { name: onSubmit, params: "(enterKey: EnterKeyType) => void", desc: 提交 }
+  sections:
+    usage: 输入框高度 40vp、圆角取按钮档位 20vp；错误态用 alert 色描边。
+    example: "TextInput({ placeholder: '请输入手机号' })\n  .type(InputType.PhoneNumber)\n  .height(40)\n  .borderRadius(20)"
+    pitfalls: [不设 maxLength, 键盘弹出遮挡输入框]
+    a11y: [必须有可读的 placeholder 或 accessibilityText]
+    adapt: [PC 上支持 Enter 提交，需绑定快捷键语义]
+    perf: [onChange 内避免同步网络请求]
+  tokens: [radius.button, color.font_secondary, color.alert]
+  version_note: ""
+  sources:
+    - { title: 文本框（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/textinput-0000001957012557.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.tabs
+  domain: component
+  title: Tabs 页签
+  summary: 同层内容切换，页签数量与层级需按信息架构控制。
+  designClass: navigation
+  codeClass: navigation
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: barPosition, type: BarPosition, default: BarPosition.Start, desc: 页签位置 }
+    - { name: index, type: number, default: 0, desc: 当前页签 }
+    - { name: barMode, type: BarMode, default: BarMode.Fixed, desc: 页签是否均分 }
+  events:
+    - { name: onChange, params: "(index: number) => void", desc: 页签切换 }
+  sections:
+    usage: 顶部页签用 Tabs，底部导航用 Tabs + barPosition End；超过 5 个考虑子页签或分类页。
+    example: "Tabs({ barPosition: BarPosition.End }) {\n  TabContent() { ... }.tabBar('首页')\n  TabContent() { ... }.tabBar('我的')\n}"
+    pitfalls: [页签过多导致文字截断, 页签与内容不同步]
+    a11y: [页签文字需可读，图标页签补 accessibilityText]
+    adapt: [宽屏下页签可改为左侧导航]
+    perf: [TabContent 懒加载，避免一次构建全部页]
+  tokens: [color.brand, color.font_secondary, motion.duration.simple]
+  version_note: ""
+  sources:
+    - { title: 底部页签（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/bottomtab-0000001956787789.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.navigation
+  domain: component
+  title: Navigation 导航
+  summary: 推荐的路由与页面容器，替代 router，支持 NavPathStack 与分栏。
+  designClass: navigation
+  codeClass: navigation
+  applies_to: [phone, tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: navDestination, type: "(name: string, param: unknown) => void", default: null, desc: 目标页构建器 }
+    - { name: mode, type: NavigationMode, default: NavigationMode.Auto, desc: 单栏/分栏自动切换 }
+  events:
+    - { name: onNavBarStateChange, params: "(isVisible: boolean) => void", desc: 导航栏显隐 }
+  sections:
+    usage: 一多页面的标准骨架；分栏阈值 vp≥600；用 NavPathStack 管理栈。
+    example: "Navigation(this.pathStack) {\n  // 首页内容\n}\n.mode(NavigationMode.Auto)\n.navDestination(this.PageMap)"
+    pitfalls: [router 与 Navigation 混用, 手写栈导致返回异常]
+    a11y: [返回按钮需可读文本]
+    adapt: [平板自动分栏，折叠屏按断点切换]
+    perf: [目标页懒构建，避免启动时全量创建]
+  tokens: [layout.splitThresholdVp, color.brand]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 导航条（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/navigation-0000001957075737.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.grid
+  domain: component
+  title: Grid 网格
+  summary: 二维网格布局，配合栅格列数与断点做多端适配。
+  designClass: container
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: columnsTemplate, type: string, default: '1fr', desc: 列模板，如 '1fr 1fr' }
+    - { name: rowsGap, type: number, default: 0, desc: 行间距，取 spacing token }
+    - { name: columnsGap, type: number, default: 0, desc: 列间距，取 spacing token }
+  events:
+    - { name: onScrollIndex, params: "(first, last) => void", desc: 滚动位置 }
+  sections:
+    usage: 宫格用 Grid；列表用 List；瀑布流用 WaterFlow。列数随断点变化。
+    example: "Grid() {\n  ForEach(this.items, (item) => GridItem() { ... })\n}\n.columnsTemplate(this.cols >= 12 ? '1fr 1fr 1fr 1fr' : '1fr 1fr')"
+    pitfalls: [固定 columnsTemplate 不随断点变, 间距写死 13]
+    a11y: [网格项需可读标签]
+    adapt: [按 4/8/12 列调整列数]
+    perf: [大数据用 LazyForEach]
+  topics:
+    - id: grid.basic
+      title: 使用网格（基础）
+      content: |
+        Grid 用 columnsTemplate/rowsTemplate 定义轨道，GridItem 占格；只给 columnsTemplate 时行数随内容增长。
+        间距用 columnsGap/rowsGap 取 token，不要逐项写 margin。
+      code: |
+        Grid() {
+          ForEach(this.items, (item: Item) => {
+            GridItem() { Card({ item }) }
+          }, (item: Item) => item.id)
+        }
+        .columnsTemplate('1fr 1fr 1fr')
+        .columnsGap(Space.elements.gapNormal)
+        .rowsGap(Space.elements.gapNormal)
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-grid"
+    - id: grid.span
+      title: 跨行跨列
+      content: |
+        GridItem 支持 columnStart/columnEnd/rowStart/rowEnd 指定占位区间；超过列数的区间会被裁剪。
+        整块卡片推荐用 columnStart(0).columnEnd(列数-1) 占满一行，而不是嵌一层 Row。
+      code: |
+        GridItem() { Banner() }
+          .columnStart(0)
+          .columnEnd(2)
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-griditem"
+    - id: grid.lazy
+      title: 懒加载与滚动监听
+      content: |
+        网格同样用 LazyForEach + IDataSource 懒加载；滚动位置用 onScrollIndex 获取首尾索引，
+        scrollToIndex 需要 Scroller。列数变化时重建模板，避免 GridItem 尺寸缓存错位。
+      code: |
+        Grid({ scroller: this.scroller }) {
+          LazyForEach(this.source, (item: Item) => {
+            GridItem() { Card({ item }) }
+          }, (item: Item) => item.id)
+        }
+        .columnsTemplate(this.cols >= 12 ? '1fr 1fr 1fr 1fr' : '1fr 1fr')
+        .onScrollIndex((first: number, last: number) => { this.last = last })
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-grid"
+  tokens: [layout.breakpoints, space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 布局基础（栅格）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.scroll
+  domain: component
+  title: Scroll 滚动
+  summary: 单屏内容滚动容器，不适合大列表（用 List/LazyForEach）。
+  designClass: container
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: scrollBar, type: BarState, default: BarState.Auto, desc: 滚动条状态 }
+    - { name: scrollable, type: ScrollDirection, default: ScrollDirection.Vertical, desc: 滚动方向 }
+  events:
+    - { name: onScroll, params: "(xOffset, yOffset) => void", desc: 滚动回调 }
+  sections:
+    usage: 内容量小、结构固定用 Scroll；长列表用 List。
+    example: "Scroll() {\n  Column({ space: 8 }) { ... }\n}\n.scrollBar(BarState.Auto)"
+    pitfalls: [长列表套 Scroll 导致全量渲染, 嵌套滚动手势冲突]
+    a11y: [滚动区域需可聚焦]
+    adapt: [宽屏内容限宽 2220vp]
+    perf: [避免 Scroll 内再嵌 List]
+  tokens: [layout.maxContentWidthVp, space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.divider
+  domain: component
+  title: Divider 分割线
+  summary: 视觉分隔，颜色取 comp_divider，间距按层级取 token。
+  designClass: display
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: strokeWidth, type: number, default: 1, desc: 线宽 }
+    - { name: color, type: ResourceColor, default: null, desc: 颜色取 comp_divider }
+    - { name: vertical, type: boolean, default: false, desc: 是否竖线 }
+  events: []
+  sections:
+    usage: 列表内分割线用 List 的 divider 属性统一设置，不逐个插 Divider。
+    example: "List().divider({ strokeWidth: 1, color: $r('app.color.comp_divider') })"
+    pitfalls: [分割线用纯黑, 每个列表项手插 Divider]
+    a11y: []
+    adapt: [宽屏下可省略分割线改用间距分组]
+    perf: [避免在长列表中大量创建节点]
+  tokens: [color.comp_divider, space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 分隔器（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/divider-0000001956815469.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.refresh
+  domain: component
+  title: Refresh 下拉刷新
+  summary: 列表/页面下拉刷新容器，需处理刷新态、失败重试与加载文案。
+  designClass: container
+  codeClass: container
+  applies_to: [phone, tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: refreshing, type: boolean, default: false, desc: 是否正在刷新 }
+    - { name: pullToRefresh, type: boolean, default: true, desc: 是否支持下拉 }
+  events:
+    - { name: onRefreshing, params: "() => void", desc: 触发刷新 }
+  sections:
+    usage: 列表页标配；刷新失败要给错误提示与重试入口。
+    example: "Refresh({ refreshing: this.refreshing })\n  .onRefreshing(() => { this.load() })\n  .pullToRefresh(true)"
+    pitfalls: [刷新后不重置 refreshing 导致卡住, 失败无提示]
+    a11y: [刷新状态需可读]
+    adapt: [宽屏下可改按钮刷新]
+    perf: [刷新时避免全量重建列表]
+  tokens: [color.font_secondary, motion.duration.simple]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 列表（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/list-0000001929853910.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

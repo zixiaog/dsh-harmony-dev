@@ -1,0 +1,195 @@
+# 配套示例（11~20），代码在 examples/ 下。
+- id: example.search-filter
+  domain: tutorial
+  kind: example
+  title: 示例 11：搜索过滤
+  summary: 输入即筛本地列表，含清除与空态。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：Search 的 onChange 过滤、ForEach + 稳定 key、空数组空态。文件：examples/11-search-filter/SearchPage.ets"
+    example: "this.filtered = this.items.filter((item) => item.includes(value));"
+    pitfalls: [输入即请求未防抖, key 用 index]
+  file: examples/11-search-filter/SearchPage.ets
+  tokens: [radius.button, space.elements.gapNormal]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.bottom-tabs
+  domain: tutorial
+  kind: example
+  title: 示例 12：底部页签导航
+  summary: Tabs 底部页签 + 受控 index。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：barPosition End 的底部页签、受控 index、onChange 同步。文件：examples/12-bottom-tabs/TabsPage.ets"
+    example: "Tabs({ barPosition: BarPosition.End, index: this.index }) { ... }"
+    pitfalls: [页签超过 5 个截断, 页签与内容不同步]
+  file: examples/12-bottom-tabs/TabsPage.ets
+  tokens: [color.brand, color.font_secondary]
+  version_note: ""
+  sources:
+    - { title: 底部页签（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/bottomtab-0000001956787789.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: example.form-deep
+  domain: tutorial
+  kind: example
+  title: 示例 13：多字段表单校验
+  summary: 姓名/手机号组合校验、错误对象按字段提示。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：Record<string,string> 存字段错误、正则校验、提交拦截。文件：examples/13-form-deep/FormDeepPage.ets"
+    example: "if (!/^1\\d{10}$/.test(this.phone)) errors['phone'] = '手机号格式不正确';"
+    pitfalls: [错误提示与字段不对应, 只在提交时校验]
+  file: examples/13-form-deep/FormDeepPage.ets
+  tokens: [radius.button, color.alert]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.image-list
+  domain: tutorial
+  kind: example
+  title: 示例 14：图片列表懒加载
+  summary: IDataSource + LazyForEach + objectFit + 无障碍文本。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：图片列表懒加载、固定宽高比、圆角 16、封面图可读文本。文件：examples/14-image-list/ImageListPage.ets"
+    example: "Image($r(`app.media.${item}`)).objectFit(ImageFit.Cover).borderRadius(16)"
+    pitfalls: [不设 objectFit 变形, 大图原图解码]
+  file: examples/14-image-list/ImageListPage.ets
+  tokens: [radius.image, radius.card]
+  version_note: ""
+  sources:
+    - { title: 图片（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/image-0000001956975273.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: example.motion
+  domain: tutorial
+  kind: example
+  title: 示例 15：点按缩放缓动
+  summary: animateTo + 标准曲线 300ms 的按压反馈。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：animateTo 改变 scale、标准曲线、时长取 300ms 档位。文件：examples/15-motion/MotionPage.ets"
+    example: "animateTo({ duration: 300, curve: Curve.Standard }, () => { this.scale = 1.2; });"
+    pitfalls: [时长非档位, 动画里重建组件]
+  file: examples/15-motion/MotionPage.ets
+  tokens: [motion.duration.complex, motion.curves.standard]
+  version_note: ""
+  sources:
+    - { title: 动效属性, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/animation-attributes-0000001797117229.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: example.dark-res
+  domain: tutorial
+  kind: example
+  title: 示例 16：深浅色资源
+  summary: 文本三级 + 背景 token，自动跟随深浅色。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：font_primary/secondary/tertiary 与 background_primary，不写死颜色。文件：examples/16-dark-res/DarkResPage.ets"
+    example: "Text('说明').fontColor($r('app.color.font_tertiary'))"
+    pitfalls: ["写死 #000/#FFF", 只维护浅色资源]
+  file: examples/16-dark-res/DarkResPage.ets
+  tokens: [color.font_primary, color.font_secondary, color.font_tertiary, color.background_primary]
+  version_note: ""
+  sources:
+    - { title: 深色模式, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/dark-mode-0000001823255497.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: example.split
+  domain: tutorial
+  kind: example
+  title: 示例 17：列表-详情分栏
+  summary: 宽屏双栏、窄屏单栏，Navigation 管理路由。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：isWide 切换 Row 双栏/单栏、NavPathStack 跳转。文件：examples/17-split/SplitPage.ets"
+    example: "if (this.isWide) Row() { List().width(320); Divider().vertical(true); Column() }"
+    pitfalls: [手机强制分栏, 未监听窗口变化]
+  file: examples/17-split/SplitPage.ets
+  tokens: [layout.splitThresholdVp, layout.breakpoints]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: example.rdb
+  domain: tutorial
+  kind: example
+  title: 示例 18：RDB 增查
+  summary: 打开数据库、建表、插入、查询并关闭 ResultSet。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：getRdbStore、executeSql 建表/插入、querySql 遍历、ResultSet.close。文件：examples/18-rdb/RdbPage.ets（import 需按 @kit.ArkData 补全）"
+    example: "await store.executeSql('CREATE TABLE IF NOT EXISTS t (id INTEGER PRIMARY KEY, title TEXT)');"
+    pitfalls: [ResultSet 不 close, 逐条插入不用事务]
+  file: examples/18-rdb/RdbPage.ets
+  tokens: []
+  version_note: "示例省略了 import，实际使用需 import { relationalStore } from '@kit.ArkData'"
+  sources: []
+  updated: 2026-11-04
+
+- id: example.cache
+  domain: tutorial
+  kind: example
+  title: 示例 19：网络 + 本地缓存
+  summary: 先读 preferences 缓存，未命中再请求并回写。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：缓存优先策略、request/destroy、写后 flush。文件：examples/19-cache/CachePage.ets（import 需补 @kit.ArkData / @kit.NetworkKit）"
+    example: "const cached = await store.get('last', '') as string;"
+    pitfalls: [缓存不设过期, 请求失败无提示]
+  file: examples/19-cache/CachePage.ets
+  tokens: []
+  version_note: "示例省略了 import，实际使用需补 preferences / http"
+  sources: []
+  updated: 2026-11-04
+
+- id: example.component-home
+  domain: tutorial
+  kind: example
+  title: 示例 20：组件库首页
+  summary: 复用组件 + token 卡片的首页结构。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：@ComponentV2 复用卡片、@Param/@Event、列表渲染、token 圆角与间距。文件：examples/20-component-home/HomePage.ets"
+    example: "HomeCard({ title: item, subtitle: '点击进入' })"
+    pitfalls: [卡片圆角混用, 列表项内嵌过多交互]
+  file: examples/20-component-home/HomePage.ets
+  tokens: [radius.card, color.background_primary, color.font_secondary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04

@@ -1,0 +1,435 @@
+# 组件卡批次 4（14 张）：容器 / 布局 / 媒体类。累计 40 张组件卡。
+- id: comp.waterflow
+  domain: component
+  title: WaterFlow 瀑布流
+  summary: 不等高卡片的多列流式布局，适合图片流与商品流。
+  designClass: container
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: columnsTemplate, type: string, default: "1fr 1fr", desc: 列数模板 }
+    - { name: itemConstraintSize, type: ConstraintSizeOptions, default: null, desc: 卡片尺寸约束 }
+  events:
+    - { name: onReachEnd, params: "() => void", desc: 到底加载更多 }
+  sections:
+    usage: 瀑布流列数随断点变化；卡片间距取 12vp。
+    example: "WaterFlow() {\n  LazyForEach(this.ds, (item) => FlowItem() { Card(item) })\n}\n.columnsTemplate(this.cols >= 3 ? '1fr 1fr 1fr' : '1fr 1fr')"
+    pitfalls: [不等高卡片未设最小高度, 列数固定不随断点]
+    a11y: [卡片需可读标题]
+    adapt: [按断点 2/3/4 列]
+    perf: [必须 LazyForEach]
+  topics:
+    - id: waterflow.basic
+      title: 使用瀑布流（基础）
+      content: |
+        WaterFlow 子项必须是 FlowItem；按列高自动插入最短列。列数用 columnsTemplate（'1fr 1fr'），
+        列/行间距用 columnsGap/rowsGap 取 token；卡片高度不一但需要最小高度约束，防止闪跳。
+      code: |
+        WaterFlow() {
+          LazyForEach(this.source, (item: Item) => {
+            FlowItem() {
+              Column() { Image(item.cover).aspectRatio(4 / 3); Text(item.title) }
+                .borderRadius(Radius.card)
+            }
+          }, (item: Item) => item.id)
+        }
+        .columnsTemplate(this.cols >= 12 ? '1fr 1fr 1fr 1fr' : '1fr 1fr')
+        .columnsGap(Space.elements.cardGap)
+        .rowsGap(Space.elements.cardGap)
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-waterflow"
+    - id: waterflow.loadmore
+      title: 触底加载与性能
+      content: |
+        触底加载用 onReachEnd（或 onScrollIndex 判尾)，加载中要防重复触发；图片必须设置 objectFit 与缓存。
+        FlowItem 数量大时只创建可见项，LazyForEach 的 key 必须稳定，否则 insertion 会整列重排。
+      code: |
+        WaterFlow() { /* LazyForEach */ }
+          .onReachEnd(() => {
+            if (!this.loading) this.loadMore()
+          })
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-waterflow"
+    - id: waterflow.vs-list
+      title: 与 List / Grid 的选型
+      content: |
+        信息流高度差大 → WaterFlow；等高卡片宫格 → Grid；单列线性 → List。
+        三者都可以 LazyForEach；不要用 List 里塞多列手动模拟瀑布流，会出现测量与复用问题。
+      content_note: ""
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-waterflow"
+  tokens: [space.elements.cardGap, radius.card]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.sidebarcontainer
+  domain: component
+  title: SideBarContainer 侧边栏容器
+  summary: 可折叠侧栏 + 内容区，适合平板/PC 的一多布局。
+  designClass: container
+  codeClass: layout
+  applies_to: [tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: sideBarWidth, type: number, default: 240, desc: 侧栏宽度 }
+    - { name: showSideBar, type: boolean, default: true, desc: 是否显示侧栏 }
+    - { name: minContentWidth, type: number, default: 360, desc: 内容区最小宽度 }
+  events:
+    - { name: onChange, params: "(value: boolean) => void", desc: 侧栏显隐变化 }
+  sections:
+    usage: 宽屏（vp≥840）常驻侧栏，窄屏折叠为抽屉；宽度用栅格列宽。
+    example: "SideBarContainer(SideBarContainerType.Embed) {\n  Column() { /* 侧栏 */ }\n  Column() { /* 内容 */ }\n}\n.sideBarWidth(240)"
+    pitfalls: [手机也用常驻侧栏, 侧栏宽度非栅格值]
+    a11y: [折叠按钮需可读]
+    adapt: [按断点切换 Embed/Overlay/Auto]
+    perf: [侧栏内容按需构建]
+  tokens: [layout.breakpoints, space.screenMargin]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.column
+  domain: component
+  title: Column 纵向布局
+  summary: 子元素纵向排列的基础容器，间距用 space 参数统一控制。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: space, type: number, default: 0, desc: 子元素间距，取 spacing token }
+    - { name: alignItems, type: HorizontalAlign, default: HorizontalAlign.Center, desc: 横向对齐 }
+  events: []
+  sections:
+    usage: 纵向堆叠用 Column；子元素多且需滚动时外层用 Scroll/List。
+    example: "Column({ space: 8 }) {\n  Text('标题')\n  Text('正文')\n}"
+    pitfalls: [逐个子元素加 margin 而不是统一 space]
+    a11y: []
+    adapt: [宽屏下改 Row 或 Grid 布局]
+    perf: [深层嵌套拆组件]
+  tokens: [space.elements.gapNormal, space.elements.textGapV]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.row
+  domain: component
+  title: Row 横向布局
+  summary: 子元素横向排列，常用于「图标 + 文本」「按钮组」。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: space, type: number, default: 0, desc: 子元素间距 }
+    - { name: justifyContent, type: FlexAlign, default: FlexAlign.Start, desc: 主轴对齐 }
+  events: []
+  sections:
+    usage: 左右结构用 Row；需要两端对齐用 justifyContent SpaceBetween。
+    example: "Row({ space: 8 }) { Image($r('app.media.icon')); Text('设置') }\n  .justifyContent(FlexAlign.SpaceBetween)"
+    pitfalls: [用固定宽度撑开而不是 flexGrow]
+    a11y: []
+    adapt: [窄屏下可改 Column]
+    perf: [避免深层嵌套]
+  tokens: [space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.stack
+  domain: component
+  title: Stack 堆叠布局
+  summary: 子元素层叠，常用于图片上叠文字、浮层标注。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: alignContent, type: Alignment, default: Alignment.Center, desc: 子元素对齐 }
+  events: []
+  sections:
+    usage: 层叠关系用 Stack；事件穿透需明确哪些层可点。
+    example: "Stack({ alignContent: Alignment.BottomStart }) {\n  Image($r('app.media.cover'))\n  Text('标题').fontColor($r('app.color.font_on_primary'))\n}"
+    pitfalls: [叠层不可点或误触, 未处理图片比例]
+    a11y: [叠层内的可交互元素需可聚焦]
+    adapt: [宽屏下改为左右布局]
+    perf: [避免多层全屏图片叠加]
+  tokens: [color.font_on_primary, radius.card]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.flex
+  domain: component
+  title: Flex 弹性布局
+  summary: 一维弹性布局，可按比例分配空间与换行。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: direction, type: FlexDirection, default: FlexDirection.Row, desc: 主轴方向 }
+    - { name: wrap, type: FlexWrap, default: FlexWrap.NoWrap, desc: 是否换行 }
+    - { name: justifyContent, type: FlexAlign, default: FlexAlign.Start, desc: 主轴对齐 }
+  events: []
+  sections:
+    usage: 需要按比例伸缩或换行时用 Flex；简单排列优先 Column/Row。
+    example: "Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {\n  ForEach(this.tags, (tag) => Text(tag).layoutWeight(1))\n}"
+    pitfalls: [简单场景过度使用 Flex, 未设 layoutWeight 导致挤压]
+    a11y: []
+    adapt: [宽屏下调整换行阈值]
+    perf: [避免大量子项频繁重排]
+  tokens: [space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.relativecontainer
+  domain: component
+  title: RelativeContainer 相对布局
+  summary: 通过锚点关系定位子元素，适合复杂但不规则的版面。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: alignRules, type: AlignRuleOption, default: null, desc: 子元素锚点规则 }
+  events: []
+  sections:
+    usage: 复杂对位用 RelativeContainer；常规列表/表单仍用 Column/Row。
+    example: "RelativeContainer() {\n  Text('A').id('a')\n  Text('B').alignRules({ left: { anchor: 'a', align: HorizontalAlign.End } })\n}"
+    pitfalls: [锚点循环依赖, 用相对布局替代本该用列表的场景]
+    a11y: []
+    adapt: [宽屏下重新计算锚点]
+    perf: [锚点数量多时注意布局耗时]
+  tokens: [space.elements.gapNormal]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.blank
+  domain: component
+  title: Blank 空白填充
+  summary: 在 Row/Column 中占位并撑开剩余空间，替代硬编码宽度。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: min, type: number, default: 0, desc: 最小占位尺寸 }
+  events: []
+  sections:
+    usage: 两端对齐用 Blank 撑开；不要用固定宽度的空容器。
+    example: "Row() { Text('左'); Blank(); Text('右') }"
+    pitfalls: [用固定宽度空容器占位]
+    a11y: []
+    adapt: [宽屏下 Blank 自动吸收多余空间]
+    perf: [无]
+  tokens: []
+  version_note: ""
+  sources:
+    - { title: 空白（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/blank-0000001956815485.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.canvas
+  domain: component
+  title: Canvas 画布
+  summary: 自绘图形与图表，需自己处理 DPI、刷新与无障碍描述。
+  designClass: display
+  codeClass: drawing
+  applies_to: [phone, tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: onReady, type: "() => void", default: null, desc: 画布就绪回调 }
+  events:
+    - { name: onTouch, params: "(event: TouchEvent) => void", desc: 触摸事件 }
+  sections:
+    usage: 图表/图形用 Canvas；文本内容仍用 Text 保证可读与无障碍。
+    example: "Canvas(this.context)\n  .onReady(() => {\n    this.context.fillStyle = $r('app.color.brand')\n    this.context.fillRect(0, 0, 100, 100)\n  })"
+    pitfalls: [画布内绘制文本不可读, 未按 density 缩放]
+    a11y: [画布内容需提供替代文本]
+    adapt: [宽屏下重新计算坐标]
+    perf: [避免每帧全量重绘]
+  tokens: [color.brand, radius.card]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.web
+  domain: component
+  title: Web 组件
+  summary: 内嵌网页容器，需处理权限、加载态与安全策略。
+  designClass: display
+  codeClass: media
+  applies_to: [phone, tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: src, type: ResourceStr, default: "", desc: 网页地址 }
+    - { name: controller, type: WebviewController, default: null, desc: 控制器 }
+  events:
+    - { name: onPageEnd, params: "(event) => void", desc: 页面加载完成 }
+    - { name: onErrorReceive, params: "(event) => void", desc: 加载失败 }
+  sections:
+    usage: Web 容器需配置权限与域名白名单；加载失败给重试页。
+    example: "Web({ src: 'https://example.com', controller: this.controller })\n  .onPageEnd(() => {})\n  .onErrorReceive((e) => {})"
+    pitfalls: [无加载态白屏, 未限制可访问域名]
+    a11y: [网页内容无障碍依赖页面自身]
+    adapt: [宽屏下限制最大宽度]
+    perf: [首次加载做骨架屏]
+  tokens: [color.background_secondary]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.datepicker
+  domain: component
+  title: DatePicker 日期选择
+  summary: 日期选择器，弹窗或页内展示，需限制可选区间。
+  designClass: input
+  codeClass: picker
+  applies_to: [phone, tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: start, type: Date, default: null, desc: 可选起始日期 }
+    - { name: end, type: Date, default: null, desc: 可选结束日期 }
+    - { name: selected, type: Date, default: null, desc: 当前选中日期 }
+  events:
+    - { name: onChange, params: "(value: DatePickerResult) => void", desc: 日期变化 }
+  sections:
+    usage: 生日等大量年份用 DatePicker；区间限制用 start/end，避免用户选到非法日期。
+    example: "DatePicker({ start: new Date('2000-01-01'), end: new Date(), selected: this.date })\n  .onChange((value) => { this.date = value })"
+    pitfalls: [未限制未来日期, 选择后不校验业务范围]
+    a11y: [日期需可读格式播报]
+    adapt: [宽屏下可与时间并列]
+    perf: [无]
+  tokens: [color.brand, color.font_primary]
+  version_note: "since 待 apidiff 校准；官方精确页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: comp.timepicker
+  domain: component
+  title: TimePicker 时间选择
+  summary: 24 小时制时间选择，常与日期选择组合使用。
+  designClass: input
+  codeClass: picker
+  applies_to: [phone, tablet, 2in1]
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: selected, type: Date, default: null, desc: 当前选中时间 }
+    - { name: useMilitaryTime, type: boolean, default: true, desc: 是否 24 小时制 }
+  events:
+    - { name: onChange, params: "(value: TimePickerResult) => void", desc: 时间变化 }
+  sections:
+    usage: 时间选择用 TimePicker；跨时区场景要标注时区。
+    example: "TimePicker({ selected: this.time, useMilitaryTime: true })\n  .onChange((value) => { this.time = value })"
+    pitfalls: [12/24 小时制与文案不一致, 跨时区未标注]
+    a11y: [时间需可读播报]
+    adapt: [宽屏下与日期并列]
+    perf: [无]
+  tokens: [color.brand, color.font_primary]
+  version_note: "since 待 apidiff 校准；官方精确页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: comp.counter
+  domain: component
+  title: Counter 数字加减
+  summary: 数值的步进调整，适合数量、份数等小范围整数。
+  designClass: input
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: value, type: number, default: 0, desc: 当前值 }
+    - { name: min, type: number, default: 0, desc: 最小值 }
+    - { name: max, type: number, default: 999, desc: 最大值 }
+  events:
+    - { name: onChange, params: "(value: number) => void", desc: 数值变化 }
+  sections:
+    usage: 小范围整数用 Counter；大范围或小数用 Slider/TextInput。
+    example: "Counter()\n  .onInc(() => { this.count++ })\n  .onDec(() => { this.count-- })"
+    pitfalls: [不设上下限, 数字变化无反馈]
+    a11y: [加减按钮需可读]
+    adapt: [宽屏下可放大热区]
+    perf: [避免每次变化重建整行]
+  tokens: [radius.button, color.font_primary]
+  version_note: ""
+  sources:
+    - { title: 数字加减（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/counter-0000001929853284.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.listitem
+  domain: component
+  title: ListItem 列表项
+  summary: List 的最小单元，承载标题/副标题/图标/箭头与点击。
+  designClass: container
+  codeClass: list-scroll
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: space, type: number, default: 0, desc: 内容间距 }
+  events:
+    - { name: onClick, params: "() => void", desc: 点击回调 }
+  sections:
+    usage: 列表项高度 56/64vp 两档；左图标 + 主副标题 + 右侧箭头是标准结构。
+    example: "ListItem() {\n  Row({ space: 12 }) {\n    Image($r('app.media.icon')).width(24).height(24)\n    Column({ space: 2 }) { Text('标题'); Text('说明').fontColor($r('app.color.font_secondary')) }\n    Blank()\n    Image($r('app.media.arrow')).width(16).height(16)\n  }.height(56)\n}"
+    pitfalls: [点击热区只覆盖文字, 列表项内嵌过多交互]
+    a11y: [整行可点，读屏读标题与说明]
+    adapt: [平板下可左右分栏]
+    perf: [列表项内避免图片同步解码]
+  tokens: [space.elements.textGapV, color.font_secondary, radius.card]
+  version_note: ""
+  sources:
+    - { title: 列表（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/list-0000001929853910.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

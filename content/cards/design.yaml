@@ -1,0 +1,465 @@
+# 设计规范条目（domain: design）。与组件卡共用 schema，since/state_mgmt 用 "—" 表示不适用。
+# 数值全部来自官方设计规范正文（见 sources），抓取日期 2026-11-04。
+- id: design.color.semantic
+  domain: design
+  title: 语义色
+  summary: 强调色只用 brand / warning / alert / confirm 四个语义色，禁止自造品牌色。
+  designClass: color
+  codeClass: color
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 品牌色 Light #ff0a59f7 / Dark #ff317af7；warning 一级警示、alert 二级警示、confirm 成功。
+    example: "- 正确：.backgroundColor($r('app.color.brand'))\n- 错误：.backgroundColor('#0A59F7')"
+    pitfalls: [自造品牌色, 用纯黑纯白当文本色]
+  tokens: [color.brand, color.warning, color.alert, color.confirm]
+  version_note: ""
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.color.text-levels
+  domain: design
+  title: 文本与图标分级
+  summary: 文本/图标分四级（e5/99/66/33 透明度）+ 高亮 + 反色，不得自造层级。
+  designClass: color
+  codeClass: color
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 一级 e5 / 二级 99 / 三级 66 / 四级 33；高亮用 font_emphasize；主色底上用 font_on_primary。
+    example: "Text('说明').fontColor($r('app.color.font_tertiary'))"
+    pitfalls: [四级文本当正文用（对比度不足）, 深色下仍用黑色文本]
+  tokens: [color.font_primary, color.font_secondary, color.font_tertiary, color.font_fourth, color.font_emphasize, color.font_on_primary]
+  version_note: ""
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.color.contrast
+  domain: design
+  title: 阅读对比度
+  summary: 文本与图标对背景的对比度最小 3:1，正文建议 ≥4.5:1。
+  designClass: color
+  codeClass: color
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 公式 (Lmax+0.05)/(Lmin+0.05)；官方最小 3:1，长正文建议 4.5:1。
+    example: "- 正确：#e5000000 on #ffffff（约 17.4:1）\n- 错误：#66000000 on #ffffff（约 2.85:1）"
+    pitfalls: [浅灰字当正文, 彩色底上叠彩色字]
+  tokens: [color.font_primary, color.font_secondary, color.font_tertiary, color.font_fourth]
+  version_note: ""
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.color.background
+  domain: design
+  title: 背景与深色
+  summary: 界面背景不可用透明度色；深色下 background_primary/secondary 默认黑。
+  designClass: color
+  codeClass: color
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 背景用不透明 token；同名 token 浅深两套取值，深色背景默认黑。
+    example: ".backgroundColor($r('app.color.background_primary'))"
+    pitfalls: ["背景用 #0D000000 这类透明色", 深色下背景仍是浅色]
+  tokens: [color.background_primary, color.background_secondary]
+  version_note: "background 系 token 取值待补（见 Token 规格 TBD）"
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+    - { title: 深色模式, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/dark-mode-0000001823255497.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.font.scale
+  domain: design
+  title: 字号阶梯
+  summary: 字号只能取 Display/Title/Subtitle/Body/Caption 五类 15 级，不同设备各有取值。
+  designClass: typography
+  codeClass: font
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 手机 Body_M=14、Title_L=30；PC 同 token 更小（Title_L=28）；手表 Body_M=14。
+    example: "Text('标题').fontSize(30).fontWeight(FontWeight.Bold) // Title_L（按设备取 token 值）"
+    pitfalls: [fontSize(17) 这类非阶梯值, 标题用 26 这种自定义档]
+  tokens: [font.Display_L, font.Title_L, font.Subtitle_M, font.Body_M, font.Caption_M]
+  version_note: ""
+  sources:
+    - { title: 文本排版, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/typography-0000002622688363.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.font.weight
+  domain: design
+  title: 字重与层级匹配
+  summary: Title 用 Bold、Subtitle 用 Medium、Body/Subtitle 按 token、正文用 Regular。
+  designClass: typography
+  codeClass: font
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: Display/Title=Bold 系之外，Subtitle_L/M/S 为 Medium，Body_M/S 为 Regular。
+    example: "Text('正文').fontWeight(FontWeight.Regular) // Body_M"
+    pitfalls: [正文用 Bold 造成层级混乱, 标题用 Regular]
+  tokens: [font.Display_L, font.Title_L, font.Body_M]
+  version_note: ""
+  sources:
+    - { title: 文本排版, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/typography-0000002622688363.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.font.family
+  domain: design
+  title: 系统字体与大字体
+  summary: 默认 HarmonyOS Sans；支持系统大字体（fp 随用户缩放）。
+  designClass: typography
+  codeClass: font
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 1 fp = 1 vp × 用户字体缩放系数；用 fp 而非 vp 承载字号。
+    example: ".fontSize(14) // 单位 fp，随系统大字体放大"
+    pitfalls: [用 px 写字号, 强制固定字号禁用大字体]
+  tokens: [font.Body_M]
+  version_note: ""
+  sources:
+    - { title: 文本排版, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/typography-0000002622688363.md", fetched: 2026-11-04 }
+    - { title: 布局基础（vp/fp）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.screen-margin
+  domain: design
+  title: 屏幕边缘间距
+  summary: 左右 margin 按设备：手机 16 / 折叠 24 / 平板 32 / 智慧屏 48 / 穿戴 26 / PC 40 / 座舱 48vp。
+  designClass: layout
+  codeClass: spacing
+  applies_to: [phone, tablet, 2in1, watch, vision, cockpit]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 顶部/底部 margin 另有档位（手机 36/28vp）；内容不得贴边。
+    example: ".padding({ left: 16, right: 16 }) // 手机左右 margin"
+    pitfalls: [所有设备都写 16, 内容贴边]
+  tokens: [space.screenMargin]
+  version_note: ""
+  sources:
+    - { title: 间隔参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/interval-parameter-0000002562577161.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.element-gap
+  domain: design
+  title: 元素间距档位
+  summary: 卡片间 12vp；控件间较大 16vp、普通 8vp；左右同理。
+  designClass: layout
+  codeClass: spacing
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 有明显边界用 16vp，无明显边界用 8vp；卡片之间 12vp。
+    example: "List({ space: 8 }) // 列表项普通间隔"
+    pitfalls: [13/18 这类非档位值, 同组间距不一致]
+  tokens: [space.elements.cardGap, space.elements.gapLarge, space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 间隔参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/interval-parameter-0000002562577161.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.grid
+  domain: design
+  title: 8vp 网格
+  summary: 元素尺寸与位置对齐 8vp 基本网格，小图标可对齐 4vp。
+  designClass: layout
+  codeClass: spacing
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 间距与尺寸优先取 8 的倍数；图标等小控件可 4vp。
+    example: "Button().width(88) // 11 × 8vp"
+    pitfalls: [奇数尺寸 13/17/21]
+  tokens: [space.levels]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.text-gap
+  domain: design
+  title: 主次文本间距
+  summary: 主次文本上下间距 2vp、左右 8vp。
+  designClass: layout
+  codeClass: spacing
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 标题与副标题、正文与说明之间用 2vp（上下）/8vp（左右）。
+    example: "Column({ space: 2 }) { Text('标题'); Text('副标题') }"
+    pitfalls: [主次文本用 12vp 导致松散]
+  tokens: [space.elements.textGapV, space.elements.textGapH]
+  version_note: ""
+  sources:
+    - { title: 间隔参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/interval-parameter-0000002562577161.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.radius.scale
+  domain: design
+  title: 圆角档位
+  summary: 通用圆角 4/8/16/20/32vp：标签 4、图片 8、卡片 16、按钮菜单 20、浮层 32。
+  designClass: visual
+  codeClass: radius
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 按控件类型取档位；系统圆角 token 表存在跳号（level14/15/17 不存在）。
+    example: "Button().borderRadius(20) // 按钮档位"
+    pitfalls: [卡片写 12 这类非档位值, 引用不存在的 level]
+  tokens: [radius.tag, radius.image, radius.card, radius.button, radius.sheet]
+  version_note: ""
+  sources:
+    - { title: 圆角参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/corner-radius-parameter-0000002556468705.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.radius.hierarchy
+  domain: design
+  title: 圆角层级
+  summary: 同层统一、层级正相关（层级越高圆角越大）。
+  designClass: visual
+  codeClass: radius
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 浮层 32 > 按钮菜单 20 > 卡片 16 > 图片 8 > 标签 4；同层同类必须相等。
+    example: "- 正确：卡片 16 / 浮层 32\n- 错误：卡片 16 / 浮层 8"
+    pitfalls: [浮层圆角小于卡片, 同屏卡片圆角混用]
+  tokens: [radius.hierarchy]
+  version_note: ""
+  sources:
+    - { title: 圆角参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/corner-radius-parameter-0000002556468705.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.motion.duration
+  domain: design
+  title: 动效时长
+  summary: 简单 100ms / 复杂 300ms；小范围 150 / 局部 200 / 全屏 350ms。
+  designClass: motion
+  codeClass: motion
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 按复杂度或作用范围取档；60FPS 下 1 帧 16.67ms。
+    example: "animateTo({ duration: 300 }) // 复杂动画"
+    pitfalls: [duration: 250 这类非档位值, 全屏转场用 100ms]
+  tokens: [motion.duration.simple, motion.duration.complex, motion.duration.rangeFullscreen]
+  version_note: ""
+  sources:
+    - { title: 动效属性, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/animation-attributes-0000001797117229.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.motion.curve
+  domain: design
+  title: 动效曲线
+  summary: 标准 cubic-bezier(0.40,0,0.20,1)；减速 (0,0,0.40,1)；另有加速与弹性族。
+  designClass: motion
+  codeClass: motion
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 全程在视野内用标准曲线；从视野外进入用减速；跟手用弹性。
+    example: "curve: Curve.Standard // 对应标准曲线"
+    pitfalls: [随手写 Linear, 自定义贝塞尔未申报]
+  tokens: [motion.curves.standard, motion.curves.decelerate]
+  version_note: ""
+  sources:
+    - { title: 动效属性, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/animation-attributes-0000001797117229.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.motion.spring
+  domain: design
+  title: 弹性曲线换算
+  summary: interpolatingSpring(128,12,1,0) ⇔ springMotion(0.555,0.53)。
+  designClass: motion
+  codeClass: motion
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 弹性曲线自然时长、可被打断并继承速度；两种写法等价，别混写参数。
+    example: "springMotion({ response: 0.555, dampingFraction: 0.53 })"
+    pitfalls: [两套参数混用导致手感不一致]
+  tokens: [motion.spring]
+  version_note: ""
+  sources:
+    - { title: 动效属性, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/animation-attributes-0000001797117229.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.layout.breakpoint
+  domain: design
+  title: 窗口断点
+  summary: 按窗口宽度分 4/8/12 列三档，门槛 600vp 与 840vp；同时参考窗口宽高比。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 0–600 用 4 列；600–840 用 8 列；≥840 用 12 列；分屏按分屏后窗口算。
+    example: "mediaquery.matchMediaSync('(600vp<=width<840vp)')"
+    pitfalls: [用屏幕宽度而非窗口宽度, 忽略宽高比]
+  tokens: [layout.breakpoints]
+  version_note: "断点完整分档表官方页为图，数值表待补"
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.layout.grid-columns
+  domain: design
+  title: 栅格列与边距
+  summary: 4 列用 margin16/gutter8；8 列用 24/12；12 列用 32/16 或 32/20；最大使用宽度 2220vp。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 栅格 = Margins + Gutters + Columns；gutter 不大于 margin。
+    example: "GridRow({ columns: 12, gutter: 16, margin: 32 })"
+    pitfalls: [gutter 大于 margin, 超过 2220vp 仍拉伸内容]
+  tokens: [layout.grids, layout.maxContentWidthVp]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.layout.safe-area
+  domain: design
+  title: 安全区
+  summary: 避让信号栏、底部导航条、两侧 margin；折叠屏避让转轴；平板按断点算 margin。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, foldable, tablet]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 关键内容不得落在挖孔、圆角、折痕或系统手势区。
+    example: "expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP])"
+    pitfalls: [内容顶到状态栏, 折痕处放按钮]
+  tokens: [space.screenMargin]
+  version_note: ""
+  sources:
+    - { title: 布局基础（安全区）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.layout.responsive
+  domain: design
+  title: 响应式布局 8 法
+  summary: 拉伸/缩放/延伸隐藏/折行/缩进/挪移/重复/分栏，可叠加使用。
+  designClass: layout
+  codeClass: layout
+  applies_to: [phone, foldable, tablet, 2in1]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 分栏阈值 vp≥600；宽高比变化 >200% 用挪移；图片放大 >150% 用重复布局；等比缩放不超过 150%。
+    example: "if (windowWidthVp >= 600) 双栏 else 单栏"
+    pitfalls: [全场景都拉伸, 图片放大超过 150%]
+  tokens: [layout.breakpoints, layout.splitThresholdVp]
+  version_note: ""
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.a11y.touch
+  domain: design
+  title: 触控目标
+  summary: 可点击目标需满足最小触控尺寸（40vp 暂定），相邻目标间留 ≥8vp。
+  designClass: a11y
+  codeClass: a11y
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 视觉尺寸可小，热区必须扩到最小触控尺寸；阈值待官方无障碍/触控页校准。
+    example: "Row().height(40).onClick(...) // 视觉 24，热区 40"
+    pitfalls: [24vp 图标直接可点, 相邻按钮无间隙]
+  tokens: [space.elements.gapNormal]
+  version_note: "40vp 为暂定阈值，待官方页校准（见规则 V06）"
+  sources:
+    - { title: 圆角参数（触控可识别性）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/corner-radius-parameter-0000002556468705.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.a11y.text
+  domain: design
+  title: 无障碍文本
+  summary: 交互组件必须可被读屏识别（accessibilityText），并支持系统大字体。
+  designClass: a11y
+  codeClass: a11y
+  applies_to: [phone, tablet, 2in1, watch]
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 图标按钮、图片按钮、自绘控件都要给可读文本；字号用 fp 以跟随大字体。
+    example: "Image($r('app.media.icon')).accessibilityText('设置')"
+    pitfalls: [图标按钮无文本, 用 vp 写字号导致不跟随大字体]
+  tokens: [font.Body_M]
+  version_note: "官方设计规范无独立无障碍章节，本条汇总自色彩/圆角/UX 标准与 Accessibility Kit"
+  sources:
+    - { title: 应用 UX 体验标准（通用）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-general-0000001760708152.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

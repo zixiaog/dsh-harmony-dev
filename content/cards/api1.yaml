@@ -1,0 +1,401 @@
+# API 卡批次 1（20 条）：网络 / 数据 / 权限 / 事件 / Ability / 窗口。
+# since 以模块引入版本为准；官方精确 API 页待补（M1 用 llms 索补充），引用暂缺。
+- id: api.net.http.createHttp
+  domain: api
+  title: "@ohos.net.http · createHttp"
+  summary: 创建 HTTP 请求对象，用于发起一次性网络请求。
+  since: "API 6"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { http } from '@kit.NetworkKit'（26 期写法）；旧写法 import http from '@ohos.net.http'。签名：createHttp(): HttpRequest"
+    example: "const req = http.createHttp();\nconst res = await req.request(url, {\n  method: http.RequestMethod.GET,\n  readTimeout: 10000,\n});\nreq.destroy();"
+    pitfalls: [忘记 destroy 导致连接泄漏, 不处理非 2xx 状态码]
+    a11y: []
+    adapt: []
+    perf: [复用请求对象，避免每次新建]
+  tokens: []
+  version_note: "权限：ohos.permission.INTERNET；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.net.http.request
+  domain: api
+  title: "@ohos.net.http · HttpRequest.request"
+  summary: 发起请求并返回 Promise，需指定方法、超时与头。
+  since: "API 6"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "request(url: string, options?: HttpRequestOptions): Promise<HttpResponse>"
+    example: "const res = await req.request('https://api.example.com/list', {\n  method: http.RequestMethod.POST,\n  header: { 'Content-Type': 'application/json' },\n  extraData: JSON.stringify({ page: 1 }),\n  expectDataType: http.HttpDataType.STRING,\n});"
+    pitfalls: [不设 readTimeout 默认等待过久, extraData 未序列化]
+    a11y: []
+    adapt: []
+    perf: [大响应设置流式或分页]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.net.http.destroy
+  domain: api
+  title: "@ohos.net.http · HttpRequest.destroy"
+  summary: 释放请求对象资源，请求结束后必须调用。
+  since: "API 6"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "destroy(): void —— 在 finally 中调用，避免异常路径漏掉。"
+    example: "try {\n  const res = await req.request(url);\n  return res.result;\n} finally {\n  req.destroy();\n}"
+    pitfalls: [只在成功分支 destroy]
+    a11y: []
+    adapt: []
+    perf: [结合连接复用策略]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.net.connection.getDefaultNet
+  domain: api
+  title: "@ohos.net.connection · getDefaultNet"
+  summary: 获取默认数据网络，用于判断联网状态。
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getDefaultNet(): Promise<NetHandle>；无网络时抛错或返回 0。"
+    example: "import { connection } from '@kit.NetworkKit';\nconst net = await connection.getDefaultNet();\nif (!net || net.netId === 0) throw new Error('无网络');"
+    pitfalls: [把 Wi-Fi 状态当联网, 不监听网络变化]
+    a11y: []
+    adapt: []
+    perf: [监听 connection 事件而不是轮询]
+  tokens: []
+  version_note: "权限：ohos.permission.GET_NETWORK_INFO；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.data.preferences.getPreferences
+  domain: api
+  title: "@ohos.data.preferences · getPreferences"
+  summary: 获取键值存储实例，适合轻量配置与开关。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getPreferences(context: Context, name: string): Promise<Preferences>"
+    example: "import { preferences } from '@kit.ArkData';\nconst store = await preferences.getPreferences(this.context, 'settings');\nawait store.put('darkMode', true);\nawait store.flush();"
+    pitfalls: [不 flush 导致未落盘, 存大对象当数据库]
+    a11y: []
+    adapt: []
+    perf: [批量 put 后一次 flush]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.data.preferences.ops
+  domain: api
+  title: "@ohos.data.preferences · put / get / flush"
+  summary: 读写的三个核心方法，值支持 number/string/boolean/数组。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "put(key, value): Promise<void>；get(key, defValue): Promise<ValueType>；flush(): Promise<void>"
+    example: "await store.put('fontScale', 1.2);\nconst scale = await store.get('fontScale', 1.0);\nawait store.flush();"
+    pitfalls: [get 不传默认值导致类型不确定, 读后不回写 flush]
+    a11y: []
+    adapt: []
+    perf: [读多写少场景合适]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.data.relationalstore.getRdbStore
+  domain: api
+  title: "@ohos.data.relationalStore · getRdbStore"
+  summary: 打开关系型数据库（SQLite 封装），支持事务与谓词查询。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getRdbStore(context, config): Promise<RdbStore>；config 指定 name 与 securityLevel。"
+    example: "import { relationalStore } from '@kit.ArkData';\nconst store = await relationalStore.getRdbStore(this.context, {\n  name: 'records.db',\n  securityLevel: relationalStore.SecurityLevel.S1,\n});"
+    pitfalls: [securityLevel 选错导致跨应用可读, 不开事务批量写]
+    a11y: []
+    adapt: []
+    perf: [批量用事务，查询加索引]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.data.relationalstore.executeSql
+  domain: api
+  title: "@ohos.data.relationalStore · executeSql"
+  summary: 执行 SQL，建表/更新用；带参数占位防注入。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "executeSql(sql: string, bindArgs?: Array<ValueType>): Promise<void>"
+    example: "await store.executeSql('CREATE TABLE IF NOT EXISTS t (id INTEGER PRIMARY KEY, name TEXT)');\nawait store.executeSql('INSERT INTO t (name) VALUES (?)', ['a']);"
+    pitfalls: [字符串拼 SQL 注入风险, 每次启动执行 DDL 无版本管理]
+    a11y: []
+    adapt: []
+    perf: [批量插入用事务]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.data.relationalstore.predicates
+  domain: api
+  title: "@ohos.data.relationalStore · RdbPredicates"
+  summary: 谓词构造查询条件，查询结果经 ResultSet 读取。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "query(predicates, columns): Promise<ResultSet>；用 goToNextRow() 遍历。"
+    example: "const p = new relationalStore.RdbPredicates('t');\np.equalTo('name', 'a');\nconst rs = await store.query(p, ['id', 'name']);\nwhile (rs.goToNextRow()) { const id = rs.getLong(rs.getColumnIndex('id')); }\nrs.close();"
+    pitfalls: [ResultSet 不 close, 用 select 全表再内存过滤]
+    a11y: []
+    adapt: []
+    perf: [只取需要的列]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.router.pushUrl
+  domain: api
+  title: "@ohos.router · pushUrl（已废弃）"
+  summary: 旧版页面路由；新工程应改用 Navigation + NavPathStack。
+  since: "API 6"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: true
+  sections:
+    usage: "旧写法 import router from '@ohos.router'；新代码不要再用。"
+    example: "// 旧写法（仅存量理解用）\nimport router from '@ohos.router';\nrouter.pushUrl({ url: 'pages/Detail' });"
+    pitfalls: [新工程继续用 router, 与 Navigation 混用导致返回栈异常]
+    a11y: []
+    adapt: [改用 Navigation 后分栏由 mode 控制]
+    perf: []
+  tokens: []
+  version_note: "已废弃；迁移目标：Navigation + NavPathStack"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.promptaction.showToast
+  domain: api
+  title: "@ohos.promptAction · showToast"
+  summary: 轻量提示，2 秒左右自动消失，不可承载决策。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "showToast(options: ShowToastOptions): void"
+    example: "import { promptAction } from '@kit.ArkUI';\npromptAction.showToast({ message: '已保存', duration: 2000 });"
+    pitfalls: [用 Toast 承载确认操作, 连续弹多条互相覆盖]
+    a11y: []
+    adapt: []
+    perf: [高频操作合并提示]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.promptaction.showDialog
+  domain: api
+  title: "@ohos.promptAction · showDialog"
+  summary: 简单确认弹窗，返回按钮索引；复杂内容用 CustomDialog。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "showDialog(options): Promise<ShowDialogSuccessResponse>"
+    example: "const res = await promptAction.showDialog({\n  title: '删除？',\n  message: '删除后不可恢复',\n  buttons: [{ text: '取消', color: '#666' }, { text: '删除', color: '#d94838' }],\n});\nif (res.index === 1) { await remove(); }"
+    pitfalls: [按钮顺序与文案不匹配, 不处理取消分支]
+    a11y: []
+    adapt: []
+    perf: []
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.accessctrl.createAtManager
+  domain: api
+  title: "@ohos.abilityAccessCtrl · createAtManager"
+  summary: 获取权限管理器，用于运行时申请与校验权限。
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "createAtManager(): AtManager"
+    example: "import { abilityAccessCtrl } from '@kit.AbilityKit';\nconst atManager = abilityAccessCtrl.createAtManager();"
+    pitfalls: [权限只在 module.json5 声明却不在运行时申请]
+    a11y: []
+    adapt: []
+    perf: []
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.accessctrl.requestPermissionsFromUser
+  domain: api
+  title: "@ohos.abilityAccessCtrl · requestPermissionsFromUser"
+  summary: 弹系统授权框，必须在页面上下文调用并处理拒绝。
+  since: "API 8"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "requestPermissionsFromUser(context, permissions): Promise<PermissionRequestResult>"
+    example: "const res = await atManager.requestPermissionsFromUser(this.context, ['ohos.permission.CAMERA']);\nif (res.authResults[0] !== 0) { /* 拒绝兜底 */ }"
+    pitfalls: [拒绝后仍调用受保护 API, 在非 UI 上下文申请]
+    a11y: []
+    adapt: []
+    perf: []
+  tokens: []
+  version_note: "权限需在 module.json5 的 requestPermissions 声明；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.commonEvent.publish
+  domain: api
+  title: "@ohos.commonEventManager · publish"
+  summary: 发布公共事件，用于解耦模块通信。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "publish(event: string, options?: CommonEventPublishData): Promise<void>"
+    example: "import { commonEventManager } from '@kit.BasicServicesKit';\nawait commonEventManager.publish('app.refresh', { data: 'home' });"
+    pitfalls: [事件名无命名空间易冲突, 用公共事件做高频通信]
+    a11y: []
+    adapt: []
+    perf: [高频场景改回调/状态管理]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.commonEvent.subscribe
+  domain: api
+  title: "@ohos.commonEventManager · subscribe"
+  summary: 订阅公共事件，注意在销毁时取消订阅。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "createSubscriber(subscribeInfo) + subscribe(subscriber)；退出时 unsubscribe。"
+    example: "const sub = await commonEventManager.createSubscriber({ events: ['app.refresh'] });\ncommonEventManager.subscribe(sub, (err, data) => { /* ... */ });\n// 销毁\ncommonEventManager.unsubscribe(sub);"
+    pitfalls: [页面销毁不 unsubscribe 造成泄漏]
+    a11y: []
+    adapt: []
+    perf: [订阅数量控制]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.ability.uiability
+  domain: api
+  title: "@ohos.app.ability.UIAbility · 生命周期"
+  summary: Stage 模型的入口组件，管理窗口与页面加载。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "onCreate(want, launchParam) → onWindowStageCreate(windowStage) → onForeground/onBackground → onWindowStageDestroy → onDestroy"
+    example: "onWindowStageCreate(windowStage: window.WindowStage) {\n  windowStage.loadContent('pages/Index', (err) => {});\n}"
+    pitfalls: [在 onCreate 里操作 UI, 不释放监听导致泄漏]
+    a11y: []
+    adapt: [窗口变化在 onWindowStageCreate 后监听]
+    perf: [启动阶段避免重 IO]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.ability.want
+  domain: api
+  title: "@ohos.app.ability.Want · 参数传递"
+  summary: 组件间跳转的参数载体，parameters 传业务数据。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "want.parameters?.key 取参；对象需可序列化。"
+    example: "const id = this.want.parameters?.id as string;"
+    pitfalls: [传不可序列化对象, 参数过大]
+    a11y: []
+    adapt: []
+    perf: [只传 id，数据由目标页拉取]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.window.loadContent
+  domain: api
+  title: "@ohos.window · WindowStage.loadContent"
+  summary: 在窗口上加载页面内容，支持启动页与主页面。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "loadContent(path: string, callback: AsyncCallback<void>): void"
+    example: "windowStage.loadContent('pages/Index', (err) => {\n  if (err.code) { /* 记录 */ }\n});"
+    pitfalls: [路径写错导致白屏, 回调不处理错误]
+    a11y: []
+    adapt: []
+    perf: [首屏内容轻量，异步数据后补]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.mediaquery.matchMediaSync
+  domain: api
+  title: "@ohos.mediaquery · matchMediaSync"
+  summary: 监听断点/媒体特征变化，驱动响应式布局切换。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "matchMediaSync(condition: string): MediaQueryListener；on('change', cb) 监听。"
+    example: "import { mediaquery } from '@kit.ArkUI';\nconst listener = mediaquery.matchMediaSync('(600vp<=width<840vp)');\nlistener.on('change', (res) => { this.isMedium = res.matches; });"
+    pitfalls: [用屏幕宽而非窗口宽, 不注销监听]
+    a11y: []
+    adapt: [按 600/840 断点切换列数]
+    perf: [只监听需要的条件]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04

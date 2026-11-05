@@ -1,0 +1,456 @@
+# API 紧凑条目（批次 4，61 条）：并发 / 媒体 / 网络 / 文件 / 设备 / ArkUI 运行时。
+- id: api.arkui.taskpool.execute
+  title: "@ohos.taskpool · execute"
+  summary: 把 CPU 密集任务丢到 TaskPool，避免阻塞 UI 线程。
+  since: "API 9"
+  sig: "taskpool.execute(func: Function, ...args): Promise<Object>"
+  ex: "const result = await taskpool.execute(computeHeavy, data);"
+  pit: [任务闭包捕获 UI 对象, 超长任务不做进度]
+
+- id: api.arkui.taskpool.task
+  title: "@ohos.taskpool · Task"
+  summary: 需传参/取消时用 Task 对象。
+  since: "API 9"
+  sig: "new taskpool.Task(func, ...args)"
+  ex: "const t = new taskpool.Task(parseFile, path);\nconst res = await taskpool.execute(t);"
+  pit: [未处理任务异常]
+
+- id: api.arkui.worker.threadworker
+  title: "@ohos.worker · ThreadWorker"
+  summary: 长时间驻留的后台线程，适合持续计算。
+  since: "API 9"
+  sig: "new worker.ThreadWorker('entry/ets/workers/worker.ets')"
+  ex: "const w = new worker.ThreadWorker('entry/ets/workers/worker.ets');\nw.postMessage({ cmd: 'start' });\nw.onmessage = (e) => { /* ... */ };"
+  pit: [worker 退出不 terminate]
+
+- id: api.arkui.focuscontrol.requestFocus
+  title: "focusControl.requestFocus"
+  summary: 主动把焦点移到指定组件。
+  since: "API 9"
+  sig: "focusControl.requestFocus(key: string): boolean"
+  ex: "focusControl.requestFocus('searchInput');"
+  pit: [key 与实际组件不一致]
+
+- id: api.arkui.uicontext.showAlertDialog
+  title: "UIContext.showAlertDialog"
+  summary: 用 UIContext 弹系统警告框，避免全局 API 上下文缺失。
+  since: "API 10"
+  sig: "uiContext.showAlertDialog(options: AlertDialogParamWithButtons): void"
+  ex: "const ui = this.getUIContext();\nui.showAlertDialog({ title: '提示', message: '已保存', primaryButton: { value: '好', action: () => {} } });"
+  pit: [在非 UI 上下文调用]
+
+- id: api.media.avplayer.statechange
+  title: "AVPlayer.on('stateChange')"
+  summary: 监听播放器状态机，驱动 UI 状态。
+  since: "API 9"
+  sig: "on(type: 'stateChange', callback: (state: AVPlayerState) => void): void"
+  ex: "player.on('stateChange', (state) => { this.playState = state; });"
+  pit: [状态未同步到 UI 导致按钮错乱]
+
+- id: api.media.avplayer.seek
+  title: "AVPlayer.seek"
+  summary: 跳转到指定时间点。
+  since: "API 9"
+  sig: "seek(timeMs: number, mode?: SeekMode): void"
+  ex: "player.seek(30000, media.SeekMode.SEEK_PREV_SYNC);"
+  pit: [越界时间未夹取]
+
+- id: api.media.avplayer.volume
+  title: "AVPlayer.setVolume"
+  summary: 设置播放音量（0.0~1.0）。
+  since: "API 9"
+  sig: "setVolume(volume: number): void"
+  ex: "player.setVolume(0.6);"
+  pit: [用系统音量替代播放器音量]
+
+- id: api.media.avplayer.error
+  title: "AVPlayer.on('error')"
+  summary: 监听播放错误并做兜底提示。
+  since: "API 9"
+  sig: "on(type: 'error', callback: ErrorCallback): void"
+  ex: "player.on('error', (err) => { this.showError(err.message); });"
+  pit: [错误只打日志不提示用户]
+
+- id: api.net.http.requestInStream
+  title: "HttpRequest.requestInStream"
+  summary: 流式请求，适合大响应边收边处理。
+  since: "API 9"
+  sig: "requestInStream(url: string, options?: HttpRequestOptions): Promise<number>"
+  ex: "await req.requestInStream(url, { method: http.RequestMethod.GET, expectDataType: http.HttpDataType.STRING });"
+  pit: [不监听 dataReceive 导致空结果]
+
+- id: api.net.http.dataReceive
+  title: "HttpRequest.on('dataReceive')"
+  summary: 接收流式响应分片。
+  since: "API 9"
+  sig: "on(type: 'dataReceive', callback: (data: ArrayBuffer) => void): void"
+  ex: "req.on('dataReceive', (chunk) => { this.append(chunk); });"
+  pit: [分片未拼接完整]
+
+- id: api.net.websocket.create
+  title: "@ohos.net.webSocket · createWebSocket"
+  summary: 创建 WebSocket 客户端，用于长连接。
+  since: "API 9"
+  sig: "webSocket.createWebSocket(): WebSocket"
+  ex: "const ws = webSocket.createWebSocket();\nws.on('open', () => { ws.send('hi'); });"
+  pit: [断线不重连]
+
+- id: api.net.websocket.connect
+  title: "WebSocket.connect"
+  summary: 连接并注册事件（open/message/close/error）。
+  since: "API 9"
+  sig: "connect(url: string, callback: AsyncCallback<boolean>): void"
+  ex: "ws.connect('wss://example.com/ws', (err, ok) => { if (err) { /* retry */ } });"
+  pit: [未处理 TLS 证书错误]
+
+- id: api.net.websocket.send
+  title: "WebSocket.send"
+  summary: 发送文本或二进制消息。
+  since: "API 9"
+  sig: "send(data: string | ArrayBuffer, callback: AsyncCallback<boolean>): void"
+  ex: "ws.send(JSON.stringify({ type: 'ping' }));"
+  pit: [未就绪时 send]
+
+- id: api.net.websocket.close
+  title: "WebSocket.close"
+  summary: 关闭连接并释放资源。
+  since: "API 9"
+  sig: "close(callback: AsyncCallback<boolean>): void"
+  ex: "ws.close(() => {});"
+  pit: [页面退出不 close]
+
+- id: api.net.connection.onNetLost
+  title: "NetConnection.on('netLost')"
+  summary: 网络丢失回调，用于暂停请求与提示。
+  since: "API 8"
+  sig: "on(type: 'netLost', callback: Callback<NetHandle>): void"
+  ex: "conn.on('netLost', () => { this.setOffline(true); });"
+  pit: [断网后不恢复请求]
+
+- id: api.net.connection.onNetAvailable
+  title: "NetConnection.on('netAvailable')"
+  summary: 网络恢复回调，用于重连。
+  since: "API 8"
+  sig: "on(type: 'netAvailable', callback: Callback<NetHandle>): void"
+  ex: "conn.on('netAvailable', () => { this.retryPending(); });"
+  pit: [重复触发导致重复刷新]
+
+- id: api.file.fs.accessSync
+  title: "@ohos.file.fs · accessSync"
+  summary: 判断文件是否存在/可写。
+  since: "API 9"
+  sig: "accessSync(path: string): boolean"
+  ex: "if (fs.accessSync(path)) { /* exist */ }"
+  pit: [用 try/catch 代替存在性判断]
+
+- id: api.file.fs.renameSync
+  title: "@ohos.file.fs · renameSync"
+  summary: 重命名/移动文件。
+  since: "API 9"
+  sig: "renameSync(oldPath: string, newPath: string): void"
+  ex: "fs.renameSync(tmp, final);"
+  pit: [目标目录不存在]
+
+- id: api.file.fs.truncate
+  title: "@ohos.file.fs · truncate"
+  summary: 截断文件到指定长度。
+  since: "API 9"
+  sig: "truncate(path: string, length?: number): Promise<void>"
+  ex: "await fs.truncate(path, 0);"
+  pit: [截断前未备份]
+
+- id: api.file.fileuri.getUri
+  title: "@ohos.file.fileuri · getUriFromPath"
+  summary: 路径转 file URI，用于传给组件。
+  since: "API 10"
+  sig: "fileUri.getUriFromPath(path: string): string"
+  ex: "const uri = fileUri.getUriFromPath(path);"
+  pit: [URI 直接拼字符串]
+
+- id: api.util.urlsearchparams
+  title: "URLSearchParams"
+  summary: 读写查询参数，自动转义。
+  since: "API 9"
+  sig: "new url.URLSearchParams(init?: string)"
+  ex: "const sp = new url.URLSearchParams('page=1&size=20');\nconst page = sp.get('page');"
+  pit: [手拼 query 未转义]
+
+- id: api.util.bufferalloc
+  title: "@ohos.buffer · alloc / concat"
+  summary: 预分配与拼接缓冲区。
+  since: "API 9"
+  sig: "buffer.alloc(size: number): Buffer；buffer.concat(list: Buffer[], totalLength?): Buffer"
+  ex: "const buf = buffer.alloc(16);\nconst merged = buffer.concat([a, b]);"
+  pit: [拼接超过分配大小]
+
+- id: api.context.startAbility
+  title: "UIAbilityContext.startAbility"
+  summary: 启动其他 Ability，需 want 参数。
+  since: "API 9"
+  sig: "startAbility(want: Want, callback?: AsyncCallback<void>): void"
+  ex: "const ctx = getContext(this) as common.UIAbilityContext;\nawait ctx.startAbility({ bundleName: 'com.other', abilityName: 'EntryAbility' });"
+  pit: [跨应用未配置可见性]
+
+- id: api.context.getApplicationContext
+  title: "Context.getApplicationContext"
+  summary: 获取应用级上下文，用于全局单例初始化。
+  since: "API 9"
+  sig: "getApplicationContext(): ApplicationContext"
+  ex: "const appCtx = getContext(this).getApplicationContext();"
+  pit: [把 UI 上下文当应用上下文长期持有]
+
+- id: api.window.getTopWindow
+  title: "window.getTopWindow"
+  summary: 获取顶层窗口，用于全局浮层。
+  since: "API 9"
+  sig: "getTopWindow(ctx?: BaseContext): Promise<Window>"
+  ex: "const win = await window.getTopWindow(getContext(this));"
+  pit: [多窗口场景取错窗口]
+
+- id: api.window.keepScreenOn
+  title: "Window.setWindowKeepScreenOn"
+  summary: 保持屏幕常亮（播放/导航场景）。
+  since: "API 9"
+  sig: "setWindowKeepScreenOn(isKeepScreenOn: boolean): Promise<void>"
+  ex: "await win.setWindowKeepScreenOn(true);"
+  pit: [退出场景不恢复]
+
+- id: api.window.brightness
+  title: "Window.setWindowBrightness"
+  summary: 设置应用窗口亮度。
+  since: "API 9"
+  sig: "setWindowBrightness(brightness: number): Promise<void>"
+  ex: "await win.setWindowBrightness(0.8);"
+  pit: [亮度值越界未夹取]
+
+- id: api.display.getAllDisplays
+  title: "display.getAllDisplays"
+  summary: 获取所有屏幕，多屏场景使用。
+  since: "API 9"
+  sig: "getAllDisplays(callback: AsyncCallback<Array<Display>>): void"
+  ex: "display.getAllDisplays((err, list) => { /* ... */ });"
+  pit: [默认只处理主屏]
+
+- id: api.notification.isEnabled
+  title: "notificationManager.isNotificationEnabled"
+  summary: 查询通知总开关状态。
+  since: "API 9"
+  sig: "isNotificationEnabled(): Promise<boolean>"
+  ex: "const enabled = await notificationManager.isNotificationEnabled();"
+  pit: [关闭时不引导用户开启]
+
+- id: api.notification.cancelAll
+  title: "notificationManager.cancelAll"
+  summary: 清空本应用通知。
+  since: "API 9"
+  sig: "cancelAll(): Promise<void>"
+  ex: "await notificationManager.cancelAll();"
+  pit: [误清用户关心的通知]
+
+- id: api.intl.numberformat
+  title: "intl.NumberFormat"
+  summary: 按地区格式化数字/货币/百分比。
+  since: "API 9"
+  sig: "new intl.NumberFormat(locale, options).format(num)"
+  ex: "const nf = new intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' });\nnf.format(1234.5);"
+  pit: [手拼千分位]
+
+- id: api.intl.collator
+  title: "intl.Collator"
+  summary: 按地区规则排序字符串。
+  since: "API 9"
+  sig: "new intl.Collator(locale).compare(a, b)"
+  ex: "const collator = new intl.Collator('zh-CN');\nlist.sort((a, b) => collator.compare(a.name, b.name));"
+  pit: [直接比较 Unicode 码点]
+
+- id: api.device.deviceinfo.model
+  title: "@ohos.deviceInfo · model"
+  summary: 读取设备型号、系统版本等静态信息。
+  since: "API 7"
+  sig: "deviceInfo.model / deviceInfo.osFullName / deviceInfo.deviceType"
+  ex: "import { deviceInfo } from '@kit.BasicServicesKit';\nconst model = deviceInfo.model;"
+  pit: [用型号做业务分支（应用 deviceType）]
+
+- id: api.device.battery.soc
+  title: "@ohos.batteryInfo · batterySOC"
+  summary: 读取电量与充电状态。
+  since: "API 7"
+  sig: "batteryInfo.batterySOC: number；batteryInfo.chargingStatus"
+  ex: "import { batteryInfo } from '@kit.BasicServicesKit';\nconst soc = batteryInfo.batterySOC;"
+  pit: [低电量不降级动画]
+
+- id: api.clipboard.getData
+  title: "Pasteboard.getData"
+  summary: 读取剪贴板内容，注意隐私提示。
+  since: "API 9"
+  sig: "getData(callback: AsyncCallback<PasteData>): void"
+  ex: "pb.getData((err, data) => { this.text = data.getPrimaryText(); });"
+  pit: [未提示用户读取剪贴板]
+
+- id: api.clipboard.hasData
+  title: "Pasteboard.hasData"
+  summary: 判断剪贴板是否有内容。
+  since: "API 9"
+  sig: "hasData(callback: AsyncCallback<boolean>): void"
+  ex: "pb.hasData((err, has) => { if (has) { /* enable paste */ } });"
+  pit: [不判断直接读]
+
+- id: api.sensor.getList
+  title: "@ohos.sensor · getSensorList"
+  summary: 获取设备支持的传感器列表。
+  since: "API 9"
+  sig: "getSensorList(callback: AsyncCallback<Array<Sensor>>): void"
+  ex: "sensor.getSensorList((err, list) => { /* 按支持能力降级 */ });"
+  pit: [假设所有设备都有某传感器]
+
+- id: api.location.onChange
+  title: "geoLocationManager.on('locationChange')"
+  summary: 持续定位监听，适合导航/打卡。
+  since: "API 9"
+  sig: "on(type: 'locationChange', request: LocationRequest, callback: Callback<Location>): void"
+  ex: "geoLocationManager.on('locationChange', { priority: geoLocationManager.LocationRequestPriority.ACCURACY }, (loc) => { /* ... */ });"
+  pit: [后台持续定位未配置后台任务]
+
+- id: api.location.off
+  title: "geoLocationManager.off('locationChange')"
+  summary: 取消定位监听。
+  since: "API 9"
+  sig: "off(type: 'locationChange', callback?: Callback<Location>): void"
+  ex: "geoLocationManager.off('locationChange');"
+  pit: [不取消导致耗电]
+
+- id: api.web.registerProxy
+  title: "WebviewController.registerJavaScriptProxy"
+  summary: 注册 JS 桥接对象，让网页调用原生。
+  since: "API 9"
+  sig: "registerJavaScriptProxy(proxy: object, name: string, methodList: Array<string>): void"
+  ex: "this.controller.registerJavaScriptProxy({ getVersion: () => '1.0.0' }, 'nativeBridge', ['getVersion']);"
+  pit: [桥接方法未校验入参]
+
+- id: api.media.avplayer.pause2
+  title: "AVPlayer.pause 场景"
+  summary: 后台/来电时暂停播放。
+  since: "API 9"
+  sig: "pause(callback: AsyncCallback<void>): void"
+  ex: "onBackground() { this.player?.pause(); }"
+  pit: [后台被系统中断后不恢复]
+
+- id: api.arkts.collections
+  title: "ArkTS 集合类型"
+  summary: 使用 Array/Map/Set/ArrayBuffer 时的类型约束。
+  since: "API 9"
+  sig: "Array<T> / Map<K,V> / Set<T> / ArrayBuffer"
+  ex: "const map = new Map<string, number>();\nmap.set('a', 1);"
+  pit: [用 any 绕过类型检查]
+
+- id: api.arkts.serialization
+  title: "JSON 序列化边界"
+  summary: JSON.parse/stringify 只处理可序列化数据。
+  since: "API 9"
+  sig: "JSON.stringify(value) / JSON.parse(text)"
+  ex: "const text = JSON.stringify({ id: 1, name: 'a' });"
+  pit: [序列化含函数/循环引用对象]
+
+- id: api.arkts.persistent
+  title: "PersistenceV2 持久化"
+  summary: 状态管理 V2 的持久化存储，重启保留。
+  since: "API 12"
+  sig: "PersistenceV2.connect(key, defaultCreator, storage?)"
+  ex: "@ObservedV2\nclass Settings { @Trace darkMode: boolean = false; }\nPersistenceV2.connect(Settings, () => new Settings());"
+  pit: [持久化大对象/敏感数据]
+
+- id: api.arkts.appstoragev2
+  title: "AppStorageV2"
+  summary: 应用级状态共享（V2）。
+  since: "API 12"
+  sig: "AppStorageV2.connect(Type, key, () => new Type())"
+  ex: "const store = AppStorageV2.connect(UserStore, 'user', () => new UserStore())!;"
+  pit: [与 V1 的 AppStorage 混用]
+
+- id: api.arkts.observedv2
+  title: "@ObservedV2 / @Trace"
+  summary: 类实例的深度观察（V2）。
+  since: "API 12"
+  sig: "@ObservedV2 class 内用 @Trace 标记字段"
+  ex: "@ObservedV2\nclass Cart { @Trace items: Item[] = []; }"
+  pit: [只标 @ObservedV2 不标 @Trace]
+
+- id: api.arkts.monitor
+  title: "@Monitor"
+  summary: 监听状态变化并执行副作用（V2）。
+  since: "API 12"
+  sig: "@Monitor('field') fn() {}"
+  ex: "@Monitor('count')\nonCountChange() { this.sync(); }"
+  pit: [在 @Monitor 里改同一个字段造成循环]
+
+- id: api.arkts.computed
+  title: "@Computed"
+  summary: 派生状态缓存（V2）。
+  since: "API 12"
+  sig: "@Computed get value() {}"
+  ex: "@Computed\nget total() { return this.items.reduce((s, i) => s + i.price, 0); }"
+  pit: [在 getter 里做副作用]
+
+- id: api.arkts.builder
+  title: "@Builder"
+  summary: 复用 UI 片段，减少重复代码。
+  since: "API 7"
+  sig: "@Builder function Header(t: string) {}"
+  ex: "@Builder\nfunction Header(title: string) {\n  Row() { Text(title).fontSize(20) }\n}"
+  pit: [Builder 内直接修改状态]
+
+- id: api.arkts.reusable
+  title: "@Reusable"
+  summary: 组件复用池，长列表滚动性能优化。
+  since: "API 10"
+  sig: "@Reusable @Component struct Item {}"
+  ex: "@Reusable\n@Component\nstruct RowItem { @Prop item: Item; }"
+  pit: [复用组件状态未重置]
+
+- id: api.arkts.provider
+  title: "@Provider / @Consumer"
+  summary: 跨层状态传递（V2）。
+  since: "API 12"
+  sig: "@Provider / @Consumer"
+  ex: "@Provider('theme') theme: string = 'light';"
+  pit: [键名不一致导致取不到]
+
+- id: api.arkts.watch
+  title: "@Watch（V1）"
+  summary: V1 的字段监听，V2 迁移为 @Monitor。
+  since: "API 7"
+  sig: "@Watch('cb') field"
+  ex: "@State @Watch('onChange') count: number = 0;"
+  pit: [V2 组件里继续用 @Watch]
+
+- id: api.arkts.decorator
+  title: "自定义装饰器边界"
+  summary: ArkTS 不支持任意 TS 装饰器，需用官方装饰器族。
+  since: "API 9"
+  sig: "使用 @Component/@State/... 等官方装饰器"
+  ex: "@Component\nstruct X { @State v: number = 0; }"
+  pit: [引入第三方 TS 装饰器库]
+
+- id: api.arkts.strict
+  title: "ArkTS 严格模式"
+  summary: 禁止 any、eval、动态属性等，保证静态可分析。
+  since: "API 9"
+  sig: "编译期约束：无 any / 无 eval / 无 prototype 修改"
+  ex: "const n: number = 1; // 显式类型"
+  pit: [用 any 绕过类型检查导致线上问题]
+
+- id: api.arkts.import
+  title: "Kit 化 import 三态"
+  summary: "@kit.* / @ohos.* / @hms.core.* 三种写法并存，按目标版本选择。"
+  since: "API 12"
+  sig: "import { http } from '@kit.NetworkKit'  // 26 期\nimport http from '@ohos.net.http'      // 旧写法"
+  ex: "import { common } from '@kit.AbilityKit';\nimport { http } from '@kit.NetworkKit';"
+  pit: [同一文件混用两套写法]
+
+- id: api.data.preferences.clear
+  title: "Preferences.clear"
+  summary: 清空该存储实例的全部键值，用于退出登录等场景。
+  since: "API 9"
+  sig: "clear(): Promise<void>"
+  ex: "await store.clear();\nawait store.flush();"
+  pit: [清空无二次确认导致误删]

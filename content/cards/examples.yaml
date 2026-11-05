@@ -1,0 +1,95 @@
+# 配套示例（5 个，domain: tutorial / kind: example），代码在 examples/ 下。
+- id: example.counter
+  domain: tutorial
+  kind: example
+  title: 示例 1：计数器（状态管理 V2）
+  summary: 用 @ComponentV2 + @Local 实现最小状态驱动 UI。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：状态驱动 UI、按钮事件、token 颜色与圆角（按钮 20vp）。文件：examples/01-counter/CounterPage.ets"
+    example: "@Local count: number = 0;\nButton('+').onClick(() => { this.count++; })"
+    pitfalls: [在 build 里改状态, 按钮圆角写 12]
+  file: examples/01-counter/CounterPage.ets
+  tokens: [radius.button, color.brand, color.background_primary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.settings
+  domain: tutorial
+  kind: example
+  title: 示例 2：设置页（List + Toggle）
+  summary: 标准设置页结构：标题 + 列表项 + 开关 + 分割线。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：ListItem 标准结构（56vp 高、左右 padding 16）、Toggle 即时生效、分割线用 comp_divider。文件：examples/02-settings/SettingsPage.ets"
+    example: "ListItem() { Row() { Text('深色模式'); Blank(); Toggle({ isOn: this.darkMode }) } }.height(56)"
+    pitfalls: [列表项热区只覆盖文字, 分割线用纯黑]
+  file: examples/02-settings/SettingsPage.ets
+  tokens: [color.comp_divider, color.background_primary, space.screenMargin]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.list-refresh
+  domain: tutorial
+  kind: example
+  title: 示例 3：列表 + 下拉刷新（LazyForEach）
+  summary: IDataSource + LazyForEach + Refresh 的标准长列表写法。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：实现 IDataSource 四个方法、keyGenerator、Refresh 刷新后复位 refreshing。文件：examples/03-list-refresh/ListPage.ets"
+    example: "LazyForEach(this.source, (item: string) => { ListItem() { Text(item) } }, (item: string) => item)"
+    pitfalls: [刷新后不重置 refreshing, 用 ForEach 渲染大列表]
+  file: examples/03-list-refresh/ListPage.ets
+  tokens: [space.elements.gapNormal, color.comp_divider]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.navigation
+  domain: tutorial
+  kind: example
+  title: 示例 4：Navigation 路由
+  summary: NavPathStack + NavDestination 的页面栈与跳转。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：Navigation 包裹首页、pushPath 跳转、navDestination 构建目标页、mode(Auto) 分栏。文件：examples/04-navigation/MainPage.ets"
+    example: "this.pathStack.pushPath({ name: 'detail', param: { id: '1' } });"
+    pitfalls: [router 与 Navigation 混用, 未注册 navDestination]
+  file: examples/04-navigation/MainPage.ets
+  tokens: [layout.breakpoints]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: example.theme
+  domain: tutorial
+  kind: example
+  title: 示例 5：主题与深浅色
+  summary: 用 $r 资源承载颜色，跟随系统深浅色。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "演示：不写死颜色、文本分级（primary/secondary）、背景用 token。文件：examples/05-theme/ThemePage.ets"
+    example: "Text('正文').fontColor($r('app.color.font_secondary'))"
+    pitfalls: ["写死 #000/#FFF", 只维护一套 color.json]
+  file: examples/05-theme/ThemePage.ets
+  tokens: [color.font_primary, color.font_secondary, color.background_primary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04

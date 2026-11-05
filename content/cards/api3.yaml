@@ -1,0 +1,505 @@
+# API 紧凑条目（批次 3，60 条）。缺 sections 时由 build_data 自动展开为完整卡片。
+# 字段：id/title/summary/since/sig/ex/pit/perm/deprecated/version_note
+- id: api.data.preferences.putSync
+  title: "Preferences.putSync"
+  summary: 同步写入键值，适合启动早期的小配置。
+  since: "API 9"
+  sig: "putSync(key: string, value: ValueType): void"
+  ex: "store.putSync('theme', 'dark');\nstore.flushSync();"
+  pit: [写完不 flush 不落盘]
+
+- id: api.data.preferences.getSync
+  title: "Preferences.getSync"
+  summary: 同步读取键值，需给默认值。
+  since: "API 9"
+  sig: "getSync(key: string, defValue: ValueType): ValueType"
+  ex: "const theme = store.getSync('theme', 'light');"
+  pit: [不传默认值导致类型不确定]
+
+- id: api.data.preferences.flushSync
+  title: "Preferences.flushSync"
+  summary: 同步落盘，批量写后调用一次。
+  since: "API 9"
+  sig: "flushSync(): void"
+  ex: "store.putSync('a', 1);\nstore.flushSync();"
+  pit: [每次 put 都 flush 造成 IO 抖动]
+
+- id: api.data.preferences.delete
+  title: "Preferences.delete"
+  summary: 删除指定键。
+  since: "API 9"
+  sig: "delete(key: string): Promise<void>"
+  ex: "await store.delete('temp');"
+  pit: [删除后未 flush]
+
+- id: api.data.preferences.has
+  title: "Preferences.has"
+  summary: 判断键是否存在。
+  since: "API 9"
+  sig: "has(key: string): Promise<boolean>"
+  ex: "if (await store.has('token')) { /* ... */ }"
+  pit: [先 has 再 get 多一次 IO，直接 get 带默认值即可]
+
+- id: api.data.preferences.onChange
+  title: "Preferences.on('change')"
+  summary: 监听键值变化，用于跨页同步设置。
+  since: "API 9"
+  sig: "on(type: 'change', callback: Callback<{ key: string }>): void"
+  ex: "store.on('change', (data) => { this.applyTheme(data.key); });"
+  pit: [页面销毁不 off 导致泄漏]
+
+- id: api.data.rdb.insert
+  title: "RdbStore.insert"
+  summary: 插入一行，返回行 id。
+  since: "API 9"
+  sig: "insert(table: string, values: ValuesBucket): Promise<number>"
+  ex: "const rowId = await store.insert('t', { name: 'a', age: 3 });"
+  pit: [逐条插入未用事务]
+
+- id: api.data.rdb.update
+  title: "RdbStore.update"
+  summary: 按谓词更新数据。
+  since: "API 9"
+  sig: "update(values: ValuesBucket, predicates: RdbPredicates): Promise<number>"
+  ex: "const p = new relationalStore.RdbPredicates('t');\np.equalTo('id', 1);\nawait store.update({ name: 'b' }, p);"
+  pit: [谓词为空导致全表更新]
+
+- id: api.data.rdb.delete
+  title: "RdbStore.delete"
+  summary: 按谓词删除数据。
+  since: "API 9"
+  sig: "delete(predicates: RdbPredicates): Promise<number>"
+  ex: "const p = new relationalStore.RdbPredicates('t');\np.equalTo('id', 1);\nawait store.delete(p);"
+  pit: [谓词过宽误删]
+
+- id: api.data.rdb.transaction
+  title: "RdbStore 事务"
+  summary: 批量写用事务保证一致与性能。
+  since: "API 9"
+  sig: "beginTransaction(): void；commit(): void；rollBack(): void"
+  ex: "store.beginTransaction();\ntry {\n  for (const item of list) { await store.insert('t', item); }\n  store.commit();\n} catch (e) {\n  store.rollBack();\n  throw e;\n}"
+  pit: [异常分支不 rollBack]
+
+- id: api.data.rdb.querySql
+  title: "RdbStore.querySql"
+  summary: 用 SQL 查询，结果经 ResultSet 读取。
+  since: "API 9"
+  sig: "querySql(sql: string, bindArgs?: ValueType[]): Promise<ResultSet>"
+  ex: "const rs = await store.querySql('SELECT * FROM t WHERE age > ?', [3]);\nwhile (rs.goToNextRow()) { /* ... */ }\nrs.close();"
+  pit: [SQL 拼接注入, ResultSet 不 close]
+
+- id: api.data.kvstore.getKVStore
+  title: "KVManager.getKVStore"
+  summary: 获取分布式 KV 库实例。
+  since: "API 9"
+  sig: "getKVStore<T>(storeId: string, options: Options): Promise<T>"
+  ex: "const kv = await mgr.getKVStore('demo', { createIfMissing: true, encrypt: false, backup: false, autoSync: false });"
+  pit: [未开 autoSync 却期望同步]
+
+- id: api.data.kvstore.put
+  title: "SingleKVStore.put"
+  summary: 写入单值，冲突时按策略合并。
+  since: "API 9"
+  sig: "put(key: string, value: Uint8Array | string | number | boolean): Promise<void>"
+  ex: "await kv.put('token', 'abc');"
+  pit: [存大对象导致同步慢]
+
+- id: api.net.http.onHeaders
+  title: "HttpRequest.on('headersReceive')"
+  summary: 监听响应头事件，处理 cookie 与缓存策略。
+  since: "API 8"
+  sig: "on(type: 'headersReceive', callback: Callback<Object>): void"
+  ex: "req.on('headersReceive', (header) => { /* 记录 cookie */ });"
+  pit: [忘记 off 造成引用残留]
+
+- id: api.net.http.offHeaders
+  title: "HttpRequest.off('headersReceive')"
+  summary: 取消响应头监听。
+  since: "API 8"
+  sig: "off(type: 'headersReceive', callback?: Callback<Object>): void"
+  ex: "req.off('headersReceive');"
+  pit: [只 on 不 off]
+
+- id: api.net.connection.createNetConnection
+  title: "connection.createNetConnection"
+  summary: 创建网络连接对象，监听网络可用/丢失。
+  since: "API 8"
+  sig: "createNetConnection(): NetConnection"
+  ex: "const conn = connection.createNetConnection();\nconn.on('netAvailable', () => { /* 重连 */ });\nconn.register(() => {});"
+  pit: [只监听不 register, 不 unregister]
+
+- id: api.net.connection.unregister
+  title: "NetConnection.unregister"
+  summary: 注销网络监听，释放连接对象。
+  since: "API 8"
+  sig: "unregister(callback: AsyncCallback<void>): void"
+  ex: "conn.unregister(() => {});"
+  pit: [不注销导致回调继续触发]
+
+- id: api.net.socket.tcp
+  title: "@ohos.net.socket · TCPSocket"
+  summary: 建立 TCP 连接，收发字节流。
+  since: "API 9"
+  sig: "socket.constructTCPSocketInstance(): TCPSocket"
+  ex: "const tcp = socket.constructTCPSocketInstance();\nawait tcp.connect({ address: { address: '1.1.1.1', port: 8080 } });"
+  pit: [未处理断线重连]
+
+- id: api.net.request.upload
+  title: "@ohos.request · uploadFile"
+  summary: 后台上传文件，带进度回调。
+  since: "API 9"
+  sig: "request.uploadFile(context, config): Promise<UploadTask>"
+  ex: "const task = await request.uploadFile(this.context, {\n  url: 'https://example.com/up',\n  files: [{ filename: 'a.txt', name: 'file', uri: 'internal://cache/a.txt' }],\n  data: [],\n});"
+  pit: [大文件上传无进度反馈]
+
+- id: api.net.request.download
+  title: "@ohos.request · downloadFile"
+  summary: 后台下载文件到应用目录。
+  since: "API 9"
+  sig: "request.downloadFile(context, config): Promise<DownloadTask>"
+  ex: "const task = await request.downloadFile(this.context, { url: 'https://example.com/a.zip', filePath: 'internal://cache/a.zip' });"
+  pit: [路径越界或未申请网络权限]
+
+- id: api.net.request.onProgress
+  title: "UploadTask.on('progress')"
+  summary: 监听上传/下载进度。
+  since: "API 9"
+  sig: "on(type: 'progress', callback: (uploadedSize: number, totalSize: number) => void): void"
+  ex: "task.on('progress', (uploaded, total) => { this.percent = uploaded / total * 100; });"
+  pit: [进度回调里频繁 setState 导致掉帧]
+
+- id: api.file.fs.closeSync
+  title: "@ohos.file.fs · closeSync"
+  summary: 关闭文件句柄，必须与 open 配对。
+  since: "API 9"
+  sig: "closeSync(file: File | number): void"
+  ex: "const file = fs.openSync(path, fs.OpenMode.READ_ONLY);\ntry { /* ... */ } finally { fs.closeSync(file); }"
+  pit: [异常路径漏 close]
+
+- id: api.file.fs.writeSync
+  title: "@ohos.file.fs · writeSync"
+  summary: 同步写入文件内容。
+  since: "API 9"
+  sig: "writeSync(fd: number, buffer: ArrayBuffer | string, options?): number"
+  ex: "const file = fs.openSync(path, fs.OpenMode.WRITE_ONLY | fs.OpenMode.CREATE);\nfs.writeSync(file.fd, 'hello');\nfs.closeSync(file);"
+  pit: [未加 CREATE 标志导致打开失败]
+
+- id: api.file.fs.mkdirSync
+  title: "@ohos.file.fs · mkdirSync"
+  summary: 创建目录，递归创建需指定 recursive。
+  since: "API 9"
+  sig: "mkdirSync(path: string, recursive?: boolean): void"
+  ex: "fs.mkdirSync(dir, true);"
+  pit: [目录已存在未 try/catch]
+
+- id: api.file.fs.readdirSync
+  title: "@ohos.file.fs · readdirSync"
+  summary: 列出目录内容。
+  since: "API 9"
+  sig: "readdirSync(path: string, options?): string[]"
+  ex: "const names = fs.readdirSync(dir);"
+  pit: [目录不存在抛错]
+
+- id: api.file.fs.statSync
+  title: "@ohos.file.fs · statSync"
+  summary: 获取文件大小与类型等信息。
+  since: "API 9"
+  sig: "statSync(file: string | number): Stat"
+  ex: "const st = fs.statSync(path);\nif (st.size > 10 * 1024 * 1024) { /* 大文件走流式 */ }"
+  pit: [读到目录当文件处理]
+
+- id: api.file.fs.unlinkSync
+  title: "@ohos.file.fs · unlinkSync"
+  summary: 删除文件或目录。
+  since: "API 9"
+  sig: "unlinkSync(path: string): void"
+  ex: "fs.unlinkSync(cachePath);"
+  pit: [删除不存在的文件未捕获]
+
+- id: api.file.fs.copyFileSync
+  title: "@ohos.file.fs · copyFileSync"
+  summary: 复制文件到目标路径。
+  since: "API 9"
+  sig: "copyFileSync(src: string | number, dest: string | number, mode?: number): void"
+  ex: "fs.copyFileSync(srcPath, destPath);"
+  pit: [目标已存在被覆盖]
+
+- id: api.file.env.getUserDownloadDir
+  title: "@ohos.file.environment · getUserDownloadDir"
+  summary: 获取用户下载目录路径。
+  since: "API 10"
+  sig: "environment.getUserDownloadDir(context: Context): string"
+  ex: "const dir = environment.getUserDownloadDir(this.context);"
+  pit: [直接写用户目录未走 picker 授权]
+
+- id: api.file.env.getFilesDir
+  title: "Context.filesDir"
+  summary: 应用私有文件目录，无需额外权限。
+  since: "API 9"
+  sig: "context.filesDir: string"
+  ex: "const path = `${this.context.filesDir}/data.json`;"
+  pit: [把用户数据塞进私有目录导致迁移困难]
+
+- id: api.file.picker.photoSelect
+  title: "PhotoViewPicker.select"
+  summary: 从相册选择图片，返回 uri 列表。
+  since: "API 10"
+  sig: "select(option?: PhotoSelectOptions): Promise<PhotoSelectResult>"
+  ex: "const vp = new picker.PhotoViewPicker();\nconst res = await vp.select({ maxSelectNumber: 1, MIMEType: picker.PhotoViewMIMETypes.IMAGE_TYPE });"
+  pit: [未申请相册读取权限]
+
+- id: api.file.picker.docSave
+  title: "DocumentViewPicker.save"
+  summary: 选择保存位置并写入文件，返回 uri。
+  since: "API 9"
+  sig: "save(option?: DocumentSaveOptions): Promise<string[]>"
+  ex: "const vp = new picker.DocumentViewPicker(this.context);\nconst uris = await vp.save({ newFileNames: ['export.txt'] });"
+  pit: [保存后未确认写权限]
+
+- id: api.util.uuid
+  title: "@ohos.util · generateRandomUUID"
+  summary: 生成随机 UUID，用于本地唯一 id。
+  since: "API 9"
+  sig: "util.generateRandomUUID(entropyCache?: boolean): string"
+  ex: "const id = util.generateRandomUUID(true);"
+  pit: [用时间戳当唯一 id]
+
+- id: api.util.base64
+  title: "@ohos.util · Base64Helper"
+  summary: Base64 编解码，处理二进制与文本互转。
+  since: "API 9"
+  sig: "encodeToStringSync(src: Uint8Array): string；decodeSync(src: string): Uint8Array"
+  ex: "const b64 = new util.Base64Helper();\nconst text = b64.encodeToStringSync(new util.TextEncoder().encodeInto('hi'));"
+  pit: [对二进制大文件用 Base64 造成体积膨胀]
+
+- id: api.util.textdecoder
+  title: "@ohos.util · TextDecoder"
+  summary: 字节数组解码为字符串。
+  since: "API 9"
+  sig: "decodeWithStream(input: Uint8Array, options?): string"
+  ex: "const decoder = util.TextDecoder.create('utf-8');\nconst text = decoder.decodeWithStream(bytes, { stream: false });"
+  pit: [分片解码未处理多字节截断]
+
+- id: api.util.urlparse
+  title: "@ohos.url · URL"
+  summary: 解析与拼接 URL，处理查询参数。
+  since: "API 9"
+  sig: "new url.URL(input: string, base?: string)"
+  ex: "const u = new url.URL('https://a.com/list?page=1');\nconst page = u.searchParams.get('page');"
+  pit: [手拼 query 未转义]
+
+- id: api.util.buffer
+  title: "@ohos.buffer · from"
+  summary: 字节缓冲区，用于二进制协议处理。
+  since: "API 9"
+  sig: "buffer.from(str | array): Buffer"
+  ex: "const buf = buffer.from('hello', 'utf8');\nconst hex = buf.toString('hex');"
+  pit: [把 Buffer 当字符串比较]
+
+- id: api.ability.abilitystage
+  title: "AbilityStage 生命周期"
+  summary: HAP 级入口，模块初始化与配置读取。
+  since: "API 9"
+  sig: "onCreate() / onAcceptWant() / onConfigurationUpdate()"
+  ex: "export default class MyAbilityStage extends AbilityStage {\n  onCreate() { /* 模块级初始化 */ }\n}"
+  pit: [在 AbilityStage 做耗时的 UI 初始化]
+
+- id: api.ability.onNewWant
+  title: "UIAbility.onNewWant"
+  summary: 已存在实例被再次拉起时接收新参数。
+  since: "API 9"
+  sig: "onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void"
+  ex: "onNewWant(want: Want) { this.handleRoute(want.parameters?.route); }"
+  pit: [不处理新参数导致页面停留在旧状态]
+
+- id: api.ability.bundleinfo
+  title: "bundleManager.getBundleInfoForSelf"
+  summary: 读取自身包信息（版本号/权限等）。
+  since: "API 9"
+  sig: "getBundleInfoForSelf(bundleFlags: number): Promise<BundleInfo>"
+  ex: "const info = await bundleManager.getBundleInfoForSelf(bundleManager.BundleFlag.GET_BUNDLE_INFO_WITH_APPLICATION);\nconst version = info.versionName;"
+  pit: [在 UI 线程频繁查询]
+
+- id: api.ability.permissionVerify
+  title: "abilityAccessCtrl.verifyAccessToken"
+  summary: 校验已授权状态，避免重复弹框。
+  since: "API 9"
+  sig: "verifyAccessToken(tokenID: number, permissionName: string): Promise<GrantStatus>"
+  ex: "const status = await atManager.verifyAccessToken(tokenId, 'ohos.permission.CAMERA');\nif (status === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) { /* 已授权 */ }"
+  pit: [不校验直接调用受保护 API]
+
+- id: api.ability.commonEvent.unsubscribe
+  title: "commonEventManager.unsubscribe"
+  summary: 取消公共事件订阅。
+  since: "API 9"
+  sig: "unsubscribe(subscriber: CommonEventSubscriber): Promise<void>"
+  ex: "await commonEventManager.unsubscribe(sub);"
+  pit: [页面销毁不取消订阅]
+
+- id: api.ability.commonEvent.createSubscriber
+  title: "commonEventManager.createSubscriber"
+  summary: 创建订阅者，指定事件集合。
+  since: "API 9"
+  sig: "createSubscriber(subscribeInfo: CommonEventSubscribeInfo): Promise<CommonEventSubscriber>"
+  ex: "const sub = await commonEventManager.createSubscriber({ events: ['app.refresh'] });"
+  pit: [事件名重复订阅]
+
+- id: api.notification.cancel
+  title: "notificationManager.cancel"
+  summary: 取消指定通知。
+  since: "API 9"
+  sig: "cancel(id: number, label?: string): Promise<void>"
+  ex: "await notificationManager.cancel(1);"
+  pit: [id 不一致取消不掉]
+
+- id: api.notification.requestEnable
+  title: "notificationManager.requestEnableNotification"
+  summary: 引导用户开启通知权限。
+  since: "API 9"
+  sig: "requestEnableNotification(context: Context): Promise<void>"
+  ex: "await notificationManager.requestEnableNotification(this.context);"
+  pit: [用户拒绝后不降级提示]
+
+- id: api.media.avplayer.prepare
+  title: "AVPlayer.prepare"
+  summary: 准备播放资源，之后才能 play。
+  since: "API 9"
+  sig: "prepare(callback: AsyncCallback<void>): void"
+  ex: "await new Promise<void>((resolve, reject) => {\n  player.prepare((err) => err ? reject(err) : resolve());\n});"
+  pit: [未等 prepared 就 play]
+
+- id: api.media.avplayer.play
+  title: "AVPlayer.play"
+  summary: 开始播放。
+  since: "API 9"
+  sig: "play(callback: AsyncCallback<void>): void"
+  ex: "player.play((err) => { if (err) { /* 处理 */ } });"
+  pit: [重复 play 未判断状态]
+
+- id: api.media.avplayer.pause
+  title: "AVPlayer.pause"
+  summary: 暂停播放，保留进度。
+  since: "API 9"
+  sig: "pause(callback: AsyncCallback<void>): void"
+  ex: "player.pause();"
+  pit: [后台切换时不暂停导致耗电]
+
+- id: api.media.avplayer.release
+  title: "AVPlayer.release"
+  summary: 释放播放器资源。
+  since: "API 9"
+  sig: "release(callback: AsyncCallback<void>): void"
+  ex: "player.release(() => {});"
+  pit: [退出页面不 release 导致音频泄漏]
+
+- id: api.media.image.packer
+  title: "image.createImagePacker"
+  summary: 将 PixelMap 编码为 JPEG/PNG 并输出到文件。
+  since: "API 9"
+  sig: "createImagePacker(): ImagePacker"
+  ex: "const packer = image.createImagePacker();\nconst data = await packer.packing(pixelMap, { format: 'image/jpeg', quality: 90 });"
+  pit: [不压缩直接存原图导致体积过大]
+
+- id: api.web.loadUrl
+  title: "WebviewController.loadUrl"
+  summary: 让内嵌 Web 加载指定地址。
+  since: "API 9"
+  sig: "loadUrl(url: string, headers?: Array<WebHeader>): Promise<void>"
+  ex: "await this.controller.loadUrl('https://example.com');"
+  pit: [未配置域名白名单]
+
+- id: api.web.runJavaScript
+  title: "WebviewController.runJavaScript"
+  summary: 在网页上下文执行 JS 并取返回值。
+  since: "API 9"
+  sig: "runJavaScript(script: string): Promise<string>"
+  ex: "const title = await this.controller.runJavaScript('document.title');"
+  pit: [跨域或页面未加载完成时调用]
+
+- id: api.web.refresh
+  title: "WebviewController.refresh"
+  summary: 刷新当前网页。
+  since: "API 9"
+  sig: "refresh(): void"
+  ex: "this.controller.refresh();"
+  pit: [刷新中重复触发]
+
+- id: api.web.getTitle
+  title: "WebviewController.getTitle"
+  summary: 获取网页标题，用于页面标题展示。
+  since: "API 9"
+  sig: "getTitle(): string"
+  ex: "this.pageTitle = this.controller.getTitle();\nthis.controller.onTitleReceive?.(() => {});"
+  pit: [页面未加载完取不到标题]
+
+- id: api.window.getLastWindow
+  title: "window.getLastWindow"
+  summary: 获取当前窗口对象，设置沉浸式/系统栏。
+  since: "API 9"
+  sig: "getLastWindow(ctx: BaseContext): Promise<Window>"
+  ex: "const win = await window.getLastWindow(this.context);\nawait win.setWindowLayoutFullScreen(true);"
+  pit: [在非 UI 上下文获取窗口]
+
+- id: api.window.setFullScreen
+  title: "Window.setWindowLayoutFullScreen"
+  summary: 设置沉浸式布局，内容延伸到状态栏。
+  since: "API 9"
+  sig: "setWindowLayoutFullScreen(isLayoutFullScreen: boolean): Promise<void>"
+  ex: "await win.setWindowLayoutFullScreen(true);"
+  pit: [未处理安全区导致内容被遮挡]
+
+- id: api.window.systemBar
+  title: "Window.setWindowSystemBarProperties"
+  summary: 设置状态栏与导航栏样式。
+  since: "API 9"
+  sig: "setWindowSystemBarProperties(props: SystemBarProperties): Promise<void>"
+  ex: "await win.setWindowSystemBarProperties({ statusBarColor: '#ffffff', statusBarContentColor: '#000000' });"
+  pit: [深浅色切换未同步系统栏]
+
+- id: api.display.onChange
+  title: "display.on('change')"
+  summary: 监听屏幕变化（折叠/旋转/分辨率）。
+  since: "API 9"
+  sig: "on(type: 'change', callback: Callback<Display>): void"
+  ex: "display.on('change', (d) => { this.applyLayout(d.width, d.height); });"
+  pit: [不 off 监听]
+
+- id: api.geo.isEnabled
+  title: "geoLocationManager.isLocationEnabled"
+  summary: 判断定位服务是否开启，决定是否引导设置。
+  since: "API 9"
+  sig: "isLocationEnabled(): boolean"
+  ex: "if (!geoLocationManager.isLocationEnabled()) { /* 引导开启 */ }"
+  pit: [定位关闭仍直接请求]
+
+- id: api.i18n.getSystemLanguage
+  title: "@ohos.i18n · getSystemLanguage"
+  summary: 获取系统语言代码。
+  since: "API 9"
+  sig: "i18n.System.getSystemLanguage(): string"
+  ex: "const lang = i18n.System.getSystemLanguage();"
+  pit: [硬编码中文分支]
+
+- id: api.sensor.off
+  title: "@ohos.sensor · off"
+  summary: 取消传感器订阅。
+  since: "API 9"
+  sig: "off(type: SensorId, callback?: Callback<SensorData>): void"
+  ex: "sensor.off(sensor.SensorId.ACCELEROMETER);"
+  pit: [页面退出不 off 导致持续耗电]
+
+- id: api.vibrator.stop
+  title: "@ohos.vibrator · stopVibration"
+  summary: 停止震动。
+  since: "API 9"
+  sig: "stopVibration(): Promise<void>"
+  ex: "await vibrator.stopVibration();"
+  pit: [长震动无法中止]
+
+- id: api.clipboard.getPasteboard
+  title: "pasteboard.getSystemPasteboard"
+  summary: 获取系统剪贴板，读写文本/图片。
+  since: "API 9"
+  sig: "pasteboard.getSystemPasteboard(): Pasteboard"
+  ex: "const pb = pasteboard.getSystemPasteboard();\nawait pb.setData(pasteboard.createData(pasteboard.MIMETYPE_TEXT_PLAIN, 'hello'));"
+  pit: [读取剪贴板未提示用户]

@@ -1,0 +1,266 @@
+# 入门课程（10 讲）。domain: tutorial；每讲含学习目标、知识点、关键代码、练习、自检点、常见错误。
+- id: lesson.01
+  domain: tutorial
+  title: "第 1 讲：环境与工程结构"
+  summary: DevEco Studio 工程结构、Stage 模型目录与首个页面。
+  level: 入门
+  order: 1
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "目标：跑通 DevEco 工程并理解 entry/src/main/ets 的目录职责。知识点：AppScope、entry 模块、module.json5、pages 目录、UIAbility 入口。"
+    example: "entry/src/main/ets/\n├─ entryability/EntryAbility.ets   // 生命周期，loadContent('pages/Index')\n├─ pages/Index.ets                 // 首页\n├─ entrybackupability/\n└─ workers/"
+    pitfalls: [改了页面路径但没改 loadContent, 在 entryability 里写业务 UI]
+    a11y: []
+    adapt: []
+    perf: [首屏只加载必要资源]
+  checkpoints:
+    - 能说出 UIAbility 三个关键生命周期回调
+    - 知道 pages 下新增页面要注册路由
+  exercise: 新建 About 页面并从首页跳转过去
+  tokens: []
+  version_note: "以 DevEco Studio 当前版本为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.02
+  domain: tutorial
+  title: "第 2 讲：ArkTS 语法速通"
+  summary: 类型、接口、泛型、空安全与 ArkTS 限制。
+  level: 入门
+  order: 2
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "目标：写出类型安全的 ArkTS。知识点：interface/type、可选链、非空断言、泛型、禁止 any/eval、对象字面量与结构化类型。"
+    example: "interface Item { id: string; title: string; done?: boolean }\nconst list: Item[] = [{ id: '1', title: '买牛奶' }];\nconst first = list[0]?.title ?? '空';"
+    pitfalls: [用 any 绕过类型检查, 依赖 TS 的动态特性]
+    a11y: []
+    adapt: []
+    perf: [集合遍历用 for-of，避免频繁闭包]
+  checkpoints:
+    - 能解释 `?.` 与 `??` 的区别
+    - 能定义并约束一个泛型函数
+  exercise: 给 Todo 定义类型并用 Map 去重
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.03
+  domain: tutorial
+  title: "第 3 讲：声明式 UI 与第一个组件"
+  summary: "@Component、build()、组件参数与事件。"
+  level: 入门
+  order: 3
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "目标：理解「状态驱动 UI」。知识点：@Component 结构、build() 只能声明 UI、@Builder 复用、onClick 事件。"
+    example: "@Component\nstruct Counter {\n  @Local count: number = 0;\n  build() {\n    Row({ space: 12 }) {\n      Button('-').onClick(() => this.count--)\n      Text(`${this.count}`)\n      Button('+').onClick(() => this.count++)\n    }\n  }\n}"
+    pitfalls: [在 build 里做副作用/网络请求, 用命令式方式改 UI]
+    a11y: []
+    adapt: []
+    perf: [避免在 build 中拼接大字符串]
+  checkpoints:
+    - 能说出 build() 中禁止做的事
+    - 能解释一次状态变化为何会触发重绘
+  exercise: 把计数器拆成两个组件并通过参数通信
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.04
+  domain: tutorial
+  title: "第 4 讲：布局容器与 8vp 网格"
+  summary: Column/Row/Stack/Flex/Grid 的选择与间距规范。
+  level: 入门
+  order: 4
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "目标：用容器组合出规范布局。知识点：Column/Row/Stack/Grid/RelativeContainer 的适用场景；间距取 8 的倍数；屏幕 margin 手机 16vp。"
+    example: "Column({ space: 8 }) {\n  Row() { Text('标题'); Blank(); Text('更多').fontColor($r('app.color.font_secondary')) }\n  Grid() { /* ... */ }.columnsTemplate('1fr 1fr')\n}.padding({ left: 16, right: 16 })"
+    pitfalls: [用固定像素写布局, 逐个元素加 margin 代替 space]
+    a11y: []
+    adapt: [按 600/840vp 断点换列数]
+    perf: [避免三层以上无意义嵌套]
+  checkpoints:
+    - 能说出 Grid 与 WaterFlow 的区别
+    - 能按断点把 1 列改成 2 列
+  exercise: 做一个「2 行 2 列」的宫格首页
+  tokens: [space.elements.gapNormal, space.screenMargin]
+  version_note: ""
+  sources:
+    - { title: 间隔参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/interval-parameter-0000002562577161.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.05
+  domain: tutorial
+  title: "第 5 讲：状态管理 V2"
+  summary: "@ComponentV2 + @Local/@Param/@Event/@Provider 的父子与跨层通信。"
+  level: 入门
+  order: 5
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "目标：用 V2 管理状态。知识点：@Local 内部状态、@Param 父传子、@Event 子调父、@Provider/@Consumer 跨层、@Monitor/@Computed 派生与监听。"
+    example: "@ComponentV2\nstruct Child {\n  @Param count: number = 0;\n  @Event onAdd: () => void = () => {};\n  build() { Button(`+1（${this.count}）`).onClick(() => this.onAdd()) }\n}"
+    pitfalls: [V1/V2 装饰器混写导致不刷新, 在 @Param 上直接赋值]
+    a11y: []
+    adapt: []
+    perf: [大对象拆细粒度状态，减少无效重绘]
+  checkpoints:
+    - 能写出父子双向通信
+    - 能解释 @Computed 与方法的区别
+  exercise: 用 V2 实现「待办列表 + 完成计数」
+  tokens: []
+  version_note: "V1→V2 迁移见官方迁移指南"
+  sources:
+    - { title: 状态管理 V1→V2 迁移, url: "https://developer.huawei.com/consumer/cn/doc/harmonyOS-guides/arkts-v1-v2-migration", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.06
+  domain: tutorial
+  title: "第 6 讲：列表与懒加载"
+  summary: List + LazyForEach + keyGenerator，长列表性能要点。
+  level: 入门
+  order: 6
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "目标：写出不卡的列表。知识点：List/ListItem、LazyForEach + IDataSource、稳定 key、下拉刷新与到底加载。"
+    example: "List({ space: 8 }) {\n  LazyForEach(this.ds, (item: Item) => {\n    ListItem() { Row() { Text(item.title) } }\n  }, (item: Item) => item.id)\n}\n.onReachEnd(() => this.loadMore())"
+    pitfalls: [大列表用 ForEach 全量渲染, 列表项内做重计算]
+    a11y: [列表项提供可读文本]
+    adapt: [平板双列]
+    perf: [必须 LazyForEach + keyGenerator]
+  checkpoints:
+    - 能实现 IDataSource 的 4 个方法
+    - 能说明 keyGenerator 的作用
+  exercise: 实现 1000 条数据的列表并滚动到 60fps
+  tokens: [space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 列表（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/list-0000001929853910.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.07
+  domain: tutorial
+  title: "第 7 讲：路由与页面跳转"
+  summary: Navigation + NavPathStack 的页面栈与参数传递。
+  level: 入门
+  order: 7
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "目标：用 Navigation 管理页面栈。知识点：Navigation/NavDestination、pathStack.pushPath、参数传递、返回处理、分栏模式。"
+    example: "Navigation(this.pathStack) {\n  // 首页\n}\n.navDestination(this.PageMap)\n\n// 跳转\nthis.pathStack.pushPath({ name: 'detail', param: { id } });"
+    pitfalls: [router 与 Navigation 混用, 返回键未处理]
+    a11y: [返回按钮可读]
+    adapt: [宽屏自动分栏]
+    perf: [目标页懒构建]
+  checkpoints:
+    - 能实现 push/back 与参数读取
+    - 能说明分栏阈值
+  exercise: 做首页→详情→返回并保留列表滚动位置
+  tokens: [layout.breakpoints]
+  version_note: ""
+  sources:
+    - { title: 导航条（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/navigation-0000001957075737.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.08
+  domain: tutorial
+  title: "第 8 讲：网络请求与数据解析"
+  summary: http 请求、超时、错误分支与 JSON 解析。
+  level: 入门
+  order: 8
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "目标：安全可靠地取数据。知识点：createHttp/request/destroy、超时、状态码判断、try/catch、loading/error 态。"
+    example: "const req = http.createHttp();\ntry {\n  const res = await req.request(url, { method: http.RequestMethod.GET, readTimeout: 10000 });\n  if (res.responseCode !== 200) throw new Error(`HTTP ${res.responseCode}`);\n  this.list = JSON.parse(res.result as string);\n} catch (e) {\n  this.error = '加载失败，点击重试';\n} finally {\n  req.destroy();\n}"
+    pitfalls: [不处理非 2xx, 不设超时, 忘记 destroy]
+    a11y: [错误提示可读]
+    adapt: []
+    perf: [请求合并与缓存]
+  checkpoints:
+    - 能写出带错误分支的请求
+    - 能说明 destroy 的必要性
+  exercise: 请求一个 JSON 列表并渲染，失败可重试
+  tokens: []
+  version_note: "权限：ohos.permission.INTERNET"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.09
+  domain: tutorial
+  title: "第 9 讲：本地存储"
+  summary: preferences 与 relationalStore 的选型与读写。
+  level: 入门
+  order: 9
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "目标：数据能落地。知识点：preferences 存配置、RDB 存结构化数据、事务批量写、ResultSet 关闭。"
+    example: "const store = await preferences.getPreferences(this.context, 'settings');\nawait store.put('darkMode', true);\nawait store.flush();\n\nconst rdb = await relationalStore.getRdbStore(this.context, { name: 'app.db', securityLevel: relationalStore.SecurityLevel.S1 });"
+    pitfalls: [小配置用数据库, 写后不 flush, ResultSet 不 close]
+    a11y: []
+    adapt: []
+    perf: [批量写用事务]
+  checkpoints:
+    - 能说明 preferences 与 RDB 的选型
+    - 能写出带事务的批量插入
+  exercise: 把待办列表存进 RDB 并重启后恢复
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.10
+  domain: tutorial
+  title: "第 10 讲：主题、深浅色与资源"
+  summary: $r 资源、双套颜色、深色模式与系统大字体。
+  level: 入门
+  order: 10
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: "目标：适配深浅色与大字体。知识点：color.json 双套、$r('app.color.*')、跟随系统主题、fp 字号、资源命名。"
+    example: "Text('设置').fontColor($r('app.color.font_primary'))\n  .fontSize(16) // fp，跟随系统大字体"
+    pitfalls: ["写死 #000/#FFF", 只做浅色一套资源]
+    a11y: [对比度 ≥3:1]
+    adapt: [深色下检查图片与图标]
+    perf: []
+  checkpoints:
+    - 能建浅/深两套 color.json
+    - 能说明 fp 与 vp 的区别
+  exercise: 给前 9 讲的页面统一换成 token 颜色
+  tokens: [color.font_primary, color.background_primary]
+  version_note: ""
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+    - { title: 深色模式, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/dark-mode-0000001823255497.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

@@ -1,0 +1,740 @@
+# Kit 概览卡（40 条）：按官方 @kit.* 套件组织，标出核心能力与 import 写法。
+# Kit 化自 API 12 起；具体 API 细节以官方参考为准（本卡不虚构签名）。
+- id: kit.ability
+  domain: api
+  title: AbilityKit（程序框架服务）
+  summary: 应用模型核心：UIAbility、AbilityStage、ExtensionAbility、Want、Context、权限申请。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { common, Want, UIAbility } from '@kit.AbilityKit'；入口 Ability 与生命周期都在这里。"
+    example: "import { UIAbility, Want, AbilityConstant } from '@kit.AbilityKit';"
+    pitfalls: [与 @ohos.app.ability.* 混用, 在非 UI 上下文弹窗]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.arkdata
+  domain: api
+  title: ArkData（方舟数据管理）
+  summary: preferences / relationalStore / distributedKVStore / dataShare 等数据存储能力。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { preferences, relationalStore } from '@kit.ArkData'"
+    example: "import { preferences } from '@kit.ArkData';"
+    pitfalls: [小配置用 RDB、大表用 preferences 的错配]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.arkui
+  domain: api
+  title: ArkUI（方舟 UI 框架）
+  summary: 声明式 UI：组件、动画、promptAction、mediaquery、UIContext、焦点与键盘。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { promptAction, mediaquery, window } from '@kit.ArkUI'"
+    example: "import { promptAction } from '@kit.ArkUI';"
+    pitfalls: [组件属性与 API 文档版本不一致时未标注 since]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.arkts
+  domain: api
+  title: ArkTS（方舟开发语言）
+  summary: 语言与运行时：严格类型、并发（taskpool/worker）、序列化、集合与工具。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { util } from '@kit.ArkTS'；并发用 @ohos.taskpool / @ohos.worker。"
+    example: "import { util } from '@kit.ArkTS';"
+    pitfalls: [引入依赖 TS 动态特性的第三方库]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.arkweb
+  domain: api
+  title: ArkWeb（方舟 Web）
+  summary: Web 组件与 WebviewController：加载、JS 桥接、Cookie、调试。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { webview } from '@kit.ArkWeb'；Web 组件来自 ArkUI。"
+    example: "import { webview } from '@kit.ArkWeb';"
+    pitfalls: [未配置域名白名单, 桥接方法不校验参数]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.network
+  domain: api
+  title: NetworkKit（网络服务）
+  summary: http / webSocket / connection / socket / 上传下载。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { http, webSocket, connection } from '@kit.NetworkKit'"
+    example: "import { http } from '@kit.NetworkKit';"
+    pitfalls: [请求不设超时, 不处理非 2xx]
+  version_note: "权限：ohos.permission.INTERNET；Kit 化自 API 12"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.basic
+  domain: api
+  title: BasicServicesKit（基础服务）
+  summary: 公共事件、账号、剪贴板、打印、设置、设备信息、电池、时间等基础能力。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { commonEventManager, pasteboard, deviceInfo } from '@kit.BasicServicesKit'"
+    example: "import { commonEventManager } from '@kit.BasicServicesKit';"
+    pitfalls: [公共事件命名无命名空间导致冲突]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.media
+  domain: api
+  title: MediaKit（媒体服务）
+  summary: AVPlayer / AVRecorder / AVSession / 媒体库访问与音视频编解码。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { media } from '@kit.MediaKit'；播控中心用 AVSessionKit。"
+    example: "import { media } from '@kit.MediaKit';"
+    pitfalls: [播放器不 release, 后台播放未配后台任务]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.audio
+  domain: api
+  title: AudioKit（音频服务）
+  summary: 音频焦点、路由、音量与低时延播放。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { audio } from '@kit.AudioKit'；播放前申请音频焦点。"
+    example: "import { audio } from '@kit.AudioKit';"
+    pitfalls: [不处理音频焦点被抢占]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.camera
+  domain: api
+  title: CameraKit（相机服务）
+  summary: 相机管理与拍照/录像会话，需相机与麦克风权限。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { camera } from '@kit.CameraKit'；先申请 CAMERA 权限。"
+    example: "import { camera } from '@kit.CameraKit';"
+    pitfalls: [未申请权限直接开会话, 会话不复用]
+  version_note: "权限：ohos.permission.CAMERA；Kit 化自 API 12"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.image
+  domain: api
+  title: ImageKit（图片服务）
+  summary: 图片解码/编码/编辑/元数据读取。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { image } from '@kit.ImageKit'；按显示尺寸解码缩略图。"
+    example: "import { image } from '@kit.ImageKit';"
+    pitfalls: [原图直接解码导致内存暴涨]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.location
+  domain: api
+  title: LocationKit（位置服务）
+  summary: 定位、地理围栏、位置逆编码，需位置权限。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { geoLocationManager } from '@kit.LocationKit'"
+    example: "import { geoLocationManager } from '@kit.LocationKit';"
+    pitfalls: [定位关闭无兜底, 后台持续定位未配任务]
+  version_note: "权限：ohos.permission.LOCATION；Kit 化自 API 12"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.notification
+  domain: api
+  title: NotificationKit（通知服务）
+  summary: 本地通知发布/取消/开关查询与通知渠道。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { notificationManager } from '@kit.NotificationKit'"
+    example: "import { notificationManager } from '@kit.NotificationKit';"
+    pitfalls: [未申请通知权限, 通知 id 冲突]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.push
+  domain: api
+  title: PushKit（推送服务）
+  summary: 推送 token 获取、消息接收与通知扩展。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { pushService } from '@kit.PushKit'；需在 AGC 配置推送服务。"
+    example: "import { pushService } from '@kit.PushKit';"
+    pitfalls: [token 不上报服务端, 未处理通知点击路由]
+  version_note: "Kit 化自 API 12；服务端配置在 AGC"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.background
+  domain: api
+  title: BackgroundTasksKit（后台任务）
+  summary: 长时任务、延迟任务、代理提醒，声明后台模式。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { backgroundTaskManager } from '@kit.BackgroundTasksKit'"
+    example: "import { backgroundTaskManager } from '@kit.BackgroundTasksKit';"
+    pitfalls: [未在 module.json5 声明后台模式]
+  version_note: "Kit 化自 API 12；后台模式需审核"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.corefile
+  domain: api
+  title: CoreFileKit（基础文件服务）
+  summary: 文件 IO、选择器、环境目录、文件 URI。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { fileIo as fs, picker, fileUri } from '@kit.CoreFileKit'"
+    example: "import { fileIo as fs } from '@kit.CoreFileKit';"
+    pitfalls: [句柄不关闭, 绕过 picker 直接读用户目录]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.arkgraphics2d
+  domain: api
+  title: ArkGraphics 2D（方舟 2D 图形）
+  summary: 2D 绘制、字体、图像效果与 GPU 渲染。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { drawing, common2D } from '@kit.ArkGraphics2D'"
+    example: "import { drawing } from '@kit.ArkGraphics2D';"
+    pitfalls: [画布内容不可读未提供替代文本]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.arkgraphics3d
+  domain: api
+  title: ArkGraphics 3D（方舟 3D 图形）
+  summary: 3D 场景、模型与渲染。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { Scene, Camera } from '@kit.ArkGraphics3D'"
+    example: "import { Scene } from '@kit.ArkGraphics3D';"
+    pitfalls: [3D 场景未做性能分级]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.crypto
+  domain: api
+  title: CryptoArchitectureKit（加解密）
+  summary: 对称/非对称加解密、摘要、随机数。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { cryptoFramework } from '@kit.CryptoArchitectureKit'"
+    example: "import { cryptoFramework } from '@kit.CryptoArchitectureKit';"
+    pitfalls: [硬编码密钥, 使用 ECB 模式]
+  version_note: "Kit 化自 API 12；密钥应存 HUKS"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.huks
+  domain: api
+  title: UniversalKeystoreKit（密钥库）
+  summary: 密钥生成/导入/派生与安全存储，密钥不出安全环境。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { huks } from '@kit.UniversalKeystoreKit'"
+    example: "import { huks } from '@kit.UniversalKeystoreKit';"
+    pitfalls: [把密钥明文写进 preferences]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.devicesecurity
+  domain: api
+  title: DeviceSecurityKit（设备安全）
+  summary: 安全检测、反欺诈、可信执行环境能力。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { deviceSecurityKit } from '@kit.DeviceSecurityKit'（按需）"
+    example: "import { deviceSecurityKit } from '@kit.DeviceSecurityKit';"
+    pitfalls: [安全能力失败未降级]
+  version_note: "Kit 化自 API 12；能力按设备差异提供"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.accessibility
+  domain: api
+  title: AccessibilityKit（无障碍）
+  summary: 读屏、无障碍扩展与节点信息。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { accessibility } from '@kit.AccessibilityKit'"
+    example: "import { accessibility } from '@kit.AccessibilityKit';"
+    pitfalls: [自绘控件未提供无障碍节点]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.avsession
+  domain: api
+  title: AVSessionKit（音视频播控）
+  summary: 接入播控中心、媒体控制与元数据展示。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { avSession } from '@kit.AVSessionKit'"
+    example: "import { avSession } from '@kit.AVSessionKit';"
+    pitfalls: [元数据不更新导致播控中心空白]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.account
+  domain: api
+  title: AccountKit（华为账号）
+  summary: 华为账号登录、绑定与账号信息。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { account } from '@kit.AccountKit'；新前缀另有 @hms.core.account.*"
+    example: "import { account } from '@kit.AccountKit';"
+    pitfalls: [未处理未登录/退出状态]
+  version_note: "Kit 化自 API 12；AGC 需开通账号服务"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.iap
+  domain: api
+  title: IAPKit（应用内支付）
+  summary: 数字商品购买与消耗型/订阅型商品管理。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { iap } from '@kit.IAPKit'；商品在 AGC 配置。"
+    example: "import { iap } from '@kit.IAPKit';"
+    pitfalls: [客户端不校验购买凭证]
+  version_note: "Kit 化自 API 12；需 AGC 配置与审核"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.payment
+  domain: api
+  title: PaymentKit（华为支付）
+  summary: 收银台与支付结果查询。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { payment } from '@kit.PaymentKit'"
+    example: "import { payment } from '@kit.PaymentKit';"
+    pitfalls: [只依赖客户端结果不查服务端订单]
+  version_note: "Kit 化自 API 12；需商户资质"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.share
+  domain: api
+  title: ShareKit（分享）
+  summary: 系统分享面板与分享结果回调。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { systemShare } from '@kit.ShareKit'"
+    example: "import { systemShare } from '@kit.ShareKit';"
+    pitfalls: [未处理分享取消]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.applinking
+  domain: api
+  title: AppLinkingKit（应用链接）
+  summary: 通过链接直达应用内页面，含延迟直达。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { appLinking } from '@kit.AppLinkingKit'；AGC 配置链接域名。"
+    example: "import { appLinking } from '@kit.AppLinkingKit';"
+    pitfalls: [未处理未安装应用的降级]
+  version_note: "Kit 化自 API 12；域名需在 AGC 校验"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.scan
+  domain: api
+  title: ScanKit（统一扫码）
+  summary: 扫码/识码能力，支持相机与图片识别。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { scanCore, scanBarcode } from '@kit.ScanKit'"
+    example: "import { scanBarcode } from '@kit.ScanKit';"
+    pitfalls: [未申请相机权限, 低光照无提示]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.ads
+  domain: api
+  title: AdsKit（广告服务）
+  summary: 广告请求与展示，遵循隐私与频控要求。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { ads } from '@kit.AdsKit'"
+    example: "import { ads } from '@kit.AdsKit';"
+    pitfalls: [未做个性化广告授权提示]
+  version_note: "Kit 化自 API 12；需 AGC 开通"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.agc
+  domain: api
+  title: AppGalleryKit（应用市场服务）
+  summary: 应用市场相关能力（更新、评论、分发数据）。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { appGallery } from '@kit.AppGalleryKit'（按需）"
+    example: "import { appGallery } from '@kit.AppGalleryKit';"
+    pitfalls: [更新检查阻塞启动]
+  version_note: "Kit 化自 API 12；能力以 AGC 开通为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.remote
+  domain: api
+  title: RemoteCommunicationKit（远场通信）
+  summary: 跨设备远场通信与近场发现。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { rcp } from '@kit.RemoteCommunicationKit'"
+    example: "import { rcp } from '@kit.RemoteCommunicationKit';"
+    pitfalls: [未处理设备离线]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.connectivity
+  domain: api
+  title: ConnectivityKit（连接服务）
+  summary: 蓝牙、NFC、Wi-Fi 等连接能力。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { bluetooth } from '@kit.ConnectivityKit'（按子能力）"
+    example: "import { bluetooth } from '@kit.ConnectivityKit';"
+    pitfalls: [蓝牙未申请权限, 未处理配对失败]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.form
+  domain: api
+  title: FormKit（卡片服务）
+  summary: 服务卡片/元服务卡片的提供与更新。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { formProvider, formBindingData } from '@kit.FormKit'"
+    example: "import { formProvider } from '@kit.FormKit';"
+    pitfalls: [卡片数据更新不及时导致显示过期]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.uidesign
+  domain: api
+  title: UI Design Kit（HDS 组件）
+  summary: 官方高级 UI 组件：HdsSideBar / HdsTabs / HdsSnackBar / HdsActionBar 等（6.0 起）。
+  since: "API 20"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { HdsTabs } from '@kit.UIDesignKit'（按官方组件页）"
+    example: "import { HdsTabs } from '@kit.UIDesignKit';"
+    pitfalls: [HDS 组件与自绘组件混排导致风格不一致]
+  version_note: "6.0.0(20) 起新增；组件清单以官方为准"
+  topics:
+    - id: uidesign.intro
+      title: UI Design Kit 简介与能力全景
+      content: |
+        UI Design Kit 是符合 HarmonyOS Design System 的 UI 开发套件，提供三类能力：
+        ① 增强型 UI 组件（导航/侧边栏/页签/列表/操作栏等）；② 光影效果（动态模糊、沉浸光感、视效）；
+        ③ 多设备适配。它是对 ArkUI 基础能力的封装增强，不是替代品：基础跳转→HdsNavigation、基础切换→HdsTabs、
+        普通列表→HdsListItem。详见官方《UI Design Kit 简介》。
+      code: |
+        // UI Design Kit 能力依赖 @kit.UIDesignKit；
+        // 具体组件按官方组件页导入，例如：
+        // import { HdsTabs } from '@kit.UIDesignKit';
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-introduction"
+    - id: uidesign.navigation
+      title: 组件导航（HdsNavigation / HdsNavDestination）
+      content: |
+        HdsNavigation 作为路由导航根视图容器，HdsNavDestination 作为子页面根容器。
+        相对原生 Navigation 增强：动态模糊标题栏、半模态样式、自定义标题栏区域、文字/图片双类型图标、菜单气泡。
+        注意：与原生 Navigation 不能混用于同一路由栈。
+      code: |
+        // import { HdsNavigation } from '@kit.UIDesignKit';
+        // HdsNavigation 作为页面根容器，内部用 NavPathStack 跳转
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-navigation-dynamic-blur"
+    - id: uidesign.sidebar
+      title: 侧边栏与侧边栏菜单（HdsSideBar / HdsSideMenu）
+      content: |
+        HdsSideBar 提供可显隐的侧边栏容器，内容区可自定义，支持悬浮/展开等形态；
+        HdsSideMenu 配套一、二级菜单样式，支持新消息红点提醒。平板/PC 分栏常用组合。
+      code: |
+        // import { HdsSideBar, HdsSideMenu } from '@kit.UIDesignKit';
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-sidebar-overlay-mode"
+    - id: uidesign.tabs
+      title: 底部页签（HdsTabs）
+      content: |
+        HdsTabs 支持视图切换，相对原生 Tabs 增强：分割线动态显隐、页签栏背景模糊、图标出血设计、半屏居中对齐。
+        依赖页签栏位于底部（barPosition = BarPosition.End，vertical = false）；跟手滑动需绑定可滚动组件的 Scroller。
+      code: |
+        // import { HdsTabs } from '@kit.UIDesignKit';
+        // Tabs 增强：分割线/模糊/图标出血；barPosition 设为 BarPosition.End
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-hds-tabs-split-line"
+    - id: uidesign.snackbar
+      title: 即时操作（HdsSnackBar）
+      content: |
+        非模态通知组件，用于轻量化反馈：支持图文展示 + 快速操作按钮，可做驻留通知。
+        适合「操作成功可撤销」「后台任务进度」这类不打断流程的提示；不要拿它替代 Dialog。
+      code: |
+        // import { HdsSnackBar } from '@kit.UIDesignKit';
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-snackbar-resident-notification"
+    - id: uidesign.actionbar
+      title: 核心操作栏（HdsActionBar）
+      content: |
+        组合多个按钮的操作栏，主按钮支持展开/收起联动动效。适合编辑类页面底部操作区，
+        主次操作要有明确层级；图标与文字按钮混用时保持 40vp 以上热区。
+      code: |
+        // import { HdsActionBar } from '@kit.UIDesignKit';
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-actionbar-main-buttons"
+    - id: uidesign.list
+      title: 列表（HdsListItem）
+      content: |
+        HdsListItem 封装高端卡片样式，内置横滑删除动效，适配多设备系统风格。
+        与 List + ListItem 的关系：结构仍是 List 容器，HdsListItem 负责卡片外观与滑动交互。
+      code: |
+        // import { HdsListItem } from '@kit.UIDesignKit';
+        // 列表容器仍用 List，子项使用 HdsListItem
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-set-hds-slide-horizon-listitem"
+    - id: uidesign.multiwindow
+      title: 应用内多窗（MultiWindowEntryInAPP）
+      content: |
+        单应用多窗口入口：支持自定义图标、背板颜色与大小，实现应用内多窗并行。
+        适合平板/PC 的分屏与并行任务；手机端需按窗口能力判断是否可用。
+      code: |
+        // import { MultiWindowEntryInAPP } from '@kit.UIDesignKit';
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-multiwindowentryinapp"
+    - id: uidesign.icon
+      title: 图标处理（分层 / 单层）
+      content: |
+        官方提供两类图标处理：分层图标（推荐）与单层图标。分层图标把前景/背景拆分，
+        可做视差、光效与主题换色，视觉更接近系统；单层图标兼容简单场景与存量资源。
+        接入系统风格时优先分层，并保证深浅色下都检查一遍。
+      code: ""
+      source: ""
+    - id: uidesign.visual
+      title: 视效、沉浸光感与自定义 Symbol
+      content: |
+        视觉增强包括：动态模糊、渐变光感、沉浸光感、应用加载自定义 Symbol 等。
+        使用原则：光影服务于信息层级（标题栏/浮层/操作区），不要全屏叠加模糊；
+        Symbol 需提供变体与动效时优先系统 Symbol，再考虑自定义。
+      code: ""
+      source: ""
+    - id: uidesign.faq
+      title: 常见问题与术语
+      content: |
+        常见问题：① 与 ArkUI 原生组件混用导致风格不一致——同一页面统一组件体系；
+        ② 版本门槛——6.0.0(20) 起提供，低版本需降级方案；③ 迁移成本——HDS 组件属性与原生不完全一致，
+        升级前先按官方组件页核对 API。术语：HDS（HarmonyOS Design System）、分层图标、出血设计、半模态。
+      code: ""
+      source: ""
+  sources:
+    - { title: UI Design Kit 简介, url: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-introduction", fetched: 2026-11-05 }
+  updated: 2026-11-05
+
+- id: kit.dataaug
+  domain: api
+  title: Data Augmentation Kit（知识增强）
+  summary: 端侧知识库、知识检索、知识问答 RAG、图谱构建（6.0 起）。
+  since: "API 20"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { dataAugmentation } from '@kit.DataAugmentationKit'（按官方页）"
+    example: "import { dataAugmentation } from '@kit.DataAugmentationKit';"
+    pitfalls: [把端侧知识库当通用大模型接口用]
+  version_note: "6.0.0(20) 起新增；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.agent
+  domain: api
+  title: Agent Framework Kit（智能体框架）
+  summary: 应用内智能体能力；26.0.0 对 OnDataCallback 接口有变更。
+  since: "API 20"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { agent } from '@kit.AgentFrameworkKit'（按官方页）"
+    example: "import { agent } from '@kit.AgentFrameworkKit';"
+    pitfalls: [26.0.0 中 OnDataCallback.method 由枚举改 string]
+  version_note: "26.0.0 变更仅在 targetSdkVersion≥26 生效"
+  sources:
+    - { title: 26.0.0 发布说明（转述）, url: "https://developer.huawei.com/consumer/cn/llms/docs-release-notes.txt", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: kit.speech
+  domain: api
+  title: Core Speech Kit（语音基础）
+  summary: 语音识别与合成能力（端侧）。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { speechRecognizer, textToSpeech } from '@kit.CoreSpeechKit'"
+    example: "import { textToSpeech } from '@kit.CoreSpeechKit';"
+    pitfalls: [未处理识别失败与超时]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.vision
+  domain: api
+  title: Core Vision Kit（视觉基础）
+  summary: 图像识别、文字识别、人脸/主体检测等端侧视觉能力。
+  since: "API 12"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { textRecognition } from '@kit.CoreVisionKit'"
+    example: "import { textRecognition } from '@kit.CoreVisionKit';"
+    pitfalls: [大图未缩放导致识别耗时]
+  version_note: "Kit 化自 API 12；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04
+
+- id: kit.enterprise
+  domain: api
+  title: Enterprise Space Kit（企业空间）
+  summary: 企业数据隔离与企业管理能力（6.0 起）。
+  since: "API 20"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "import { enterpriseSpace } from '@kit.EnterpriseSpaceKit'（按官方页）"
+    example: "import { enterpriseSpace } from '@kit.EnterpriseSpaceKit';"
+    pitfalls: [企业数据与个人数据未隔离]
+  version_note: "6.0.0(20) 起新增；细节以官方参考为准"
+  sources: []
+  updated: 2026-11-04

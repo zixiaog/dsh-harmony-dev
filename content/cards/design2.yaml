@@ -1,0 +1,647 @@
+# 设计规范批次 2（38 条）：响应式方法 / 多端 / 图标交互态 / 无障碍 / UX 标准。
+# 与 design.yaml 同 schema；数值来自官方设计规范正文。
+- id: design.responsive.stretch
+  domain: design
+  title: 响应式·自适应拉伸
+  summary: 文字、按钮、间距、图标宫格随容器宽度拉伸。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 拉伸以参照物宽度为准，左右或均分拉伸，不改变字号与图标尺寸。
+    example: "- 正确：按钮宽度 100% 撑满\n- 错误：按钮固定 200vp 导致右侧留白"
+    pitfalls: [拉伸同时放大字号, 在固定宽度容器里强行拉伸]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.scale
+  domain: design
+  title: 响应式·自适应缩放
+  summary: 图片、圆形按钮等比缩放，整体放大不超过 150%。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 等比或占比缩放；图片放大 >150% 改用重复布局。
+    example: "- 正确：banner 按容器 16:9 等比\n- 错误：小图放大到 200% 变糊"
+    pitfalls: [无上限放大位图]
+  tokens: []
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.extend-hide
+  domain: design
+  title: 响应式·延伸与隐藏
+  summary: 按优先级显示或隐藏子组件（页签、操作块、推荐栏目）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 空间不足时先隐藏低优先级项，而不是压缩所有项。
+    example: "- 正确：窄屏隐藏「更多」入口\n- 错误：所有页签压成 8vp 宽"
+    pitfalls: [隐藏了唯一入口]
+  tokens: []
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.wrap
+  domain: design
+  title: 响应式·自适应折行
+  summary: 宽度不足时换行（操作块、标签、内容流）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 标签组/操作块用 Flex wrap；折行后保持间距一致。
+    example: "Flex({ wrap: FlexWrap.Wrap }) { ... }"
+    pitfalls: [折行后间距与同行不一致]
+  tokens: [space.elements.gapNormal]
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.indent
+  domain: design
+  title: 响应式·缩进布局
+  summary: 按栅格占位缩进（8/12 列栅格可用 6/8 列缩进）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 段落文本、上图下文、卡片内容用列缩进对齐。
+    example: ".padding({ left: 32 }) // 12 列栅格下 1 列缩进"
+    pitfalls: [缩进用非列宽数值]
+  tokens: [layout.grids]
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.move
+  domain: design
+  title: 响应式·挪移布局
+  summary: 宽高比变化 >200% 时上下 ↔ 左右互换。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 横竖屏切换时把「上图下文」改为「左图右文」。
+    example: "if (aspect > 2) Row() { Image(); Column() { Text() } } else Column() { Image(); Text() }"
+    pitfalls: [挪移后视觉层级变化未复核]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.repeat
+  domain: design
+  title: 响应式·重复布局
+  summary: 同构组件横向并列（原图放大 >150% 时）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 平板/PC 上把单列卡片改为 2~4 列重复。
+    example: "Grid().columnsTemplate(this.cols >= 840 ? '1fr 1fr 1fr' : '1fr')"
+    pitfalls: [列数固定不随断点]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.responsive.split
+  domain: design
+  title: 响应式·分栏布局
+  summary: 水平 vp≥600 时列表-详情分栏。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 有上下级层级的界面用分栏；Navigation mode Auto 可自动切换。
+    example: "Navigation().mode(NavigationMode.Auto)"
+    pitfalls: [手机也强制分栏]
+  tokens: [layout.splitThresholdVp]
+  sources:
+    - { title: 响应式布局方法, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-responsive-layout-method-0000001795698449.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.foldable.hover
+  domain: design
+  title: 折叠屏·悬停态
+  summary: 折叠设备半折时支持悬停使用（上半显示、下半操作）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 监听折叠状态与悬停状态，把关键信息放上半区、操作放下半区。
+    example: "// mediaquery 监听折叠状态后切换上下分区"
+    pitfalls: [关键按钮落在折痕附近]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 折叠屏设计原则, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-principles-0000001957023989.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.foldable.crease
+  domain: design
+  title: 折叠屏·折痕避让
+  summary: 关键内容不得放在转轴/折痕区。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 展开态按折痕位置把内容分到两侧；三折叠按两处折痕分区。
+    example: "// 折痕位置查询后调整容器布局"
+    pitfalls: [跨折痕放长文本, 折痕处放可点元素]
+  tokens: [space.screenMargin]
+  sources:
+    - { title: 布局基础（折叠设备安全区）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.tablet.split
+  domain: design
+  title: 平板·分屏与多窗
+  summary: 平板横排支持 1:2、1:1、2:1 分屏，按分屏后窗口算布局。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 内容区按分屏后宽度重新断点，不按物理屏宽。
+    example: "const w = windowWidth; // 分屏后窗口宽度"
+    pitfalls: [用屏幕宽度判断断点]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 布局基础（平板安全区）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.pc.window
+  domain: design
+  title: PC·窗口框架
+  summary: PC 应用使用窗口框架：标题栏、状态栏接入与自由缩放。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 窗口可缩放，布局随窗口尺寸变化；标题栏与状态栏按官方接入规范。
+    example: "// 监听窗口尺寸变化后重算断点"
+    pitfalls: [假设全屏, 固定窗口尺寸]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 电脑窗口框架, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/window-0000002321868010.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.pc.input
+  domain: design
+  title: PC·键鼠交互
+  summary: PC 支持鼠标悬停、右键菜单、键盘快捷键与 Tab 焦点。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 所有可点元素提供 hover/焦点态；常用操作可配快捷键；右键菜单不替代主入口。
+    example: ".onHover((isHover: boolean) => { this.hover = isHover })"
+    pitfalls: [只有触摸交互, 快捷键无提示]
+  tokens: [color.interactive_hover]
+  sources:
+    - { title: 人机交互·鼠标, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/hmi-mouse-0000001930021626.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.icon.symbol
+  domain: design
+  title: 图标·HarmonyOS Symbol
+  summary: 系统图标用 HarmonyOS Symbol，按尺寸档位使用线性/面性。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 常用尺寸 16/24/32vp；图标与文本组合时垂直居中、间距 4~8vp。
+    example: "Image($r('sys.symbol.chevron_right')).width(24).height(24)"
+    pitfalls: [自绘图标风格与系统不一致, 图标尺寸非档位]
+  tokens: [space.elements.gapNormal]
+  sources:
+    - { title: HarmonyOS Symbol, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/system-icons-0000001929854962.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.icon.app
+  domain: design
+  title: 图标·应用图标
+  summary: 应用图标按官方栅格与圆角规范输出多尺寸资源。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 提供分层图标资源（前景/背景），适配深浅色与主题。
+    example: "// module.json5 配置 icon 与分层资源"
+    pitfalls: [只提供单尺寸, 图标含小字]
+  tokens: []
+  sources:
+    - { title: 应用图标, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/application-icon-0000001953444009.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.color.interactive
+  domain: design
+  title: 色彩·交互态
+  summary: 悬停/按压/获焦/选中四类交互态用专用 token。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: hover 用 interactive_hover、按压用 interactive_pressed、获焦/激活用 brand 系、选中用 interactive_select。
+    example: ".backgroundColor(this.pressed ? $r('app.color.interactive_pressed') : Color.Transparent)"
+    pitfalls: [用透明度随手叠色]
+  tokens: [color.interactive_hover, color.interactive_pressed, color.interactive_focus, color.interactive_select]
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.color.comp-emphasize
+  domain: design
+  title: 色彩·控件高亮底
+  summary: 高亮底分 100% / 20% / 10% 三档（comp_background_emphasize 系）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 主操作 100%、次级容器 20%、弱强调 10%。
+    example: ".backgroundColor($r('app.color.comp_emphasize_secondary'))"
+    pitfalls: [同一屏混用多档高亮导致主次不分]
+  tokens: [color.comp_background_emphasize, color.comp_emphasize_secondary, color.comp_emphasize_tertiary]
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.color.severity
+  domain: design
+  title: 色彩·告警分级
+  summary: warning（一级）与 alert（二级）区分严重程度。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 需要立即处理用 warning，一般提醒用 alert；成功/完成用 confirm。
+    example: "- 错误：删除确认按钮用 brand 色\n- 正确：删除按钮用 alert 色"
+    pitfalls: [所有提示都用红色]
+  tokens: [color.warning, color.alert, color.confirm]
+  sources:
+    - { title: 色彩, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.text.punctuation
+  domain: design
+  title: 文本·标点与段落规则
+  summary: 行首标点缩进/禁则、行尾悬挂、中西文混排空格、中文两端对齐。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 交给系统排版引擎处理；长文本避免手动插入空格/换行。
+    example: "- 错误：手动在中英文间加空格\n- 正确：使用系统文本排版能力"
+    pitfalls: [手动控制换行与缩进]
+  tokens: []
+  sources:
+    - { title: 文本排版（排版规则）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/typography-0000002622688363.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.text.i18n
+  domain: design
+  title: 文本·多语言适配
+  summary: 文案走资源文件，预留长文本空间，避免硬编码中文。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 德语/俄语等长语言需留 1.5 倍宽度；数字日期用 intl 格式化。
+    example: "Text($r('app.string.title'))"
+    pitfalls: [写死中文, 按钮宽度按中文长度设计]
+  tokens: []
+  sources:
+    - { title: 全球化, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-globalization-0000001748539688.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.wearable
+  domain: design
+  title: 间距·穿戴
+  summary: 穿戴左右 margin 26vp，上下 20vp；元素间距 6/8/12vp。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 圆表/方表都要避让边缘；文本间 2vp 为主。
+    example: ".padding({ left: 26, top: 20 })"
+    pitfalls: [把手机间距直接搬到手表]
+  tokens: [space.screenMargin]
+  sources:
+    - { title: 间隔参数（穿戴）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/interval-parameter-0000002562577161.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.vision
+  domain: design
+  title: 间距·智慧屏
+  summary: 智慧屏左右 margin 48vp，控件间 24/12/8vp。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 大屏观看距离远，间距与字号整体放大；聚焦态要明显。
+    example: ".padding({ left: 48 })"
+    pitfalls: [手机布局直接拉伸到电视]
+  tokens: [space.screenMargin]
+  sources:
+    - { title: 间隔参数（智慧屏）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/interval-parameter-0000002562577161.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.space.cockpit
+  domain: design
+  title: 间距·智能座舱
+  summary: 座舱左右 margin 48vp，强调驾驶场景下的可读性。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 关键操作大热区、低干扰；行车中限制复杂交互。
+    example: ".padding({ left: 48 })"
+    pitfalls: [行车中放复杂表单]
+  tokens: [space.screenMargin]
+  sources:
+    - { title: 智能座舱设计基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/smart-cockpit-ux-basic-0000002622965869.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.radius.sheet
+  domain: design
+  title: 圆角·半模态与浮层
+  summary: 半模态面板/顶层浮层用 32vp 超大圆角。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 半模态顶部圆角 32vp，底部贴合屏幕；弹窗四角 32vp。
+    example: "bindSheet(...).borderRadius({ topLeft: 32, topRight: 32 })"
+    pitfalls: [半模态用 16vp 与卡片混同]
+  tokens: [radius.sheet]
+  sources:
+    - { title: 圆角参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/corner-radius-parameter-0000002556468705.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.radius.buttongroup
+  domain: design
+  title: 圆角·按钮组与相邻元素
+  summary: 相邻按钮圆角一致，嵌套容器内层圆角按层级递减。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 按钮组内所有按钮同圆角；卡片内嵌按钮用 20vp 而非 16vp。
+    example: "- 错误：卡片内按钮 16vp\n- 正确：按钮统一 20vp"
+    pitfalls: [同屏按钮圆角混用]
+  tokens: [radius.button, radius.card]
+  sources:
+    - { title: 圆角参数, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/corner-radius-parameter-0000002556468705.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.motion.transition
+  domain: design
+  title: 动效·转场
+  summary: 页面转场用全屏 350ms + 标准曲线；共享元素保持位置连续。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 页面进入用减速曲线；返回用标准曲线；共享元素避免跳变。
+    example: "pageTransition() { PageTransitionEnter({ duration: 350 }) }"
+    pitfalls: [转场时长随手 250ms, 共享元素位置跳变]
+  tokens: [motion.duration.rangeFullscreen, motion.curves.standard]
+  sources:
+    - { title: 转场动效, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/transition-animation-0000001750078488.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.motion.gesture
+  domain: design
+  title: 动效·手势跟手
+  summary: 拖拽/滑动用弹性曲线，支持速度继承与打断。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 跟手运动用 springMotion，松手后自然衰减；不指定固定 duration。
+    example: "animateTo({ curve: springMotion(0.555, 0.53) }, () => { this.offset = end; })"
+    pitfalls: [跟手用固定时长曲线导致拖影]
+  tokens: [motion.spring]
+  sources:
+    - { title: 手势动效, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/gesture-animation-0000001797038213.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.motion.interrupt
+  domain: design
+  title: 动效·可打断
+  summary: 交互动效必须支持打断并继承当前速度，避免卡顿感。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 使用弹性曲线或支持中断的动画参数；快速连续操作不排队等待。
+    example: "// 使用 springMotion，连续点击自然衔接"
+    pitfalls: [动画队列堆积导致延迟]
+  tokens: [motion.spring]
+  sources:
+    - { title: 动效属性, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/animation-attributes-0000001797117229.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.layout.maxwidth
+  domain: design
+  title: 布局·内容最大宽度
+  summary: 栅格内容区最大使用宽度 2220vp，超出后左右留白。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 大屏/PC 上限制内容宽度，避免行长过长。
+    example: ".constraintSize({ maxWidth: 2220 })"
+    pitfalls: [PC 全宽拉伸导致阅读困难]
+  tokens: [layout.maxContentWidthVp]
+  sources:
+    - { title: 布局基础（栅格最大宽度）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.layout.immersive
+  domain: design
+  title: 布局·沉浸式与安全区
+  summary: 沉浸式需展开安全区并手动避让系统栏。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 背景延伸到状态栏，但内容要加安全区内边距。
+    example: ".expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.TOP, SafeAreaEdge.BOTTOM])"
+    pitfalls: [标题被状态栏遮挡]
+  tokens: [space.screenMargin]
+  sources:
+    - { title: 布局基础（安全区）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.dark.assets
+  domain: design
+  title: 深色·图片与图标
+  summary: 深色模式需替换图片/插画，图标颜色跟随语义 token。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 提供 dark 目录下的图片资源；图标用 fontColor/brand token。
+    example: "$r('app.media.logo') // resources/dark/media/logo 提供深色版"
+    pitfalls: [深色下仍显示白底图片]
+  tokens: [color.icon_primary]
+  sources:
+    - { title: 深色模式, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/dark-mode-0000001823255497.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.dark.contrast
+  domain: design
+  title: 深色·对比度复核
+  summary: 深色模式需重新核对文本与背景对比度（≥3:1）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 暗底亮字的对比与亮底暗字不同，需单独验证。
+    example: "// 深色下 font_primary 为 #e5ffffff"
+    pitfalls: [直接复用浅色对比度结论]
+  tokens: [color.font_primary, color.font_secondary]
+  sources:
+    - { title: 色彩（对比度）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/color-0000001776857164.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.a11y.focus
+  domain: design
+  title: 无障碍·焦点顺序
+  summary: 焦点顺序应与视觉与阅读顺序一致，不出现焦点丢失。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 用 tabIndex/focusable 控制顺序；弹窗打开后焦点进入弹窗。
+    example: ".focusable(true).tabIndex(1)"
+    pitfalls: [自定义布局焦点乱跳]
+  tokens: []
+  sources:
+    - { title: 人机交互·焦点导航, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/hmi-focus-0000001748650376.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.a11y.reader
+  domain: design
+  title: 无障碍·读屏文本
+  summary: 图标按钮/图片按钮/自绘控件必须提供可读文本。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: accessibilityText 写功能名而非图标名（如「返回」而不是「左箭头」）。
+    example: ".accessibilityText('返回上一页')"
+    pitfalls: [读屏只读出「图片」]
+  tokens: []
+  sources:
+    - { title: 应用 UX 体验标准（通用）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-general-0000001760708152.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.a11y.fontscale
+  domain: design
+  title: 无障碍·系统大字体
+  summary: 字号用 fp，布局需容纳放大后的文本（不截断）。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 文本容器用自适应高度，避免固定高度裁切；关键按钮宽度留余量。
+    example: ".height('auto') // 不要固定行高"
+    pitfalls: [固定高度裁切放大文本]
+  tokens: [font.Body_M]
+  sources:
+    - { title: 文本排版（大字体）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/typography-0000002622688363.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.atomic.principles
+  domain: design
+  title: 元服务·设计原则
+  summary: 通用友好、简洁高级、安全可靠、轻量高效。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 元服务免安装，首屏直达核心服务；卡片承载状态与快捷操作。
+    example: "// 元服务设计：服务卡片 + 状态机卡片"
+    pitfalls: [把 App 全量功能搬进元服务]
+  tokens: []
+  sources:
+    - { title: 元服务设计原则, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-overview-0000001900378248.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.ux.general
+  domain: design
+  title: 应用 UX 体验标准·通用
+  summary: 通用设备的最低体验要求：启动、导航、反馈、稳定性。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 作为交付前验收清单使用；不达标不应上架。
+    example: "// 对照官方 UX 体验标准逐项自检"
+    pitfalls: [只做视觉不考虑体验标准]
+  tokens: []
+  sources:
+    - { title: 通用应用 UX 体验标准, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-general-0000001760708152.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: design.ux.large
+  domain: design
+  title: 应用 UX 体验标准·大屏
+  summary: 大屏的额外要求：分栏、焦点、键鼠与内容利用。
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 大屏不是放大手机：要利用横向空间做分栏与多列。
+    example: "// 按 840vp 断点启用 12 列栅格"
+    pitfalls: [大屏内容居中一大块留白]
+  tokens: [layout.breakpoints]
+  sources:
+    - { title: 大屏应用 UX 体验标准, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-large-screen-0000001807707561.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

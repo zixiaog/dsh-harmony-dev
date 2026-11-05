@@ -1,0 +1,1855 @@
+{
+  "updated": "2026-11-05",
+  "source": "https://connect-api.cloud.huawei.com/api/developerknowledge/mcp",
+  "note": "由 enrich_kit_topics.mjs 从官方简介页解析；需抽检",
+  "kits": {
+    "kit.arkts": {
+      "doc": "alliance/document/cn/harmonyos-guides/arkts-form-overview",
+      "topics": [
+        {
+          "id": "kit.arkts.intro",
+          "title": "简介与能力全景",
+          "content": "以下内容介绍基于ArkTS声明式开发范式语言开发卡片。 1. 统一开发范式 * ArkTS卡片统一了卡片和应用页面的开发范式，应用页面的布局可以直接复用到卡片布局中，提升开发体验和开发效率。具体请参考图1 卡片工程结构对比。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/arkts-form-overview"
+        },
+        {
+          "id": "kit.arkts.long-time-task-overview",
+          "title": "长时任务",
+          "content": "在应用业务实现过程中，需要较长时间不定时运行的任务称为长时任务。如果在UI主线程中执行这些长时任务，会阻塞UI业务，导致卡顿和丢帧等问题，影响用户体验。因此，通常需要将这些独立的长时任务放到单独的子线程中执行。 上述业务场景均为独立的长时任务，任务执行周期长，与外部交互简单。将这些任务分发至后台线程执行后，可根据需求适时获取其执行结果。使用TaskPool可以简化开发工作量，避免管理复杂的生命周期，避免线程数量过多。开发者只需要将上述独立的长时任务放入TaskPool队列，再等待结果即可。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/long-time-task-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkts.arkts-ui-liveform-overview",
+          "title": "互动卡片概述",
+          "content": "从API version 20开始，支持互动卡片。互动卡片提供卡片动效能力，例如卡片破框动效，丰富信息提醒、浅层交互功能，显著提升用户体验。 互动卡片包含两种类型：趣味交互类型互动卡片和场景动效类型互动卡片。 趣味交互类型互动卡片，提供卡片小游戏功能，当用户点击卡片时，开始体验对应卡片小游戏。当前仅支持基于快游戏开发。详细请参考趣味交互类型互动卡片开发指导。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-ui-liveform-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkts.har-package",
+          "title": "HAR",
+          "content": "HAR（Harmony Archive）是静态共享包，可以包含代码、C++库、资源和配置文件。通过HAR可以实现多个模块或多个工程共享ArkUI组件、资源等相关代码。 * 支持应用内共享，也可以作为二方库（SDK）、三方库（SDK）发布后供其他应用使用。 * 作为二方库（SDK），发布到OHPM私仓，供公司内部其他应用使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/har-package",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkts.in-app-hsp",
+          "title": "HSP",
+          "content": "HSP（Harmony Shared Package）是动态共享包，包含代码、C++库、资源和配置文件，通过HSP可以实现代码和资源的共享。HSP不支持独立发布上架，而是跟随宿主应用的APP包一起发布，与宿主应用同进程，具有相同的包名和生命周期。 > * 应用内HSP：在编译过程中与应用包名（bundleName）强耦合，只能给某个特定的应用使用。 > * 集成态HSP：构建、发布过程中，不与特定的应用包名耦合；使用时，工具链支持自动将集成态HSP的包名替换成宿主应用包名，并且会重新签名生成一个新的HSP包，作为宿主应用的安装包，这个新的HSP也属于宿主应用HAP的应用内HSP。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/in-app-hsp",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkts.arkts-ui-development-overview",
+          "title": "声明式开发范式",
+          "content": "基于ArkTS的声明式开发范式的方舟开发框架是一套开发极简、高性能、支持跨设备的UI开发框架，提供了构建应用UI所必需的能力，主要包括： ArkTS是优选的主力应用开发语言，围绕应用开发在TypeScript（简称TS）生态基础上做了进一步扩展。扩展能力包含声明式UI描述、自定义组件、动态扩展UI元素、状态管理和渲染控制。状态管理作为基于ArkTS的声明式开发范式的特色，通过功能不同的装饰器给开发者提供了清晰的页面更新渲染流程和管道。状态管理包括UI组件状态和应用程序状态，两者协作可以使开发者完整地构建整个应用的数据更新和UI渲染。ArkTS语言的基础知识请参考初识ArkTS语言。 布局是UI的必要元素，它定义了组件在界面中的位置。ArkUI框架提供了多种布局方式，除了基…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-ui-development-overview",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.ability": {
+      "doc": "alliance/document/cn/harmonyos-references/js-apis-ability-ability",
+      "topics": [
+        {
+          "id": "kit.ability.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ Ability模块将二级模块API组织在一起方便开发者进行导出。 > 说明",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-ability-ability"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.arkdata": {
+      "doc": "alliance/document/cn/harmonyos-guides/data-mgmt-overview",
+      "topics": [
+        {
+          "id": "kit.arkdata.intro",
+          "title": "简介与能力全景",
+          "content": "ArkData （方舟数据管理）为开发者提供数据存储、数据管理和数据同步能力，比如联系人应用数据可以保存到数据库中，提供数据库的安全、可靠以及共享访问等管理机制，也支持与手表同步联系人信息。 * 标准化数据定义：提供HarmonyOS跨应用、跨设备的统一数据类型标准，包含标准化数据类型和标准化数据结构。 * 数据存储：提供通用数据持久化能力，根据数据特点，分为用户首选项、键值型数据库、关系型数据库。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/data-mgmt-overview"
+        },
+        {
+          "id": "kit.arkdata.ide-emulator-specification#section122761",
+          "title": "模拟器与真机的差异",
+          "content": "模拟器是开发和调试HarmonyOS应用/元服务的便捷工具，例如不需要配置服务器域名即可开发和调试元服务，在大多数情况下，模拟器上推包调试不需要签名，但部分Kit仍需签名后才能正常运行，具体要求请参考Kit的开发指南。 由于模拟器和真机在硬件和能力上存在差异，部分功能场景仍需在真机上进行开发。您可以通过阅读本文档来决定哪些功能在模拟器中测试，哪些功能在真机上测试。 模拟器是运行在Mac或Windows电脑上的虚拟机应用，会使用电脑的硬件资源，包括CPU、内存和网络连接等。这些资源在容量和速度上可能与真机存在显著差异。因此，模拟器不适合用于测试应用/元服务的性能（如数据处理、图形渲染、网络速度）、资源占用（如内存、CPU、功耗），模拟器的性能测试结果仅能用于评估应用功能的相…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-emulator-specification#section1227613205203",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.arkweb": {
+      "doc": "alliance/document/cn/harmonyos-guides/arkweb-glossary",
+      "topics": [
+        {
+          "id": "kit.arkweb.intro",
+          "title": "简介与能力全景",
+          "content": "Web组件作为通用组件接收的ArkUI手势，作用于Web组件本身而非网页。 ArkWeb（方舟Web）提供了Web组件，用于在应用中显示Web页面内容。 ArkWeb组件接收触摸事件自动生成的手势，作用于网页上。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/arkweb-glossary"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.arkui": {
+      "doc": "alliance/document/cn/harmonyos-guides/arkts-mvvm",
+      "topics": [
+        {
+          "id": "kit.arkui.intro",
+          "title": "简介与能力全景",
+          "content": "当开发者掌握了状态管理的基本概念后，通常会尝试开发自己的应用，在应用开发初期，如果未能精心规划项目结构，随着项目扩展和复杂化，状态变量的增多将导致组件间关系变得错综复杂。此时，开发新功能可能引起连锁反应，维护成本也会增加。为此，本文旨在介绍MVVM模式以及ArkUI的UI开发模式与MVVM的关系，指导开发者如何设计项目结构，以便在产品迭代和升级时能更轻松地开发和维护。 本文档涵盖了大多数状态管理V1装饰器，所以在阅读本文档前，建议开发者",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/arkts-mvvm"
+        },
+        {
+          "id": "kit.arkui.arkts-state-management-overview",
+          "title": "状态管理概述",
+          "content": "在前文的描述中，构建的页面主要为静态界面。如果要构建一个动态的、有交互的界面，就需要引入\"状态\"的概念。 上面的示例中，用户与应用程序的交互触发了文本状态变更，状态变更引起了UI渲染，UI从\"Hello World\"变更为\"Hello ArkUI\"。 在声明式UI编程框架中，UI是程序状态的运行结果，用户构建了一个UI模型，其中应用的运行时状态作为参数。当参数改变时，UI作为返回结果，也将进行对应的改变。这些运行时的状态变化导致的UI重新渲染，在ArkUI中统称为状态管理机制。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkui.arkts-state",
+          "title": "@State",
+          "content": "被状态变量装饰器装饰的变量称为状态变量，使普通变量具备状态属性。当状态变量改变时，会触发其直接绑定的UI组件渲染更新。 在状态变量相关装饰器中，@State是最基础的装饰器，也是大部分状态变量的数据源。 在阅读@State文档前，建议开发者对状态管理框架有基本的了解。建议提前阅读：状态管理概述。最佳实践请参考状态管理最佳实践。常见问题请参考状态管理常见问题。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkui.arkts-prop",
+          "title": "@Prop",
+          "content": "@Prop装饰的变量可以和父组件建立单向同步关系。 在阅读@Prop文档前，建议开发者首先了解@State的基本用法。最佳实践请参考状态管理最佳实践。常见问题请参考状态管理常见问题。 > 从API version 9开始，该装饰器支持在ArkTS卡片中使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-prop",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkui.arkts-link",
+          "title": "@Link",
+          "content": "子组件中被@Link装饰的变量与其父组件中对应的数据源建立双向数据绑定。 在阅读@Link文档前，建议先熟悉@State的基本用法。最佳实践请参考状态管理最佳实践。常见问题请参考状态管理常见问题。 > 从API version 9开始，该装饰器支持在ArkTS卡片中使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-link",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.network": {
+      "doc": "alliance/document/cn/harmonyos-guides/net-mdns",
+      "topics": [
+        {
+          "id": "kit.network.intro",
+          "title": "简介与能力全景",
+          "content": "MDNS即多播DNS（Multicast DNS），提供局域网内的本地服务添加、移除、发现、解析等能力。 * 本地服务：局域网内服务的提供方，比如打印机、扫描仪等。 MDNS管理的典型场景有：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/net-mdns"
+        },
+        {
+          "id": "kit.network.uiability-usage#获取uiability的上下文信息",
+          "title": "获取UIAbility的上下文信息",
+          "content": "本文主要介绍UIAbility组件的基本用法，包括： * 获取UIAbility的上下文UIAbilityContext。 * 获取UIAbility拉起方的信息。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/uiability-usage#获取uiability的上下文信息",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.media": {
+      "doc": "alliance/document/cn/harmonyos-references/arkts-apis-media-mediasource",
+      "topics": [
+        {
+          "id": "kit.media.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ 媒体数据信息。来源于createMediaSourceWithUrl。 > 说明",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-media-mediasource"
+        },
+        {
+          "id": "kit.media.arkts-apis-media-f#mediacreatemediasourc",
+          "title": "createMediaSourceWithUrl",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 6开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 2in1 tablet tv wearable",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-media-f",
+          "enriched": true
+        },
+        {
+          "id": "kit.media.arkts-apis-media-e#avmimetypes12",
+          "title": "AVMimeTypes",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 6开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-media-e",
+          "enriched": true
+        },
+        {
+          "id": "kit.media.arkts-apis-media-i#mediasourceloader18",
+          "title": "MediaSourceLoader",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 6开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-media-i",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.basic": {
+      "doc": "alliance/document/cn/harmonyos-guides/basic-services-kit-overview",
+      "topics": [
+        {
+          "id": "kit.basic.intro",
+          "title": "简介与能力全景",
+          "content": "Basic Services Kit（基础服务）作为基础服务套件，为应用开发者提供常用的基础能力。比如常用的剪贴板读写、文件上传下载、文件压缩、文件打印、进程间/线程间通信、设备管理、应用账号管理等能力都由本Kit提供。 Basic Services Kit为开发者提供了多种基础能力，满足开发者不同场景的开发需求。 典型使用场景举例：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/basic-services-kit-overview"
+        },
+        {
+          "id": "kit.basic.common-event-overview",
+          "title": "公共事件简介",
+          "content": "CES（Common Event Service，公共事件服务）为应用程序提供订阅、发布、退订公共事件的能力。 公共事件从系统角度可分为：系统公共事件和自定义公共事件。 * 系统公共事件：CES内部定义的公共事件，当前仅支持系统应用和系统服务发布，例如HAP安装、更新、卸载等公共事件。目前支持的系统公共事件请参见系统定义的公共事件。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/common-event-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.basic.itc-with-emitter",
+          "title": "使用Emitter进行线程间通信",
+          "content": "Emitter是一种作用在进程内的事件处理机制，为应用程序提供订阅事件、发布事件、取消事件订阅的能力。 Emitter用于同一进程内相同线程或不同线程间的事件处理，事件异步执行。使用时需要先订阅一个事件，然后发布该事件，发布完成后Emitter会将已发布的事件分发给订阅者，订阅者就会执行该事件订阅时设置的回调方法。当不需要订阅该事件时应及时取消订阅释放Emitter资源。 Emitter通过维护一个内部事件队列，来进行任务分发。应用需要先订阅某个事件并设置好该事件的回调方法，当应用程序发布事件后，就会往队列里面插入一个事件。任务队列会串行执行队列里面的任务，执行任务时会调用该任务订阅者的回调方法进行事件处理。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/itc-with-emitter",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.audio": {
+      "doc": "alliance/document/cn/harmonyos-references/arkts-apis-audio-f",
+      "topics": [
+        {
+          "id": "kit.audio.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 2in1 tablet tv wearable > 说明 >",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-audio-f"
+        },
+        {
+          "id": "kit.audio.arkts-apis-audio-audiomanager",
+          "title": "AudioManager",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 7开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 2in1 tablet tv wearable",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-audio-f",
+          "enriched": true
+        },
+        {
+          "id": "kit.audio.arkts-apis-audio-i#audiorendereroptions8",
+          "title": "AudioRendererOptions",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 7开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-audio-i",
+          "enriched": true
+        },
+        {
+          "id": "kit.audio.arkts-apis-audio-audiorenderer",
+          "title": "AudioRenderer",
+          "content": "开发者可以了解音频流输出设备变更信息，并完成相应适配，比如：应用在播放音乐时发现输出设备下线，为避免打扰用户，应该立即暂停音乐。 开发者可使用AudioRenderer的on('outputDeviceChangeWithInfo')或AudioSessionManager的on('currentOutputDeviceChanged')，用于监听音频流输出设备变化及原因。当系统出现音频输出设备的上下线、用户强选、设备抢占或设备选择策略变更等情况，导致音频流输出设备变更时，系统将通过该接口通知应用当前音频流设备变更信息，包含当前音频流输出设备信息和设备变更原因。 在AudioRenderer的on('outputDeviceChangeWithInfo')或AudioSe…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/audio-output-device-change",
+          "enriched": true
+        },
+        {
+          "id": "kit.audio.arkts-apis-audio-e#sourcetype8",
+          "title": "SourceType",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 7开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-audio-e",
+          "enriched": true
+        },
+        {
+          "id": "kit.audio.arkts-apis-audio-i#audiocaptureroptions8",
+          "title": "AudioCapturerOptions",
+          "content": "> phone 2in1 tablet tv wearable > 本模块首批接口从API version 7开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。 > phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-audio-i",
+          "enriched": true
+        },
+        {
+          "id": "kit.audio.arkts-apis-audio-audiocapturer",
+          "title": "AudioCapturer",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ 在使用AudioCapturer的接口之前，需先通过createAudioCapturer获取AudioCapturer实例。 > * 本模块首批接口从API version 7开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-audio-audiocapturer",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.camera": {
+      "doc": "alliance/document/cn/harmonyos-references/js-apis-camerapicker",
+      "topics": [
+        {
+          "id": "kit.camera.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 23+ 本模块提供相机拍照与录制的能力。应用可选择媒体类型实现拍照和录制的功能。调用此类接口时，应用必须在界面UIAbility中调用，否则无法启动cameraPicker应用。 > 说明",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-camerapicker"
+        },
+        {
+          "id": "kit.camera.js-apis-inner-application-context",
+          "title": "Context",
+          "content": "Context是应用中对象的上下文，其提供了应用的一些基础信息，例如resourceManager（资源管理）、applicationInfo（当前应用信息）、area（文件分区）等。 UIAbility组件和各种ExtensionAbility派生类组件都有各自不同的Context类。分别有基类Context、ApplicationContext、AbilityStageContext、UIAbilityContext、ExtensionContext等Context。各类Context的继承和持有关系详见不同类型Context的继承和持有关系。 不同类型Context的获取方式与使用场景说明，如下表所示。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/application-context-stage",
+          "enriched": true
+        },
+        {
+          "id": "kit.camera.arkts-apis-camera-e#cameraposition",
+          "title": "camera.CameraPosition",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 23+ 相机管理器类，使用前需要通过getCameraManager接口获取相机管理实例。 > 本模块首批接口从API version 10开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-camera-cameramanager",
+          "enriched": true
+        },
+        {
+          "id": "kit.camera.js-apis-file-fileuri#constructor10",
+          "title": "constructor",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 23+ 本模块提供相机拍照与录制的能力。应用可选择媒体类型实现拍照和录制的功能。调用此类接口时，应用必须在界面UIAbility中调用，否则无法启动cameraPicker应用。 > 本模块首批接口从API version 11开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-camerapicker",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.image": {
+      "doc": "alliance/document/cn/harmonyos-references/js-apis-sendableimage",
+      "topics": [
+        {
+          "id": "kit.image.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ 本模块基于Sendable对象，提供图片处理效果，包括通过属性创建PixelMap、读取图像像素数据、读取区域内的图片数据等。 > 说明",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-sendableimage"
+        },
+        {
+          "id": "kit.image.arkts-sendable",
+          "title": "Sendable",
+          "content": "在传统JS引擎中，要优化对象的并发通信开销，唯一的方法是将实现下沉到Native侧，通过Transferable对象的转移或共享来降低开销。然而，开发者仍有大量对象并发通信的需求，这个问题在业界JS引擎中尚未解决。 ArkTS提供了Sendable对象类型，它是一种可在ArkTS并发实例间安全共享和传递的数据类型，它支持引用传递来减少通信成本。 Sendable对象可共享，跨线程前后指向同一个JS对象。如果Sendable对象通过调用Napi接口与一个Native对象绑定，当共享传递Sendable对象时，其绑定的Native对象也会一并共享传递。通信过程如下图所示：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-sendable",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.location": {
+      "doc": "alliance/document/cn/harmonyos-guides/location-kit-intro",
+      "topics": [
+        {
+          "id": "kit.location.intro",
+          "title": "简介与能力全景",
+          "content": "移动终端设备已经深入人们日常生活的方方面面，如查看所在城市的天气、新闻轶事、出行打车、旅行导航、运动记录。这些习以为常的活动，都离不开定位用户终端设备的位置。 当用户处于这些丰富的使用场景中时，系统的位置能力可以提供实时准确的位置数据。对于开发者，设计基于位置体验的服务，也可以使应用的使用体验更贴近每个用户。 当应用在实现基于设备位置的功能时，如：驾车导航，记录运动轨迹等，可以调用该模块的API接口，完成位置信息的获取。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/location-kit-intro"
+        },
+        {
+          "id": "kit.location.location-kit-appendix#支持的国家地区",
+          "title": "支持的国家/地区",
+          "content": "> 支持的设备中Wearable设备支持以下国家/地区，其他设备仅支持中国境内（不包含中国香港、中国澳门、中国台湾）。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/location-kit-appendix#支持的国家地区",
+          "enriched": true
+        },
+        {
+          "id": "kit.location.ide-emulator-specification",
+          "title": "模拟器与真机的差异",
+          "content": "模拟器是开发和调试HarmonyOS应用/元服务的便捷工具，例如不需要配置服务器域名即可开发和调试元服务，在大多数情况下，模拟器上推包调试不需要签名，但部分Kit仍需签名后才能正常运行，具体要求请参考Kit的开发指南。 由于模拟器和真机在硬件和能力上存在差异，部分功能场景仍需在真机上进行开发。您可以通过阅读本文档来决定哪些功能在模拟器中测试，哪些功能在真机上测试。 模拟器是运行在Mac或Windows电脑上的虚拟机应用，会使用电脑的硬件资源，包括CPU、内存和网络连接等。这些资源在容量和速度上可能与真机存在显著差异。因此，模拟器不适合用于测试应用/元服务的性能（如数据处理、图形渲染、网络速度）、资源占用（如内存、CPU、功耗），模拟器的性能测试结果仅能用于评估应用功能的相…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-emulator-specification",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.push": {
+      "doc": "alliance/document/cn/promotion/service-introduction-0000001486185666",
+      "topics": [
+        {
+          "id": "kit.push.intro",
+          "title": "简介与能力全景",
+          "content": "Push用户增长平台基于智能大数据分析、华为消息推送中台和PushKit客户端构建了端、管、云、数相结合的用户增长平台，通过广泛的设备触达、精准的人群圈选、丰富的内容样式、智能的展示时机，助力开发者应用用户增长。 针对安装应用后从未打开过或多天未使用应用的用户，Push用户增长平台可以通过精准的人群匹配算法、个性化的文案内容、合理的展示时机和丰富的展示样式，提升消息曝光度，吸引用户点击，从而增加应用活跃用户数。 Push用户增长平台主要",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/promotion/service-introduction-0000001486185666"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.notification": {
+      "doc": "alliance/document/cn/harmonyos-guides/notification-overview",
+      "topics": [
+        {
+          "id": "kit.notification.intro",
+          "title": "简介与能力全景",
+          "content": "Notification Kit（用户通知服务）为开发者提供本地通知发布通道，开发者可借助Notification Kit将应用产生的通知直接在客户端本地推送给用户，本地通知根据通知类型及发布场景会产生对应的铃声、振动、横幅、锁屏、自动亮屏、状态栏图标和通知中心的显示。 当应用进程处于运行时，开发者可以使用Notification Kit向用户发布通知。当应用进程终止后，本地通知发布通道关闭，开发者需要接入Push Kit进行云侧离线通",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/notification-overview"
+        },
+        {
+          "id": "kit.notification.notification-glossary#notification-kit用户",
+          "title": "用户通知服务",
+          "content": "用于指定通知的内容布局类型，决定了通知在通知中心中的展示样式。应用发布通知时，需根据展示需求选择对应的内容类型（如普通文本、长文本、多行文本、图片、实况窗等），并与对应类型的通知内容对象配合使用。 将通知消息在手机、穿戴、平板、PC 等多设备形态间同步转发的机制，用于实现多设备通知共享。 应用发布通知时指定的非默认音频提示资源，来源可为应用预置资源文件或沙箱内的音频文件。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/notification-glossary#notification-kit用户通知服务",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.notification-glossary#local-notification",
+          "title": "本地通知",
+          "content": "用于指定通知的内容布局类型，决定了通知在通知中心中的展示样式。应用发布通知时，需根据展示需求选择对应的内容类型（如普通文本、长文本、多行文本、图片、实况窗等），并与对应类型的通知内容对象配合使用。 将通知消息在手机、穿戴、平板、PC 等多设备形态间同步转发的机制，用于实现多设备通知共享。 应用发布通知时指定的非默认音频提示资源，来源可为应用预置资源文件或沙箱内的音频文件。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/notification-glossary#local-notification本地通知",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.notification-glossary#notification-cente",
+          "title": "通知中心",
+          "content": "用于指定通知的内容布局类型，决定了通知在通知中心中的展示样式。应用发布通知时，需根据展示需求选择对应的内容类型（如普通文本、长文本、多行文本、图片、实况窗等），并与对应类型的通知内容对象配合使用。 将通知消息在手机、穿戴、平板、PC 等多设备形态间同步转发的机制，用于实现多设备通知共享。 应用发布通知时指定的非默认音频提示资源，来源可为应用预置资源文件或沙箱内的音频文件。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/notification-glossary#notification-center通知中心",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.push-kit-introduction",
+          "title": "Push Kit",
+          "content": "Push Kit（推送服务）是华为提供的消息推送平台，建立了从云端到终端的消息推送通道。所有HarmonyOS应用可通过集成Push Kit，实现向应用实时推送消息，使消息易见，构筑良好的用户关系，提升用户的感知度和活跃度。 请参考使用入门章节快速了解接入Push Kit的必要步骤。 Push Kit通过提供系统级长连接，实现即使应用进程不存在，也能实时推送消息。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-kit-introduction",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.notification-glossary#notification-autho",
+          "title": "通知授权",
+          "content": "用于指定通知的内容布局类型，决定了通知在通知中心中的展示样式。应用发布通知时，需根据展示需求选择对应的内容类型（如普通文本、长文本、多行文本、图片、实况窗等），并与对应类型的通知内容对象配合使用。 将通知消息在手机、穿戴、平板、PC 等多设备形态间同步转发的机制，用于实现多设备通知共享。 应用发布通知时指定的非默认音频提示资源，来源可为应用预置资源文件或沙箱内的音频文件。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/notification-glossary#notification-authorization通知授权",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.text-notification",
+          "title": "文本",
+          "content": "文本类型通知主要应用于发送短信息、提示信息等，支持普通文本类型和多行文本类型。 通知发布接口说明详见下表，通知发布的详情可通过入参NotificationRequest来进行指定，可以包括通知内容、通知ID、通知的通道类型和通知发布时间等信息。 import { notificationManager } from '@kit.NotificationKit';",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/text-notification",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.notification-badge",
+          "title": "通知角标",
+          "content": "针对未读的通知，系统提供了角标设置接口，将未读通知个数显示在桌面图标的右上角角标上。 通知增加时，角标上显示的未读通知个数需要增加。 通知被查看后，角标上显示的未读通知个数需要减少，没有未读通知时，不显示角标。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/notification-badge",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.progress-bar-notification",
+          "title": "进度条",
+          "content": "进度条通知也是常见的通知类型，主要应用于文件下载、事务处理进度显示。当前系统提供了进度条模板，发布通知应用应设置好进度条模板的属性值，如模板名、模板数据，通过通知子系统发送到通知栏显示。 目前系统模板仅支持进度条模板，通知模板NotificationTemplate中的data参数为用户自定义数据，用于显示与模板相关的数据。 isSupportTemplate()是查询是否支持对应的通知模板，目前仅支持进度条模板。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/progress-bar-notification",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.push-apply-right#通知消息分类标准与提醒方式",
+          "title": "消息分类标准",
+          "content": "Push Kit支持多种场景化消息类型，其中部分场景化消息类型需要您申请特殊权益才能正常发送。具体见下表： 有关场景化消息权益的内容及申请方式，请见下方具体章节。 为了改善终端用户推送体验、营造良好可持续的通知生态，Push Kit对通知消息进行分类管理。根据消息内容，Push Kit将通知消息分类为**服务与通讯** 、**资讯营销** 两大类别。如您希望通知消息能更精准地符合业务需要，可以根据通知消息分类标准，自行对消息进行分类。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-apply-right#通知消息分类标准与提醒方式",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.notification-slot#通知渠道类型说明",
+          "title": "通知渠道类型说明",
+          "content": "系统支持多种通知渠道，不同通知渠道对应的通知提醒方式不同，可以根据应用的实际场景选择适合的通知渠道，并对通知渠道进行管理（支持创建、查询、删除等操作）。 不同类型的通知渠道对应的通知提醒方式不同，详见下表。其中，Y代表支持，N代表不支持。 > 用户可以通过\"设置 > 通知和状态栏\"进入对应的应用，管理该应用的通知渠道。当应用中的\"允许通知\"开关开启时，横幅通知默认关闭（不支持应用配置、用户可手动开启），锁屏通知、桌面角标、铃声和振动等默认开启。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/notification-slot#通知渠道类型说明",
+          "enriched": true
+        },
+        {
+          "id": "kit.notification.push-punishment-standards",
+          "title": "违规分类、违规行为及违规处罚标准",
+          "content": "> 当您的应用存在违规行为时，Push Kit会向应用的开发者账号发送违规通知邮件或短信，请您按照邮件或短信中提供的步骤查看违规处罚详情。 应用提交整改反馈时，需提供**带有该违规应用上架主体公司盖章**的《整改承诺声明》，具体内容如下： 本公司的应用：应用名称：***（以下简称\"该应用\"）、APP ID/应用包名：***，***版本，在使用Push Kit（推送服务）/Live View Kit（实况窗服务）期间，于__年__月__日，因_______原因（\"违规情况\"）被处罚。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/push-punishment-standards",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.background": {
+      "doc": "alliance/document/cn/harmonyos-guides/background-task-overview",
+      "topics": [
+        {
+          "id": "kit.background.intro",
+          "title": "简介与能力全景",
+          "content": "设备返回主界面、锁屏、应用切换等操作会使应用退至后台。应用退至后台后，如果继续在后台运行，可能会造成设备耗电快、用户界面卡顿等现象。为了降低设备耗电速度、保障用户使用流畅度，系统会对退至后台的应用进行管控，包括进程挂起和进程终止。典型场景包括：应用退至后台一段时间应用进程会被挂起、资源不足时系统会终止部分应用进程（即回收该进程的所有资源）。应用进程挂起后，无法使用软件资源（如公共事件、定时器等）和硬件资源（CPU、网络、GPS、蓝牙等）",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/background-task-overview"
+        },
+        {
+          "id": "kit.background.process-model-overview",
+          "title": "进程",
+          "content": "进程是系统分配资源的基本单位，也是操作系统运行结构的重要基础。下面从应用全局视角介绍系统的进程模型。 应用进程启动后，系统会默认创建主线程并进入消息循环，应用组件运行在主线程上。如果应用需要处理复杂或耗时的任务，开发者可以创建Worker 线程，或将任务提交到Taskpool中执行。关于线程模型的详细说明，请参见线程模型。 在传统的桌面操作系统（如Windows）中，进程模型以应用为中心。应用通过系统API显式创建进程，并在所创建的进程内自行创建窗口、消息循环等组件，开发者需要直接管理进程的创建、调度与退出。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/process-model-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.background.ide-emulator-specification#section122761",
+          "title": "模拟器与真机的差异",
+          "content": "模拟器是开发和调试HarmonyOS应用/元服务的便捷工具，例如不需要配置服务器域名即可开发和调试元服务，在大多数情况下，模拟器上推包调试不需要签名，但部分Kit仍需签名后才能正常运行，具体要求请参考Kit的开发指南。 由于模拟器和真机在硬件和能力上存在差异，部分功能场景仍需在真机上进行开发。您可以通过阅读本文档来决定哪些功能在模拟器中测试，哪些功能在真机上测试。 模拟器是运行在Mac或Windows电脑上的虚拟机应用，会使用电脑的硬件资源，包括CPU、内存和网络连接等。这些资源在容量和速度上可能与真机存在显著差异。因此，模拟器不适合用于测试应用/元服务的性能（如数据处理、图形渲染、网络速度）、资源占用（如内存、CPU、功耗），模拟器的性能测试结果仅能用于评估应用功能的相…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-emulator-specification#section1227613205203",
+          "enriched": true
+        },
+        {
+          "id": "kit.background.agent-powered-reminder",
+          "title": "代理提醒",
+          "content": "应用退到后台或进程终止后，仍然有一些提醒用户的定时类通知，为满足此类功能场景，系统提供了代理提醒的能力。当应用退至后台或进程终止后，系统会代理应用做定时提醒。当前支持的提醒类型包括：倒计时、日历和闹钟。为了防止代理提醒被滥用于广告、营销类提醒，影响用户体验，部分设备上代理提醒增加了管控机制，应用无法直接使用代理提醒，管控后的使用方法请参考管控限制。 * **设备限制**：代理提醒适用于手机、平板、PC/2in1、智慧屏、智能穿戴设备。 1. 手机、平板、PC/2in1设备存在管控，智慧屏、智能穿戴设备无管控限制。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/agent-powered-reminder",
+          "enriched": true
+        },
+        {
+          "id": "kit.background.bgtask-design-formula#接入规范",
+          "title": "接入规范",
+          "content": "为维护华为通知生态秩序，保障用户合法权益和良好的使用体验，根据现行法律法规及《华为开发者服务协议》、《华为APIs使用协议》、《应用审核指南》、《元服务审核指南》，特制定本规范。所有发布上架到华为应用市场且使用后台任务的HarmonyOS应用、联运应用及元服务（以下简称应用）应当遵守本规范。 1. 应用使用计算任务类型长时任务，可申请ohos.permission.KEEP_BACKGROUND_RUNNING_SYSTEM权限。典型场景包括：应用需要在后台执行自动接单等计算类业务。 2. 应用使用特殊场景类型长时任务，可申请ohos.permission.KEEP_BACKGROUND_RUNNING_SPECIAL_SCENARIO权限。典型场景包括：应用需要在后台进…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/bgtask-design-formula#接入规范",
+          "enriched": true
+        },
+        {
+          "id": "kit.background.bgtask-design-formula#违规处罚标准",
+          "title": "Background Tasks Kit违规处罚标准",
+          "content": "为维护华为通知生态秩序，保障用户合法权益和良好的使用体验，根据现行法律法规及《华为开发者服务协议》、《华为APIs使用协议》、《应用审核指南》、《元服务审核指南》，特制定本规范。所有发布上架到华为应用市场且使用后台任务的HarmonyOS应用、联运应用及元服务（以下简称应用）应当遵守本规范。 1. 应用使用计算任务类型长时任务，可申请ohos.permission.KEEP_BACKGROUND_RUNNING_SYSTEM权限。典型场景包括：应用需要在后台执行自动接单等计算类业务。 2. 应用使用特殊场景类型长时任务，可申请ohos.permission.KEEP_BACKGROUND_RUNNING_SPECIAL_SCENARIO权限。典型场景包括：应用需要在后台进…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/bgtask-design-formula#违规处罚标准",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.corefile": {
+      "doc": "alliance/document/cn/harmonyos-guides/core-file-kit-intro",
+      "topics": [
+        {
+          "id": "kit.corefile.intro",
+          "title": "简介与能力全景",
+          "content": "Core File Kit（文件基础服务）为开发者提供一套访问和管理应用文件和用户文件的能力。帮助用户更高效地管理、查找和备份各类文件，使用户能够轻松应对各种文件管理的需求。 在Core File Kit套件中，按文件所有者的不同，有如下文件分类模型，其示意图如下： * 应用文件：文件所有者为应用，包括应用安装文件、应用资源文件、应用缓存文件等。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/core-file-kit-intro"
+        },
+        {
+          "id": "kit.corefile.app-file-overview",
+          "title": "应用文件",
+          "content": "应用文件包括应用安装文件、应用资源文件和应用缓存文件，文件所有者是应用。 * 设备上应用所使用及存储的数据，以文件、键值对、数据库等形式保存在一个应用专属的目录内。该专属目录我们称为\"应用文件目录\"，该目录下所有数据以不同的文件格式存放，这些文件即应用文件。 * \"应用文件目录\"与部分系统文件（应用运行必需的系统文件）所在的目录共同组成一个集合，该集合称为\"应用沙箱目录\"，代表应用可见的所有目录范围。因此，\"应用文件目录\"位于\"应用沙箱目录\"内。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-file-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.user-file-overview",
+          "title": "用户文件",
+          "content": "用户文件：登录到该终端设备的用户所拥有的文件，包括用户私有的图片、视频、音频、文档等。 1. 用户文件存放在用户目录下，归属于该设备上登录的用户。 2. 用户文件存储位置主要分为内置存储、外置存储。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/user-file-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.distributed-fs-overview",
+          "title": "分布式文件系统",
+          "content": "分布式文件系统（hmdfs，HarmonyOS Distributed File System）提供跨设备的文件访问能力，适用于以下场景： * 两台设备组网，用户可以利用一台设备上的编辑软件编辑另外一台设备上的文档。 * 平板保存的音乐，车载系统直接可见并可播放。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/distributed-fs-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.cloud-sync-file-overview",
+          "title": "端云文件协同",
+          "content": "端云文件协同为应用开发提供端云一体的统一文件系统能力，为用户和应用提供一致的文件同步与跨端访问体验。 作为系统级平台能力，端云协同提供同步、缓存、版本管理等能力，帮助应用快速集成端云协同能力，同时保障用户侧体验的一致性及数据的可靠性。 * 全维度同步上云：支持文件内容修改（如编辑、更新）与元数据修改（如重命名）的双向同步。文件发生变更后，系统会自动触发云端同步流程。同时，通过回调接口将同步状态（成功/失败/进度）实时通知给应用，确保端云数据的一致性。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/cloud-sync-file-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.archive-overview",
+          "title": "压缩解压缩能力",
+          "content": "从API版本26.0.0开始支持压缩解压缩模块，为应用提供了数据压缩和解压缩的能力，可用于文件打包分发、减少存储占用、加速网络传输等场景。根据数据来源和处理方式的不同，模块提供了以下三种压缩解压缩方式： * **文件归档类压缩解压缩**：将多个文件或目录打包为一个归档文件，或从归档中解压文件到指定目录。适合文件级别的打包和分发场景，支持目录结构保留和进度回调。如果需要对文件进行归档打包或从归档中解压文件，建议使用此方式。 * **流式压缩解压缩**：对连续数据流（如日志、网络数据流、实时传输数据）进行分段压缩或解压。适合数据量较大或数据边生成边处理的场景，支持分批次输入数据，内存占用可控。如果数据是流式产生的（如实时日志采集、网络传输），或数据量较大无法一次性加载到内存，…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/archive-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.app-sandbox-directory",
+          "title": "应用沙箱目录",
+          "content": "应用沙箱是一种以安全防护为目的的隔离机制，避免数据受到恶意路径穿越访问。在这种沙箱的保护机制下，应用可见的目录范围即为\"应用沙箱目录\"。 * 对于每个应用，系统会在内部存储空间映射出一个专属的\"应用沙箱目录\"，它是\"应用文件目录\"与一部分系统文件（应用运行必需的少量系统文件）所在的目录组成的集合。 * 应用沙箱限制了应用可见的数据范围。在\"应用沙箱目录\"中，应用默认仅能看到自己的应用文件以及少量的系统文件（应用运行必需的少量系统文件）。在全量挂载的设备平台上，文件管理应用可查看其他应用存放在el2/base下的数据。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-sandbox-directory",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.app-sandbox-directory#应用文件目录与应用文件路径",
+          "title": "应用文件目录",
+          "content": "应用沙箱是一种以安全防护为目的的隔离机制，避免数据受到恶意路径穿越访问。在这种沙箱的保护机制下，应用可见的目录范围即为\"应用沙箱目录\"。 * 对于每个应用，系统会在内部存储空间映射出一个专属的\"应用沙箱目录\"，它是\"应用文件目录\"与一部分系统文件（应用运行必需的少量系统文件）所在的目录组成的集合。 * 应用沙箱限制了应用可见的数据范围。在\"应用沙箱目录\"中，应用默认仅能看到自己的应用文件以及少量的系统文件（应用运行必需的少量系统文件）。在全量挂载的设备平台上，文件管理应用可查看其他应用存放在el2/base下的数据。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-sandbox-directory#应用文件目录与应用文件路径",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.app-file-access#接口说明",
+          "title": "接口说明",
+          "content": "应用需要对应用文件目录下的应用文件进行查看、创建、读写、删除、移动、复制、获取属性等访问操作，下文介绍具体方法。 开发者通过基础文件操作接口（ohos.file.fs）实现应用文件访问能力，主要功能如下表所示。 **表1** 基础文件操作接口功能，其中\"√\"表示支持，\"-\"表示不区分同步和异步。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-file-access#接口说明",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.select-user-file",
+          "title": "选择用户文件",
+          "content": "用户需要分享文件、保存图片、视频等用户文件时，开发者可以通过系统预置的选择器，实现该能力。通过Picker访问相关文件，将拉起对应的应用，引导用户完成界面操作，接口本身无需申请权限。Picker选择文件或文件夹获取到的URI只具有**临时读写权限** ，获取持久化权限需要通过FilePicker设置永久授权方式获取。 如果使用系统能力为SystemCapability.FileManagement.UserFileService.FolderSelection的接口时，可使用canIUse接口，确认设备是否具有该系统能力： if (!canIUse('SystemCapability.FileManagement.UserFileService.FolderSelecti…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/select-user-file",
+          "enriched": true
+        },
+        {
+          "id": "kit.corefile.app-file-backup-restore",
+          "title": "应用数据备份恢复",
+          "content": "官方章节《应用数据备份恢复》。该页正文未能自动抽取，建议打开原文核对。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-file-backup-restore"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.arkgraphics3d": {
+      "doc": "alliance/document/cn/harmonyos-guides/arkgraphics3d-overview",
+      "topics": [
+        {
+          "id": "kit.arkgraphics3d.intro",
+          "title": "简介与能力全景",
+          "content": "ArkGraphics 3D（方舟3D图形）基于轻量级的3D引擎以及渲染管线为开发者提供基础3D场景绘制能力，供开发者便捷、高效地构建3D场景并完成渲染。 ArkGraphics 3D以自定义场景模式为核心能力，支持开发者自行构建和管理Scene、Camera、Light等节点，从而对3D场景的渲染效果与交互行为进行完全控制。同时，为了便于快速预览和展示模型，也提供自动场景模式，允许开发者直接加载glTF（.gltf文件和.glb文件）",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/arkgraphics3d-overview"
+        },
+        {
+          "id": "kit.arkgraphics3d.js-apis-inner-scene",
+          "title": "Scene",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ @ohos.graphics.scene将3D开发相关模块的API组织在一起，方便开发者使用。 > 本模块首批接口从API version 12开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-scene",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkgraphics3d.js-apis-inner-scene-nodes",
+          "title": "SceneNode (节点管理)",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ @ohos.graphics.scene将3D开发相关模块的API组织在一起，方便开发者使用。 > 本模块首批接口从API version 12开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-scene",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkgraphics3d.js-apis-inner-scene-resources",
+          "title": "SceneResources",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ @ohos.graphics.scene将3D开发相关模块的API组织在一起，方便开发者使用。 > 本模块首批接口从API version 12开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-scene",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkgraphics3d.js-apis-inner-scene-post-process-setting",
+          "title": "ScenePostProcessSettings (后处理管理)",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ @ohos.graphics.scene将3D开发相关模块的API组织在一起，方便开发者使用。 > 本模块首批接口从API version 12开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-scene",
+          "enriched": true
+        },
+        {
+          "id": "kit.arkgraphics3d.js-apis-scene",
+          "title": "@ohos.graphics.scene (ArkGraphics 3D模块)",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ @ohos.graphics.scene将3D开发相关模块的API组织在一起，方便开发者使用。 > 本模块首批接口从API version 12开始支持。后续版本的新增接口，采用上角标单独标记接口的起始版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-scene",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.arkgraphics2d": {
+      "doc": "alliance/document/cn/harmonyos-guides/arkgraphics2d-introduction",
+      "topics": [
+        {
+          "id": "kit.arkgraphics2d.intro",
+          "title": "简介与能力全景",
+          "content": "ArkGraphics 2D（方舟2D图形服务 ）主要提供图形绘制与显示相关的能力。开发者可以基于一套统一的图形接口进行应用开发，使应用开发更简单、高效。 * 提供图像处理的一些基本能力，包括对当前图像的亮度调节、模糊化、灰度调节、智能取色等。具体可见@ohos.effectKit (图像效果)。 * 提供管理抽象化色域对象的基础能力，包括色域的创建、色域基础属性的获取等。具体可见@ohos.graphics.colorSpaceMan",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/arkgraphics2d-introduction"
+        },
+        {
+          "id": "kit.arkgraphics2d.displaysync-overview",
+          "title": "可变帧率简介",
+          "content": "随着设备屏幕的不断演进，当前主流设备采用LTPO屏幕，此类屏幕支持在多个档位之间切换屏幕帧率。 对于快速变化的内容，如射击游戏，交互动画等，显示帧率越高，画面越流畅，但是相对的功耗也会越高。 而低速变化的内容，如游戏大厅，时钟更新动画等，画面更新频率较低，使用相对低的显示帧率，用户也不会觉得卡顿，但是相对的功耗就比较低。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/displaysync-overview",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.crypto": {
+      "doc": "alliance/document/cn/harmonyos-references/capi-cryptoarchitecturekit",
+      "topics": [
+        {
+          "id": "kit.crypto.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ lite_wearable 12+ > phone 2in1 tablet tv wearable lite_wearable 为开发者提供加密头文件的统一入口。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/capi-cryptoarchitecturekit"
+        },
+        {
+          "id": "kit.crypto.capi-crypto-architecture-kit-h",
+          "title": "crypto_architecture_kit.h",
+          "content": "C API 头文件，提供哈希、加解密、签名验签等基础密码学接口，供 NDK 侧调用；按算法选择对应函数族，密钥管理配合 HUKS。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/capi-crypto-architecture-kit-h",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.devicesecurity": {
+      "doc": "alliance/document/cn/harmonyos-releases/changelogs-for-all-apps-6003",
+      "topics": [
+        {
+          "id": "kit.devicesecurity.intro",
+          "title": "简介与能力全景",
+          "content": "**变更原因** 当传入无效入参或在不支持的设备调用接口时，通过相关错误码告知开发者接口调用失败的原因，方便开发者定位问题。 **变更影响**",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-releases/changelogs-for-all-apps-6003"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.huks": {
+      "doc": "alliance/document/cn/harmonyos-guides/huks-overview",
+      "topics": [
+        {
+          "id": "kit.huks.intro",
+          "title": "简介与能力全景",
+          "content": "Universal Keystore Kit（密钥管理服务，下述简称为HUKS）向业务/应用提供各类密钥的统一安全操作能力，包括密钥管理（密钥生成/销毁、密钥导入、密钥证明、密钥协商、密钥派生）及密钥使用（加密/解密、签名/验签、访问控制）等功能。 HUKS管理的密钥可以由业务/应用导入或调用HUKS的接口生成。同时，HUKS提供了密钥访问控制能力，确保存储在HUKS中的密钥被合法正确地访问。 如图所示，HUKS模块可以分为如下三大部分",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/huks-overview"
+        },
+        {
+          "id": "kit.huks.huks-concepts#可信执行环境tee",
+          "title": "TEE",
+          "content": "在使用通用密钥库完成应用开发前，开发者需要了解以下相关概念，以下概念将贯穿整个开发过程。 可信执行环境（Trusted Execution Environment），简称TEE，是存在于智能手机、平板或任意移动设备主处理器中的一个安全区域，确保各种敏感数据在一个可信环境中被存储、处理和受到保护。TEE为授权安全软件，也称为\"可信应用\"提供一个安全的执行环境，通过实施保护、保密性、完整性和数据访问权限确保端到端的安全。 针对不同密码算法的密钥对、公钥、私钥，HUKS为其密钥材料定义了一套格式，该格式在密钥导入、导出等场景使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-concepts#可信执行环境tee",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-key-generation-overview",
+          "title": "密钥生成",
+          "content": "当业务需要使用HUKS生成随机密钥，并由HUKS进行安全保存时，可以调用HUKS的接口生成密钥。 > * 密钥别名中禁止包含个人数据等敏感信息。不建议包含加密算法、密钥长度、加密模式等信息。 > * 使用当前业务已有的密钥别名作为生成的密钥别名默认会把现有密钥覆盖，可以使用HUKS_TAG_KEY_OVERRIDE指定当密钥别名冲突时返回错误。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-key-generation-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-key-import-overview",
+          "title": "密钥导入",
+          "content": "如果业务在HUKS外部生成密钥（比如应用间协商生成、服务器端生成），业务可以将密钥导入到HUKS中由HUKS进行管理。密钥一旦导入到HUKS中，在密钥的生命周期内，其明文仅在安全环境中进行访问操作，不会传递出安全环境。 密钥导入的方式包含明文导入和安全导入两种方式。 > 使用现有密钥别名作为导入的密钥别名会把现有密钥覆盖。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-key-import-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-encryption-decryption-overview",
+          "title": "加密/解密",
+          "content": "在HUKS中已经有密钥，需要对一段数据加密或是解密，均可以使用HUKS完成加密/解密操作。 **手机、平板、PC/2in1设备、TV、智能穿戴规格**",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-encryption-decryption-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-signing-signature-verification-over",
+          "title": "签名/验签",
+          "content": "为实现数据完整性保护和防抵赖，可使用生成/导入的密钥，对数据进行签名验签操作。 **手机、平板、PC/2in1设备、TV、智能穿戴规格** 适用场景：当使用含有数字盾密码认证的密钥进行签名时，可以选择携带认证信息的签名类型，会在原始数据之前附加41字节认证信息后，再进行签名操作。认证信息会附加在签名前一起返回。验签时需将同样认证信息附加在原始数据前，再执行验签操作。从前到后依次为：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-signing-signature-verification-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-key-agreement-overview",
+          "title": "密钥协商",
+          "content": "为了避免恶意第三方获取到保密信息，密钥本身是不可以直接在设备间传输的。一般情况下，会采取密钥协商的方式，安全地在双方（或多方）间共享密钥。密钥协商只会传输密钥的公钥部分，私钥仍存留在设备内，以保护数据的安全性和机密性。 两台设备间进行密钥协商，双方各准备一个非对称密钥，并互换非对称密钥的公钥，以对端公钥与己端私钥协商出一个密钥，该密钥在两台设备相同。 > * 轻量级智能穿戴不支持密钥协商功能。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-key-agreement-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-kem-overview",
+          "title": "密钥封装",
+          "content": "密钥封装机制（Key Encapsulation Mechanism，简称KEM）是一种通过非对称密钥在两方之间安全建立共享密钥的密码学机制。与传统密钥协商不同，密钥封装是单向操作：封装端使用公钥生成密文和共享密钥，解封装端使用私钥从密文中恢复共享密钥。 * **密钥协商（如ECDH、DH、X25519）：** 双向协商，双方各持私钥，交换公钥后各自计算出相同共享密钥。 * **密钥封装（如ML-KEM）：** 单向操作，封装端使用对端公钥生成密文和共享密钥，将密文发送给对端；解封装端使用私钥从密文恢复共享密钥，无需双向交换公钥。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-kem-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-key-derivation-overview",
+          "title": "密钥派生",
+          "content": "在密码学中，密钥派生函数（Key derivation function，KDF）使用伪随机函数从诸如主密码或密码的秘密值中派生出一个或多个密钥。 > * 在HUKS中只能通过HUKS托管的密钥进行密钥派生。 > * 轻量级智能穿戴不支持密钥派生功能。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-key-derivation-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-identity-authentication-overview",
+          "title": "访问控制",
+          "content": "HUKS提供了完备的密钥访问控制能力，以保证存储在HUKS中的密钥被合法正确地访问： * 业务只能访问属于自己的密钥，即只能访问业务自身通过HUKS生成或导入的密钥。 * 支持密钥的用户身份认证访问控制，对于高安全级别、保护敏感数据的业务密钥，需要在使用密钥的时候，再次要求用户即时地验证锁屏密码或生物特征，验证通过后，才能使用业务密钥。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-identity-authentication-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-delete-key-arkts",
+          "title": "密钥删除",
+          "content": "为保证数据安全性，当不需要使用该密钥时，应该删除密钥。 1. 指定密钥别名，密钥别名命名规范参考密钥生成介绍及算法规格。 2. 初始化密钥属性集。用于删除时指定密钥的属性，删除单个密钥或者非群组密钥，可传空。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-delete-key-arkts",
+          "enriched": true
+        },
+        {
+          "id": "kit.huks.huks-key-attestation-overview",
+          "title": "密钥证明",
+          "content": "HUKS为密钥提供合法性证明能力，主要应用于非对称密钥的公钥的证明。 基于PKI证书链技术，HUKS可以为存储在HUKS中的非对称密钥对的公钥签发证书，证明其公钥的合法性。业务方可以通过系统提供的根CA证书，逐级验证HUKS签发的密钥证明证书，来确保证书中的公钥以及对应的私钥，确实来自合法的硬件设备，且存储管理在HUKS中。 > * 当调用方为系统服务且APL等级为normal时，暂不支持密钥证明，此种情况下，processName与APL字段将置空。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/huks-key-attestation-overview",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.accessibility": {
+      "doc": "alliance/document/cn/harmonyos-guides/accessibilitykit-overview",
+      "topics": [
+        {
+          "id": "kit.accessibility.intro",
+          "title": "简介与能力全景",
+          "content": "Accessibility（信息无障碍）指的是确保任何人在任何情况下都能平等、便捷地获取并利用信息。其目标在于缩小社会各阶层、各地区、各年龄段以及不同健康状况人群在信息理解、交互和利用方面的数字鸿沟，使他们能够更加便捷地融入社会生活，充分享受数字化发展带来的便利。 所以，无论是开发新的应用，还是对已有应用的更新，都应该考虑到无障碍需求，让应用能够被更多的人所使用。Accessibility Kit（无障碍服务）则为应用更好的适配无障碍，",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/accessibilitykit-overview"
+        },
+        {
+          "id": "kit.accessibility.ide-emulator-specification#section122761",
+          "title": "模拟器与真机的差异",
+          "content": "模拟器是开发和调试HarmonyOS应用/元服务的便捷工具，例如不需要配置服务器域名即可开发和调试元服务，在大多数情况下，模拟器上推包调试不需要签名，但部分Kit仍需签名后才能正常运行，具体要求请参考Kit的开发指南。 由于模拟器和真机在硬件和能力上存在差异，部分功能场景仍需在真机上进行开发。您可以通过阅读本文档来决定哪些功能在模拟器中测试，哪些功能在真机上测试。 模拟器是运行在Mac或Windows电脑上的虚拟机应用，会使用电脑的硬件资源，包括CPU、内存和网络连接等。这些资源在容量和速度上可能与真机存在显著差异。因此，模拟器不适合用于测试应用/元服务的性能（如数据处理、图形渲染、网络速度）、资源占用（如内存、CPU、功耗），模拟器的性能测试结果仅能用于评估应用功能的相…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-emulator-specification#section1227613205203",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.avsession": {
+      "doc": "alliance/document/cn/harmonyos-references/arkts-apis-avsession-avsessioncontroller",
+      "topics": [
+        {
+          "id": "kit.avsession.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ tv 19+ wearable 18+ AVSessionController控制器可查看会话ID，并可完成对会话发送命令及事件，获取会话元数据，播放状态信息等操作。 > 说明",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/arkts-apis-avsession-avsessioncontroller"
+        },
+        {
+          "id": "kit.avsession.arkts-apis-avsession-i#avplaybackstate10",
+          "title": "AVPlaybackState",
+          "content": "描述媒体会话当前播放状态的类：播放/暂停、进度、播放速度、循环模式等；用于跨设备播控同步与状态回传。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-apis-avsession-i#avplaybackstate10",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.avsession.errorcode-avsession",
+          "title": "媒体会话管理错误码",
+          "content": "AVSession 的 BusinessError 错误码表，覆盖参数非法、会话不存在、权限不足等失败场景，用于分支判定与提示文案。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-avsession",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.avsession.arkts-apis-avsession-i#avmetadata10",
+          "title": "AVMetadata",
+          "content": "媒体元数据（标题、作者、专辑、封面、时长等），随播放状态同步到系统播控中心，保证锁屏/控制中心显示一致。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-apis-avsession-i#avmetadata10",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.iap": {
+      "doc": "alliance/document/cn/harmonyos-references/iap-iap",
+      "topics": [
+        {
+          "id": "kit.iap.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 5.0.0(12)+ 2in1 5.0.1(13)+ tablet 5.0.0(12)+ tv 5.1.1(19)+ wearable 5.1.0(18)+ 应用内购买（In-App Purchase，IAP）模块为HarmonyOS应用提供数字商品（虚拟商品）的全链路支付能力，包括商品查询、购买、发货确认、订阅管理及退款等。 当应用需要向用户销售虚拟商品（如游戏道具、会员权益）或提供订阅服务时，可接入本模块。在发起商品",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/iap-iap"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.account": {
+      "doc": "alliance/document/cn/harmonyos-guides/account-introduction",
+      "topics": [
+        {
+          "id": "kit.account.intro",
+          "title": "简介与能力全景",
+          "content": "Account Kit（华为账号服务）提供简单、快速、安全的登录功能，让用户快捷地使用华为账号登录应用。用户授权后，Account Kit可提供头像、昵称、手机号码等信息，帮助应用更了解用户。 * 登录：提供登录服务，让用户使用华为账号快速登录应用。 * 获取华为账号用户信息：获取用户的基本开放信息，如头像、昵称、手机号、收货地址、发票抬头、风险等级。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/account-introduction"
+        },
+        {
+          "id": "kit.account.account-quick-login-overview",
+          "title": "登录",
+          "content": "Account Kit提供了华为账号一键登录、华为账号登录、静默登录等多种登录方式，其中华为账号一键登录**仅支持企业开发者** 使用，华为账号登录和静默登录**既支持企业开发者也支持个人开发者**使用，应用可根据实际场景选择使用其中一种或多种方式进行账号登录。 华为账号用户身份标识包含UnionID和OpenID，具体格式要求请参考OpenID和UnionID的格式说明，注意OpenID和UnionID严格区分大小写。两者的定义与使用场景： > 在开发HarmonyOS应用时，您需要考虑同一用户在非HarmonyOS应用和HarmonyOS应用的用户数据是否互通。如果您之前使用OpenID来关联用户数据，我们建议将用户数据关系切换成UnionID，以确保用户使用Harm…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-quick-login-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-get-user-info-overview",
+          "title": "获取华为账号用户信息",
+          "content": "当应用需要获取用户身份标识或者完善用户个人资料（头像昵称、收货地址、发票抬头）时，或需要获取用户风险等级判断用户风险时，可通过Account Kit提供的相关能力，引导用户填写、管理相关信息并完成授权。获取头像昵称、收货地址、发票抬头等详细接入体验可参考Account Kit提供的SampleCode示例工程。 1. 应用需要完善用户头像昵称信息，参见获取头像昵称。 2. 应用提供的服务依赖用户收货地址，需要获取用户收货地址，参见获取收货地址。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-get-user-info-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-overview-minorsprotection",
+          "title": "未成年人模式",
+          "content": "未成年人模式用于帮助应用与系统联动，提供未成年人网络保护。应用通过接入Account Kit提供的未成年人模式能力与系统联动，可快速实现自动切换未成年人模式状态，简化家长设置步骤，为未成年人提供安全、健康的网络环境。 本章节中所指未成年人，即中国境内（香港特别行政区、澳门特别行政区、中国台湾除外）未满十八周岁的公民。 1. 使用时长限制：针对16周岁及以上不满18周岁的未成年人使用者，默认每日可使用时长2小时，其他年龄的未成年人使用者，默认每日可使用时长为1小时。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-overview-minorsprotection",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-phone-unionid-login",
+          "title": "华为账号一键登录",
+          "content": "华为账号一键登录是基于OAuth 2.0协议标准和OpenID Connect协议标准构建的OAuth 2.0授权登录系统，应用可以通过华为账号一键登录能力快捷地获取华为账号用户的身份标识和手机号，快速建立应用内的用户体系。使用华为账号一键登录能力需要申请华为账号一键登录权限，该权限仅支持**企业开发者**申请。 个人开发者可使用华为账号登录或静默登录实现登录，无需申请权限。 * 利用系统账号的安全性和便利性，用户无需输入账号名和密码，无需复杂的安全验证，简化登录步骤，提高用户转化率。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-phone-unionid-login",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-silent-login",
+          "title": "静默登录",
+          "content": "在应用卸载重装、用户换机等场景，如登录的华为账号与应用重装、换机前一致，应用可通过Account Kit提供的静默登录方式即不需要用户点击登录/注册按钮，即可获取用户的身份标识UnionID/OpenID，完成用户的静默登录。 静默登录能力支持Phone、Tablet、PC/2in1设备。并且从5.1.0(18)版本开始，新增支持Wearable设备；从5.1.1(19)版本开始，新增支持TV设备。 1. 调用登录API阶段（序号1-3）：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-silent-login",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-get-avatar-nickname",
+          "title": "获取头像昵称",
+          "content": "当应用需要获取用户头像昵称信息，可使用Account Kit提供的头像昵称授权能力，用户允许应用获取头像昵称后，可快速完成个人信息填写。以下对Account Kit提供的头像昵称授权能力进行介绍。此外，开发者也可通过场景化控件中的选择头像Button获取用户头像。 **图1** 手机端获取头像昵称（请以实际效果为准） **图2** Wearable设备获取头像昵称（请以实际效果为准）",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-get-avatar-nickname",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-get-phonenumber",
+          "title": "获取手机号",
+          "content": "当应用需要获取用户手机号时，可使用Account Kit提供的手机号授权能力，向用户发起手机号授权申请，经用户同意授权后，获取到手机号并为用户提供相应服务。以下对Account Kit提供的手机号授权能力进行介绍，获取手机号功能还可使用场景化控件快速验证手机号Button进行实现。 > 1. 对用户选择的华为账号绑定的手机号或者新增的手机号进行验证，**不保证是实时的验证** ，**仅首次需要用户授权**。 > 2. 在应用账号已登录并绑定用户华为账号UnionID的情况下，应用可以在获取手机号等用户信息时根据实际业务场景判断是否需要提前校验当前应用账号绑定的UnionID与系统账号当前的UnionID是否一致。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-get-phonenumber",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-choose-address-dev",
+          "title": "收货地址",
+          "content": "当应用需要获取用户收货地址时，可使用Account Kit提供的获取收货地址的能力，引导用户添加或选择已有的收货地址，并最终获取用户的收货地址。以下对Account Kit提供的获取收货地址能力进行介绍，获取收货地址功能还可使用场景化控件选择收货地址Button进行实现。 1. 收货地址中的手机号信息仅支持输入中国境内（香港特别行政区、澳门特别行政区、中国台湾除外）手机号、地址信息只支持填写中国境内（香港特别行政区、澳门特别行政区、中国台湾除外）。 2. 获取收货地址的能力支持Phone、Tablet、PC/2in1设备。并且从26.0.0版本开始，新增支持TV设备。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-choose-address-dev",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-select-invoice-title",
+          "title": "发票抬头",
+          "content": "当应用需要获取用户发票抬头时，可使用Account Kit提供的发票助手能力，打开发票抬头选择页面，帮助用户快速选择或管理发票抬头。以下对Account Kit提供的发票助手能力进行介绍，获取发票抬头功能还可使用场景化控件选择发票抬头Button进行实现。 Wearable、TV设备暂不支持使用获取发票抬头功能。 1. 用户需要使用发票抬头时，应用程序调用选择发票抬头API，打开华为账号发票抬头选择页。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-select-invoice-title",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-unionid-login-button",
+          "title": "华为账号登录",
+          "content": "应用可以使用Account Kit提供的华为账号登录按钮组件及服务端交互获取华为账号用户身份标识UnionID、OpenID，通过UnionID、OpenID完成用户登录；或者与应用账号完成绑定，绑定后用于登录或者验证。 华为账号登录按钮包含文本、标志和文本、标志三种样式，以满足应用对界面风格一致性和灵活性的要求。 华为账号按钮登录能力支持Phone、Tablet、PC/2in1设备。并且从5.1.1(19)版本开始，新增支持TV设备。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-unionid-login-button",
+          "enriched": true
+        },
+        {
+          "id": "kit.account.account-unionid-login-api",
+          "title": "自定义按钮登录",
+          "content": "应用应遵照【华为账号登录】按钮使用规则，在登录页面嵌入自定义华为账号登录按钮。当用户点击该按钮后，应用调用华为账号登录API获取Authorization Code，并通过服务端交互获取用户的UnionID、OpenID以完成登录。 自定义按钮登录能力支持Phone、Tablet、PC/2in1设备。并且从5.1.0(18)版本开始，新增支持Wearable设备；从5.1.1(19)版本开始，新增支持TV设备。 1. 展示自定义按钮调用登录API阶段（序号1-4）：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/account-unionid-login-api",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.payment": {
+      "doc": "alliance/document/cn/harmonyos-references/payment-paymentservice",
+      "topics": [
+        {
+          "id": "kit.payment.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 5.0.0(12)+ 2in1 5.0.1(13)+ tablet 5.0.0(12)+ 本模块提供支付、签约服务能力，包括基础支付、支付并签约、合单支付、签约代扣等。 **模型约束：** 此接口仅可在Stage模型下使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/payment-paymentservice"
+        },
+        {
+          "id": "kit.payment.payment-launch-third-party-payment-url",
+          "title": "基于URL跳转三方支付收银台",
+          "content": "1. 商户客户端根据Payment Kit接口返回的支付信息PayResult(混合支付场景）/PickerResult（纯外部支付场景），按照三方支付平台接入要求创建订单获取拉起三方支付收银台链接并构建**订单支付跳转信息** orderStr请求requestPayment接口跳转或拉起三方支付收银台。 import { BusinessError } from '@kit.BasicServicesKit'; import { paymentService } from '@kit.PaymentKit';",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/payment-launch-third-party-payment-url",
+          "enriched": true
+        },
+        {
+          "id": "kit.payment.payment-launch-third-party-payment-sdk",
+          "title": "基于接口拉起三方支付收银台",
+          "content": "> * 当前基于接口拉起方式拉起三方支付收银台支持的支付方式参见PayMethod。 > * 基于接口拉起三方支付收银台起始版本为：6.0.0(20)。 > * 拉起支付宝支付需要配置服务器域名：https://mobilegw.alipay.com。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/payment-launch-third-party-payment-sdk",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.applinking": {
+      "doc": "alliance/document/cn/harmonyos-guides/applinking-introduction",
+      "topics": [
+        {
+          "id": "kit.applinking.intro",
+          "title": "简介与能力全景",
+          "content": "App Linking Kit（应用链接服务）提供了一系列增强的链接特性。 * App Linking Kit支持通过App Linking应用链接拉起指定应用，实现应用间跳转。当应用已安装时，优先通过应用展示内容；若应用未安装，则通过系统浏览器展示网页版内容。 在此基础之上，还可以实现直达应用市场能力、延迟链接能力这类有竞争力的特性，大大增强了App Linking的能力，使得链接跳转体验更佳，链接转化率更高。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/applinking-introduction"
+        },
+        {
+          "id": "kit.applinking.app-linking-startupapp",
+          "title": "通过App Linking应用链接拉起指定应用",
+          "content": "使用App Linking应用链接进行跳转时，系统会根据接口传入的uri信息（HTTPS链接）将用户引导至目标应用中的特定内容，无论应用是否已安装，用户都可以访问到链接对应的内容，跳转体验相比Deep Linking方式更加顺畅。 例如：当开发者使用App Linking应用链接接入\"扫码直达\"服务后，用户可通过控制中心扫一扫这类系统级扫码入口，扫描应用的二维码、条形码并跳转到应用对应服务页，实现一步直达的体验。 > 该能力目前仅适用于5.0.0(12)及以上版本的HarmonyOS应用，如果开发的是元服务，请参考使用元服务链接跳转元服务。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/app-linking-startupapp",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.applinking-direct-to-ag",
+          "title": "通过直达应用市场能力跳转至应用市场下载详情页",
+          "content": "从5.0.3(15)版本开始，新增支持直达应用市场能力。 当成功配置App Linking应用链接后，可以构建App Linking直达应用市场下载详情页链接。当应用已安装时，点击链接直接跳转应用；当应用未安装时，点击链接跳转应用市场下载详情页，引导用户下载应用。 直达应用市场链接配置后不是即时生效的，一般要24小时生效，也有可能出现48小时生效的情况。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/applinking-direct-to-ag",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.applinking-deferredlink",
+          "title": "通过延迟链接跳转至应用详情页",
+          "content": "从5.0.3(15)版本开始，新增支持延迟链接能力。 当被分享用户未安装应用时，通过延迟链接能力，应用首次打开时，调用延迟链接接口，系统仍能获取用户之前点击的应用相关链接。在获取链接后，应用可直接跳转至对应的详情页，无需先跳转至应用首页，从而提升用户体验和链接的转化率。 例如：华为阅读结合App Linking Kit延迟链接能力，实现了即使用户未安装应用，点击链接完成下载并首次打开时，仍能直接跳转至预设页面（如书籍详情页）。与传统方式（需先打开APP再手动定位内容）相比，操作步骤减少了43%。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/applinking-deferredlink",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.applinking-cross-platform",
+          "title": "通过聚合链接按指定方式跳转至应用",
+          "content": "从6.0.0(20)版本开始，新增支持聚合链接能力。 可用于实现在HarmonyOS系统的设备上点击链接后，按照指定的方式进行跳转。当用户打开链接时，聚合链接会引导用户跳转到HarmonyOS平台预览页、应用市场详情页、自定义网址、深度链接地址等页面。 聚合链接主要用于直接向用户发送应用推广信息，例如通过短信/邮件/社交分享链接发送产品优惠活动或应用推广活动。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/applinking-cross-platform",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.scan-directservice",
+          "title": "扫码直达",
+          "content": "> 扫码直达能力仅支持中国境内（香港特别行政区、澳门特别行政区、中国台湾除外）接入使用。 在日常生活中，人们会使用各种应用扫各式各样的码，而\"扫码直达\"服务则为用户带来一种全新的扫码体验。 开发者将域名注册到\"扫码直达\"服务后，用户可通过控制中心等系统级的常驻入口，扫应用的二维码、条形码并跳转到应用对应服务页，实现一步直达服务的体验。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/scan-directservice",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.share-introduction",
+          "title": "Share Kit（分享服务）",
+          "content": "Share Kit（分享服务）为应用提供文本、图片、视频等内容跨应用、跨端分享能力。 应用把需要分享的内容和预览样式配置给Share Kit，Share Kit将根据不同的场景进行使用： * 针对应用间分享的场景，根据分享的数据类型、数量等信息构建分享面板，为用户提供内容预览、推荐分享联系人、关联应用及操作界面，便于用户快速选择分享应用或操作，将内容分发到目标应用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/share-introduction",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.ide-signing-manual",
+          "title": "手动签名",
+          "content": "HarmonyOS应用/元服务通过数字证书（.cer文件）和Profile文件（.p7b文件）来保证应用/元服务的完整性。在申请调试证书和调试Profile文件前，需要通过DevEco Studio生成密钥（存储在格式为.p12的密钥库文件中）和证书请求文件（.csr文件）。 * **密钥**：格式为.p12，包含非对称加密中使用的公钥和私钥，存储在密钥库文件中，公钥和私钥用于数字签名和验证。 * **证书请求文件**：格式为.csr，全称为Certificate Signing Request，包含密钥对中的公钥和通用名称、组织名称、组织单位等信息，用于向AppGallery Connect申请数字证书。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-signing-manual",
+          "enriched": true
+        },
+        {
+          "id": "kit.applinking.ide-emulator-specification",
+          "title": "模拟器与真机的差异",
+          "content": "模拟器是开发和调试HarmonyOS应用/元服务的便捷工具，例如不需要配置服务器域名即可开发和调试元服务，在大多数情况下，模拟器上推包调试不需要签名，但部分Kit仍需签名后才能正常运行，具体要求请参考Kit的开发指南。 由于模拟器和真机在硬件和能力上存在差异，部分功能场景仍需在真机上进行开发。您可以通过阅读本文档来决定哪些功能在模拟器中测试，哪些功能在真机上测试。 模拟器是运行在Mac或Windows电脑上的虚拟机应用，会使用电脑的硬件资源，包括CPU、内存和网络连接等。这些资源在容量和速度上可能与真机存在显著差异。因此，模拟器不适合用于测试应用/元服务的性能（如数据处理、图形渲染、网络速度）、资源占用（如内存、CPU、功耗），模拟器的性能测试结果仅能用于评估应用功能的相…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-emulator-specification",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.share": {
+      "doc": "alliance/document/cn/harmonyos-releases/changelogs-for-all-apps-6002",
+      "topics": [
+        {
+          "id": "kit.share.intro",
+          "title": "简介与能力全景",
+          "content": "**变更原因** Ability Kit部分公共事件中包含应用信息，需要增加管控措施。 **变更影响**",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-releases/changelogs-for-all-apps-6002"
+        },
+        {
+          "id": "kit.share.request-user-authorization",
+          "title": "申请应用权限",
+          "content": "当应用需要访问用户的隐私信息或使用系统能力时，如获取位置信息、访问日历、使用相机拍摄照片或录制视频等，应向用户申请授权。这些权限属于user_grant权限。 当应用申请user_grant权限时，需完成以下步骤： 1. 在配置文件中，声明应用需要请求的权限。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/request-user-authorization",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.scan": {
+      "doc": "alliance/document/cn/harmonyos-references/scan-scanbarcode-api",
+      "topics": [
+        {
+          "id": "kit.scan.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 5.0.0(12)+ tablet 5.0.0(12)+ wearable 6.1.0(23)+ > phone tablet wearable scanBarcode模块提供系统级体验一致的扫码界面，包含相机预览流，相册扫码入口，暗光环境闪光灯开启提示。Scan Kit默认界面扫码对系统相机权限进行了预授权且调用期间处于安全访问状态，无需开发者再次申请相机权限。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/scan-scanbarcode-api"
+        },
+        {
+          "id": "kit.scan.scan-scancore#scantype",
+          "title": "ScanType",
+          "content": "扫码类型枚举（二维码、条形码等），决定解码格式与识别策略；与 ScanSource 配合选择相机或图片输入。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scan-scancore#scantype",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.scan.scan-imagedecode#decodeimage",
+          "title": "decodeImage",
+          "content": "从图片解码条码/二维码的接口：传入 PixelMap 返回识别结果数组，适合相册选图识别与批量处理。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scan-imagedecode#decodeimage",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.scan.scan-scancore#scansource",
+          "title": "ScanSource",
+          "content": "扫码输入来源（相机预览 / 图片文件），决定预览生命周期与识别流程；相机来源需先申请相机权限。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scan-scancore#scansource",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.scan.scan-customscan-api#viewcontrol",
+          "title": "ViewControl",
+          "content": "扫码界面的视图控制：闪光灯、缩放、相册入口、扫描框样式等，按业务场景裁剪而非全开。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scan-customscan-api#viewcontrol",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.ads": {
+      "doc": "alliance/document/cn/harmonyos-references/js-apis-advertising",
+      "topics": [
+        {
+          "id": "kit.ads.intro",
+          "title": "简介与能力全景",
+          "content": "> phone 12+ 2in1 13+ tablet 12+ 本模块提供广告操作能力，包括请求广告、展示广告。 > 说明",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-references/js-apis-advertising"
+        },
+        {
+          "id": "kit.ads.application-context-stage#context的获取方式",
+          "title": "各类Context的获取方式",
+          "content": "Context是应用中对象的上下文，其提供了应用的一些基础信息，例如resourceManager（资源管理）、applicationInfo（当前应用信息）、area（文件分区）等。 UIAbility组件和各种ExtensionAbility派生类组件都有各自不同的Context类。分别有基类Context、ApplicationContext、AbilityStageContext、UIAbilityContext、ExtensionContext等Context。各类Context的继承和持有关系详见不同类型Context的继承和持有关系。 不同类型Context的获取方式与使用场景说明，如下表所示。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/application-context-stage#context的获取方式",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.agc": {
+      "doc": "alliance/document/cn/harmonyos-guides/store-introduction",
+      "topics": [
+        {
+          "id": "kit.agc.intro",
+          "title": "简介与能力全景",
+          "content": "AppGallery Kit（应用市场服务）提供应用市场业务的对外开放能力，可以更好地支持应用的下载、推荐和分发等场景以提高在应用市场上的曝光度，以及为开发者提供便捷高效的数字商品服务的接入流程和交互体验，助力开发者商业变现。 使用AppGallery Kit为您的应用和应用内数字商品提供以下功能和服务： **数字商品服务**：指华为为开发者的数字商品的管理、交易、售后提供的平台能力和服务，助力您实现数字商品交易和结算。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/store-introduction"
+        },
+        {
+          "id": "kit.agc.store-iap-introduction",
+          "title": "数字商品服务",
+          "content": "数字商品服务为开发者提供便捷高效的数字商品服务接入流程和交互体验，让开发者聚焦应用本身的业务能力，助力开发者商业变现。数字商品服务提供基础的数字商品交易能力，保障用户交易的完成，并对应用内的数字商品交易能力可用性、商品价值和商品质量进行审核。本服务能帮助开发者实现统一的数字商品分发体验和营销宣传（包括在应用内的商品展示和销售，以及在应用市场内的商品分发等）、统一管理数字商品的定价和优惠、查询用户的商品权益、完成数字商品的售后服务等一系列服务。 开发者可通过接入和使用IAP系统级API以及应用市场Server能力，快速启动数字商品交易流程，实现在应用内销售数字商品的功能和场景。通过应用内的数字商品交易，用户可以在开发者的应用内购买各种类型的**数字商品**，包括消耗型商品、…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/store-iap-introduction",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.appgallery-productview-loadservice",
+          "title": "应用市场推荐",
+          "content": "为了快速访问和管理元服务卡片信息，用户可以将常用的元服务卡片添加到桌面。应用可通过调用应用市场服务提供的loadService接口来加载元服务卡片加桌页面，用户点击\"添加至桌面\"按钮，将元服务卡片添加至桌面。 2. 应用调用AppGallery Kit的loadService接口。 3. AppGallery Kit API获取应用传入的信息，生成展示页面。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/appgallery-productview-loadservice",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.store-moduleinstall_arkts",
+          "title": "产品特性按需分发",
+          "content": "> 26.0.0版本开始，新增暂停下载任务接口，支持用户暂停下载任务。 随着HarmonyOS应用的持续发展，应用的功能将越来越丰富，实际上80%的用户使用时长都会集中在20%的特性上，其余的功能可能也仅仅是面向部分用户。为了避免用户首次下载应用耗时过长，及过多占用用户空间，应用市场服务提供按需分发的能力，支持用户按需动态下载自己所需的增强特性。 按需分发：一个应用程序被打包成多个安装包，安装包包含了所有的应用程序代码和静态资源。用户从应用市场下载的应用只包含基本功能的安装包，当用户需要使用增强功能时，相应安装包将会从服务器下载到设备上（应用发布请参考发布HarmonyOS应用）。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/store-moduleinstall_arkts",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.store-erms",
+          "title": "生态查询服务",
+          "content": "生态查询服务可以为您提供应用/元服务运行信息的查询，当前提供场景值查询和广告验签信息查询。场景值是用来描述用户进入应用和元服务的路径。您可以通过本服务，来查询您的元服务/应用是通过何种场景被打开的（场景值列表）。当前我们支持元服务的场景值查询，后续我们会继续公布应用场景值的查询。广告验签版本查询只在您的应用涉及广告场景下才会被使用到。您可以通过本查询服务，查询广告验签参数处理逻辑。 1. 用户需要查询应用/元服务自身场景值或者查询广告验签版本。 2. 应用调用getSelfSceneCode接口和getAdsVerificationVersion接口分别获取自身场景值和广告验签版本。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/store-erms",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.store-update",
+          "title": "应用市场更新功能",
+          "content": "应用市场更新功能为已上架应用提供版本检测、显示更新提醒能力。开发者使用应用市场更新功能可以在应用内提醒用户及时更新到最新版本。 当应用启动完成或用户在应用中主动检查应用新版本时，开发者可以通过本服务，来查询应用是否有可更新的版本。如果存在可更新版本，您可以通过本服务为用户显示更新提醒。 4. 升级服务API向应用返回显示结果。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/store-update",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.store-attribution-introduction",
+          "title": "应用归因服务",
+          "content": "应用归因服务是华为提供的不依赖用户标识符的端侧归因能力。 当用户完成应用安装或在已安装应用内完成转化时，应用归因服务通过匹配用户在转化前的行为数据，分析用户的来源渠道以及转化的原因，并将归因结果回传给分发平台、开发者、归因监测平台。开发者可以通过归因结果数据分析投放效果、评估渠道质量，进而优化投放策略，分发平台可以评估渠道商业价值，优化营销效果。 * 接入应用归因服务的所有开发者应严格遵循法律法规、已签署的协议条款和开发者文档的要求处理用户的个人信息。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/store-attribution-introduction",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.store-privacy",
+          "title": "隐私管理服务",
+          "content": "隐私管理服务为使用标准化隐私声明托管服务的应用/元服务提供查询隐私链接、查询隐私签署状态、撤销同意记录和拉起标准化隐私弹框请求用户同意功能。 > 如果在应用/元服务中使用了标准化隐私声明托管服务，则首次打开应用/元服务，会默认显示标准化隐私弹窗，请勿在应用/元服务中自行实现弹窗展示隐私声明，否则发布审核将被驳回。 在接入标准化隐私声明托管服务的场景下，应用/元服务内查询或展示隐私协议所需。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/store-privacy",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.appgallery-appinfo-manage",
+          "title": "图标管理服务",
+          "content": "通过图标管理服务，开发者可以在不升级应用版本的情况下，通过AGC页面动态管理应用的个性化图标，并在应用侧实现应用图标动态切换。 使用图标管理服务之前，请按如下格式向华为运营人员发送邮件申请开通服务。申请审核时间为1-3个工作日，审核结果请关注邮件信息或互动中心通知。 * 请确保申请开通图标管理服务的应用处于正式上架状态，避免服务开通失败。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/appgallery-appinfo-manage",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.appgallery-comment",
+          "title": "应用评论服务",
+          "content": "通过应用评论服务，用户无需进入应用市场应用详情页，可以直接在应用内进行评论。 > 从版本6.0.0(20)开始，支持拉起应用评论弹框。 开发者可以通过该接口拉起应用评论弹窗对应用进行评分及评论，无需进入应用市场应用详情页进行评论。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/appgallery-comment",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.iap-introduction#支持的设备",
+          "title": "支持的设备",
+          "content": "IAP Kit（应用内支付服务）为开发者提供便捷的应用内支付体验和简便的接入流程，让开发者聚焦应用本身的业务能力，助力开发者商业变现。开发者应用可通过使用IAP Kit提供的系统级支付API快速启动IAP收银台，即可实现应用内支付。 通过IAP Kit，用户可以在应用内购买各种类型的**数字商品（虚拟商品）** ，包括消耗型商品、非消耗型商品、自动续期订阅商品和非续期订阅商品。 > 华为IAP范围覆盖中的国家/地区（不包括中国境内（香港特别行政区、澳门特别行政区、中国台湾除外））仅支持Wearable设备。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/iap-introduction#支持的设备",
+          "enriched": true
+        },
+        {
+          "id": "kit.agc.appgallery-support-regions",
+          "title": "支持的国家/地区",
+          "content": "* Phone、Tablet、PC/2in1、TV、Car仅支持中国境内（香港特别行政区、澳门特别行政区、中国台湾除外）。 * Wearable设备支持以下国家/地区。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/appgallery-support-regions",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.remote": {
+      "doc": "alliance/document/cn/harmonyos-guides/network-navigator",
+      "topics": [
+        {
+          "id": "kit.remote.intro",
+          "title": "简介与能力全景",
+          "content": "> 说明 > > 网络领航员功能从API version 20开始支持，目前只支持手机和平板。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/network-navigator"
+        },
+        {
+          "id": "kit.remote.network-boost-kit-guide",
+          "title": "Network Boost Kit",
+          "content": "* **Network Boost Kit简介** * **连接迁移(多网切换) (C/C++)** * **连接迁移(多网并发)（C/C++）**",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/network-boost-kit-guide",
+          "enriched": true
+        },
+        {
+          "id": "kit.remote.network-netcopilot",
+          "title": "netcopilot工具",
+          "content": "netcopilot是一款帮助开发者进行网络模拟的工具，通过hdc命令行直接调用网络领航员接口，执行网络领航员请求，目前已支持预置场景场景调用和自定义场景调用。 > netcopilot工具从API version 20开始支持。 > 在使用本工具前，开发者需要先获取hdc工具。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/network-netcopilot",
+          "enriched": true
+        },
+        {
+          "id": "kit.remote.ide-developer-mode#section530763213432",
+          "title": "开启开发者选项",
+          "content": "HarmonyOS系统上的\"设置\"包含开发者选项的界面，用于辅助HarmonyOS应用程序开发、测试及优化，面向开发人员提供商业发行版之外的功能（如API能力），提供更多的调试选项及能力；您可在该界面中通过配置选项来帮助您分析和调试应用，例如，您可以通过启用USB/无线调试进行应用调试、开启DFX稳定性相关选项获取更多应用的故障及性能信息、开启过度绘制等选项快速发现性能问题等等。 在Phone或Tablet上查看**设置 > 系统** 中**开发者选项** 是否存在，如果不存在，可在**设置 > *具体的设备名称*** 中，连续点击**软件版本** 七次，直到提示\"开启开发者选项\"，点击**确认开启**后输入PIN码（如果已设置），设备将自动重启，请等待设备完成重启。 在…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-developer-mode#section530763213432",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.connectivity": {
+      "doc": "alliance/document/cn/harmonyos-guides/connectivity-kit-intro",
+      "topics": [
+        {
+          "id": "kit.connectivity.intro",
+          "title": "简介与能力全景",
+          "content": "移动终端设备已经深入人民日常生活的方方面面，如连接蓝牙耳机听音乐、连接WIFI上网、使用NFC进行一碰开门等已成为终端用户日常生活中常见的行为。 当用户处于这些丰富的使用场景中时，蓝牙提供基于蓝牙连接的基础能力，如音乐/通话/分享等，WIFI提供基础的无线连接能力，NFC提供基础的靠近刷卡和读卡能力。 对于开发者，设计基础通信的体验服务，可以使应用的使用体验更贴近每个终端用户的日常生活。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/connectivity-kit-intro"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-access",
+          "title": "@ohos.bluetooth.access",
+          "content": "蓝牙开关与可用性访问模块：查询蓝牙是否开启、订阅状态变化，其他蓝牙模块的前置判断。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-access",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-connection",
+          "title": "@ohos.bluetooth.connection",
+          "content": "蓝牙连接管理：查询已配对/已连接设备、监听连接状态变化，用于设备列表与重连策略。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-connection",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-ble",
+          "title": "@ohos.bluetooth.ble",
+          "content": "低功耗蓝牙（BLE）：扫描、连接、GATT 服务发现与读写/通知，适合手环、传感器等外设。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-ble",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-socket",
+          "title": "@ohos.bluetooth.socket",
+          "content": "经典蓝牙 Socket（SPP）通信：建立串口式数据通道，适合打印机、POS 机等流式传输场景。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-socket",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-a2dp",
+          "title": "@ohos.bluetooth.a2dp",
+          "content": "A2DP 音频输出协议：查询音频设备连接与编码状态，用于音频路由与设备切换提示。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-a2dp",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-hfp",
+          "title": "@ohos.bluetooth.hfp",
+          "content": "HFP 免提协议：处理通话音频路由与免提设备状态，配合音频焦点管理使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-hfp",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-hid",
+          "title": "@ohos.bluetooth.hid",
+          "content": "HID 人机接口设备：键鼠等外设的连接管理与事件分发，注意输入焦点与快捷键冲突。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-hid",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-pan",
+          "title": "@ohos.bluetooth.pan",
+          "content": "PAN 蓝牙网络共享：通过蓝牙接入网络，适合无 Wi-Fi 场景；需判断网络类型与计费策略。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-pan",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-map",
+          "title": "@ohos.bluetooth.map",
+          "content": "MAP 消息访问协议：同步手机消息到车机等设备，涉及用户隐私，需权限与告知。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-map",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-bluetooth-pbap",
+          "title": "@ohos.bluetooth.pbap",
+          "content": "PBAP 电话簿访问协议：同步联系人到车机等设备，读取范围需最小化并做脱敏。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-bluetooth-pbap",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        },
+        {
+          "id": "kit.connectivity.js-apis-wifimanager",
+          "title": "@ohos.wifiManager (WLAN)",
+          "content": "WLAN 管理：开关、扫描、连接与状态监听；扫描结果用于网络选择 UI，注意频繁扫描的功耗与权限。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-wifimanager",
+          "enriched": false,
+          "note": "本地补写（官方正文未自动抽取）"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.form": {
+      "doc": "alliance/document/cn/harmonyos-guides/form-refresh-and-data-interaction",
+      "topics": [
+        {
+          "id": "kit.form.intro",
+          "title": "简介与能力全景",
+          "content": "服务卡片给用户提供一目了然的信息内容，具有易用可见、智能可选和多端可变的特点，提供给用户简洁、高效的体验。系统通过Form Kit（卡片开发服务），提供了丰富的服务卡片开发能力，涵盖了卡片的创建、交互、更新与管理等多个方面，使开发者能够高效完成个性化服务卡片的开发。 **图 1** 天气卡片",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/form-refresh-and-data-interaction"
+        },
+        {
+          "id": "kit.form.form-kit",
+          "title": "Form Kit（卡片开发服务）",
+          "content": "官方章节《Form Kit（卡片开发服务）》。该页正文未能自动抽取，建议打开原文核对。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/form-kit"
+        },
+        {
+          "id": "kit.form.formkit-overview#服务卡片架构",
+          "title": "卡片提供方",
+          "content": "Form Kit（卡片开发服务）提供了一种在桌面、锁屏等系统应用上嵌入显示应用信息的开发框架和API，可以将应用内用户关注的重要信息或常用操作抽取到服务卡片（简称\"卡片\"）上，通过将卡片添加到桌面、锁屏等系统应用上，以达到信息展示、服务直达的便捷体验效果。后续统一使用英文名\"Form Kit\"进行表述。 * 支持设备类型：Phone、Tablet、PC/2in1、TV、Wearable、Car。轻量级智能穿戴设备不支持使用本Kit。 * 支持开发卡片应用类型：应用和元服务内均支持开发卡片。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/formkit-overview#服务卡片架构",
+          "enriched": true
+        },
+        {
+          "id": "kit.form.arkts-form-overview#实现原理",
+          "title": "实现原理",
+          "content": "以下内容介绍基于ArkTS声明式开发范式语言开发卡片。 * ArkTS卡片统一了卡片和应用页面的开发范式，应用页面的布局可以直接复用到卡片布局中，提升开发体验和开发效率。具体请参考图1 卡片工程结构对比。 * 新增了动效的能力：ArkTS卡片开放了属性动画和显式动画的能力，使卡片的交互更加友好。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-form-overview#实现原理",
+          "enriched": true
+        },
+        {
+          "id": "kit.form.uiability",
+          "title": "UIAbility组件",
+          "content": "* **UIAbility组件生命周期** * **UIAbility组件启动模式** * **UIAbility组件基本用法**",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/uiability",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.uidesign": {
+      "doc": "alliance/document/cn/harmonyos-guides/ui-design-introduction",
+      "topics": [
+        {
+          "id": "kit.uidesign.intro",
+          "title": "简介与能力全景",
+          "content": "UI Design Kit（UI设计套件）是华为提供的符合HarmonyOS Design System规范的UI界面开发套件集合。通过提供多样式的扩展组件、丰富的光影效果，支撑开发者高效构建高端精致的界面（参见HarmonyOS设计理念），确保应用在HarmonyOS全场景设备上达成一致的视觉体验与设计品质，遵循HarmonyOS设计规范。 **扩展组件** **光影效果** **多设备适配** :------------------",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/ui-design-introduction"
+        },
+        {
+          "id": "kit.uidesign.ui-design-navigation-dynamic-blur",
+          "title": "组件导航（HdsNavigation/HdsNavDestination）",
+          "content": "官方章节：组件导航（HdsNavigation/HdsNavDestination）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-navigation-dynamic-blur"
+        },
+        {
+          "id": "kit.uidesign.ui-design-sidebar-overlay-mode",
+          "title": "侧边栏（HdsSideBar）",
+          "content": "官方章节：侧边栏（HdsSideBar）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-sidebar-overlay-mode"
+        },
+        {
+          "id": "kit.uidesign.ui-design-side-menu",
+          "title": "侧边栏菜单（HdsSideMenu）",
+          "content": "官方章节：侧边栏菜单（HdsSideMenu）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-side-menu"
+        },
+        {
+          "id": "kit.uidesign.ui-design-hds-tabs-split-line",
+          "title": "底部页签（HdsTabs）",
+          "content": "官方章节：底部页签（HdsTabs）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-hds-tabs-split-line"
+        },
+        {
+          "id": "kit.uidesign.ui-design-snackbar-resident-notification",
+          "title": "即时操作（HdsSnackBar）",
+          "content": "官方章节：即时操作（HdsSnackBar）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-snackbar-resident-notification"
+        },
+        {
+          "id": "kit.uidesign.ui-design-actionbar-main-buttons",
+          "title": "核心操作栏（HdsActionBar）",
+          "content": "官方章节：核心操作栏（HdsActionBar）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-actionbar-main-buttons"
+        },
+        {
+          "id": "kit.uidesign.ui-design-set-hds-slide-horizon-listitem",
+          "title": "列表（HdsListItem）",
+          "content": "官方章节：列表（HdsListItem）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-set-hds-slide-horizon-listitem"
+        },
+        {
+          "id": "kit.uidesign.ui-design-multiwindowentryinapp",
+          "title": "应用内多窗（MultiWindowEntryInAPP）",
+          "content": "官方章节：应用内多窗（MultiWindowEntryInAPP）。打开「官方原文」查看完整说明与示例。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ui-design-multiwindowentryinapp"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.dataaug": {
+      "doc": "alliance/document/cn/harmonyos-guides/dataaugmentation-introduction",
+      "topics": [
+        {
+          "id": "kit.dataaug.intro",
+          "title": "简介与能力全景",
+          "content": "Data Augmentation Kit（数据增强套件）提供知识库、知识检索、RAG（检索增强生成）、端侧问答模型能力，打造个性化智慧数据平台，实现个性化智慧体验。 Data Augmentation Kit提供以下能力： * RAG（检索增强生成）：提供一种结合检索与生成技术的自然语言处理技术，通过动态从外部知识库中检索相关信息，辅助生成更准确、可靠的文本内容。其核心目标是弥补传统生成模型依赖静态知识的不足，实现\"知识实时调用\"与\"",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/dataaugmentation-introduction"
+        },
+        {
+          "id": "kit.dataaug.data-augmentation-rag-overview",
+          "title": "RAG（检索增强生成）",
+          "content": "RAG（Retrieval-Augmented Generation，检索增强生成）融合了智能检索与知识库技术，通过知识库驱动内容生成，具备强大的可解释性和深度定制能力。应用可通过接入Data Augmentation Kit提供的RAG能力，快速实现知识问答、智慧助手等业务场景。本模块还支持通过模板灵活配置RAG运行的核心参数，实现全流程的深度定制。 其工作原理为：请求大语言模型解析用户问题，智能检索知识库内容，最终由大模型融合检索结果并生成自然流畅的回复。下文将以流式的知识问答场景为例，详细说明RAG的使用。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-augmentation-rag-overview",
+          "enriched": true
+        },
+        {
+          "id": "kit.dataaug.dataaugmentation-retrieval",
+          "title": "智慧化数据检索",
+          "content": "智慧化数据检索可用于文件整理，文件搜索等场景，例如：关键词检索、语义检索（文搜文）和跨模态检索（文搜图）。智慧化数据检索通过多路召回和重排两个阶段实现： * 多路召回是指通过多种不同的策略或算法从海量数据中快速筛选出候选结果集。这些策略可针对不同的特征、模型或者数据来源，旨在尽可能覆盖各种潜在场景。ArkData提供了倒排和向量两路召回的能力，并支持灵活的条件过滤。 * 重排是针对多路召回得到的候选结果集进行二次筛选，通过简单规则或者更复杂的模型（如机器学习或深度学习模型）计算各个结果的相关性分数，并重新排列顺序。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/dataaugmentation-retrieval",
+          "enriched": true
+        },
+        {
+          "id": "kit.dataaug.dataaugmentation-localchatmodel",
+          "title": "端侧问答模型",
+          "content": "官方章节《端侧问答模型》。该页正文未能自动抽取，建议打开原文核对。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/dataaugmentation-localchatmodel"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.speech": {
+      "doc": "alliance/document/cn/harmonyos-guides/core-speech-introduction",
+      "topics": [
+        {
+          "id": "kit.speech.intro",
+          "title": "简介与能力全景",
+          "content": "Core Speech Kit（基础语音服务）集成了语音类基础AI能力，包括文本转语音（TextToSpeech）及语音识别（SpeechRecognizer）能力，便于用户与设备进行互动，实现将实时输入的语音与文本之间相互转换。 * 文本转语音：将一段不超过10000字符数的文本合成为语音并进行播报。实现效果可参考朗读控件。 * 语音识别：将一段音频信息（短语音模式不超过60s，长语音模式不超过8h）转换为文本，可以将pcm音频文件或",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/core-speech-introduction"
+        },
+        {
+          "id": "kit.speech.speech-textreader-guide",
+          "title": "朗读控件",
+          "content": "朗读控件应用广泛，例如在用户不方便或者无法查看屏幕文字的时候，为用户朗读新闻，提供资讯。 本章节将向您介绍如何使用朗读组件，效果如下图所示。 以下仅列出demo中调用的部分主要接口，具体API说明详见API参考。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/speech-textreader-guide",
+          "enriched": true
+        },
+        {
+          "id": "kit.speech.speech-aicaption-guide",
+          "title": "AI字幕控件",
+          "content": "AI字幕控件应用广泛，例如在用户不熟悉音频源语言或者静音的时候，为用户提供字幕服务。 本章节将向您介绍如何使用AI字幕组件AICaptionComponent和AICaptionController展示AI字幕，效果如下图所示。 AI字幕功能主要由AICaptionComponent提供，更多接口及使用方法请参见API参考。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/speech-aicaption-guide",
+          "enriched": true
+        },
+        {
+          "id": "kit.speech.ide-emulator-specification",
+          "title": "模拟器与真机的差异",
+          "content": "模拟器是开发和调试HarmonyOS应用/元服务的便捷工具，例如不需要配置服务器域名即可开发和调试元服务，在大多数情况下，模拟器上推包调试不需要签名，但部分Kit仍需签名后才能正常运行，具体要求请参考Kit的开发指南。 由于模拟器和真机在硬件和能力上存在差异，部分功能场景仍需在真机上进行开发。您可以通过阅读本文档来决定哪些功能在模拟器中测试，哪些功能在真机上测试。 模拟器是运行在Mac或Windows电脑上的虚拟机应用，会使用电脑的硬件资源，包括CPU、内存和网络连接等。这些资源在容量和速度上可能与真机存在显著差异。因此，模拟器不适合用于测试应用/元服务的性能（如数据处理、图形渲染、网络速度）、资源占用（如内存、CPU、功耗），模拟器的性能测试结果仅能用于评估应用功能的相…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-emulator-specification",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.agent": {
+      "doc": "alliance/document/cn/harmonyos-guides/hmaf-introduction",
+      "topics": [
+        {
+          "id": "kit.agent.intro",
+          "title": "简介与能力全景",
+          "content": "Agent Framework Kit（智能体框架服务）提供了拉起指定智能体的能力。 应用在小艺开放平台上线智能体后，向用户提供应用+智能体组合的服务，让用户可以在适当的场景下通过Agent Framework Kit的UI控件能力主动拉起智能体。 Agent Framework Kit主要包含Function组件和A2A（Agent to Agent）协议模块。Function组件提供拉起指定智能体的能力。A2A协议模块用于智能体之间",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/hmaf-introduction"
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.vision": {
+      "doc": "alliance/document/cn/harmonyos-guides/core-vision-introduction",
+      "topics": [
+        {
+          "id": "kit.vision.intro",
+          "title": "简介与能力全景",
+          "content": "Core Vision Kit（基础视觉服务）提供了机器视觉相关的基础能力，例如通用文字识别（即OCR，Optical Character Recognition，也称为光学字符识别）、人脸检测、人脸比对以及主体分割等能力。 开发者可以结合Vision Kit的UI控件能力（例如：人脸活体检测），提升应用的智能化、便捷化交互体验。 Core Vision Kit可应用于各种场景，提升用户体验和应用效率。以下是一些典型的应用场景：",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/core-vision-introduction"
+        },
+        {
+          "id": "kit.vision.vision-introduction",
+          "title": "Vision Kit",
+          "content": "Vision Kit（场景化视觉服务）集成了视觉类AI能力，包括人脸活体检测（interactiveLiveness）能力、卡证识别（CardRecognition）能力、文档扫描（DocumentScanner）能力、AI识图控件（visionImageAnalyzer）能力。人脸活体检测能力便于用户与设备进行互动，验证用户是否为真实活体；卡证识别能力可提供身份证、行驶证、驾驶证、护照、银行卡等证件的结构化识别服务；文档扫描控件可提供拍摄文档并转换为高清扫描件的服务；AI识图控件可提供场景化的文本识别、主体分割、识图搜索功能。其中动作活体检测能力、卡证识别能力实施试用期免费的计费政策，试用期至2026年12月31日。开始正式收费前，华为将会提前通过正式途径发布计费调整通…",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/vision-introduction",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-text-recognition",
+          "title": "通用文字识别",
+          "content": "通用文字识别，是通过拍照、扫描等光学输入方式，将各种票据、卡证、表格、报刊、书籍等印刷品文字转化为图像信息，再利用文字识别技术将图像信息转化为计算机等设备可以使用的字符信息的技术。 * 可以对文档翻拍、街景翻拍等图片进行文字检测和识别，也可以集成于其他应用中，提供文字检测、识别的功能，并根据识别结果提供翻译、搜索等相关服务。 * 可以处理来自相机、图库等多种来源的图像数据，提供一个自动检测文本、识别图像中文本位置以及文本内容功能的开放能力。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-text-recognition",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-face-detector",
+          "title": "人脸检测",
+          "content": "检测图片中的人脸，返回高精度人脸矩形框坐标、人脸五官位置、人脸朝向、人脸置信度。可通过对人脸的定位，实现对人脸特定位置的美化修饰。广泛应用于各类人脸识别场景，如人脸聚类、美颜等场景中。 1. 在使用人脸检测时，将实现人脸检测相关的类添加至工程。 import { faceDetector } from '@kit.CoreVisionKit';",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-face-detector",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-face-comparator",
+          "title": "人脸比对",
+          "content": "输入的两张比对图片是同一个人的照片时，系统返回的比对结果为\"同一个人\"，置信分数比较高；当两张比对图片不是同一个人的照片时，系统返回的比对结果为\"非同一个人\"，置信分数很低。该功能可用于人脸比对的场景，例如身份验证、人脸解锁等安全相关场景。 1. 在使用人脸比对时，将实现人脸比对相关的类添加至工程。 import { faceComparator } from '@kit.CoreVisionKit';",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-face-comparator",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-subject-segmentation",
+          "title": "主体分割",
+          "content": "主体分割，可以检测出图片中区别于背景的前景物体或区域（即\"显著主体\"），并将其从背景中分离出来，适用于需要识别和提取图像主要信息的场景，广泛使用于前景目标检测和前景主体分离的场景。例如： * 主体贴纸，从图片中提取显著性的主体，去掉背景。 * 背景替换，替换并提取出主体对象的背景。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-subject-segmentation",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-object-detection",
+          "title": "多目标识别",
+          "content": "可同时检测出给定图片中的各种物体，包括风景、动物、植物、建筑、人脸、表格、文本等位置，并框选出物体。 1. 在使用多目标识别时，将实现多目标识别相关的类添加至工程。 import { image } from '@kit.ImageKit';",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-object-detection",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-skeleton-detection",
+          "title": "骨骼点检测",
+          "content": "人体骨骼关键点检测，主要检测人体的一些关键点，通过关键点描述人体骨骼信息。具体应用主要集中在智能视频监控，病人监护系统，人机交互，虚拟现实，人体动画，智能家居，智能安防，运动员辅助训练等等。 支持17个关键点的识别，具体为鼻子，左右眼，左右耳，左右肩，左右肘、左右手腕、左右髋、左右膝、左右脚踝。 1. 在使用骨骼点检测时，将实现骨骼点检测相关的类添加至工程。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-skeleton-detection",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-image-super-resolution",
+          "title": "图像超分",
+          "content": "从26.0.0版本开始，新增支持对输入的低分辨率图像进行超分辨率重建，使图像更加清晰。适用于提升图片质量、修复老照片等场景。 1. 在使用图像超分时，将实现图像超分相关的类添加至工程。 import { imageSuperResolution, visionBase } from '@kit.CoreVisionKit'",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-image-super-resolution",
+          "enriched": true
+        },
+        {
+          "id": "kit.vision.core-vision-text-search-image",
+          "title": "通过文本搜索图片",
+          "content": "文本搜索图片服务提供基于文本语意的图片检索能力。用户可以通过输入文本语意，从图片库中搜索匹配的图像结果。该服务适用于图片检索、相册管理、内容推荐等场景。 1. 将实现文本搜索图片相关的工具和依赖导入工程。 import { textSearchImage } from '@kit.CoreVisionKit';",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/core-vision-text-search-image",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    },
+    "kit.enterprise": {
+      "doc": "alliance/document/cn/harmonyos-guides/enterprisespace-introduction",
+      "topics": [
+        {
+          "id": "kit.enterprise.intro",
+          "title": "简介与能力全景",
+          "content": "Enterprise Space Kit（企业数字空间服务）为企业MDM应用提供企业数字空间的空间管控、空间互传管控等API，助力企业依托MDM应用实现集中管理与远程配置，确保企业数字空间适配企业业务场景，同时满足数据传输安全管控要求。 企业数字空间是擎云系列企业版核心特性之一，在同一物理终端上划分出互不干扰的\"个人空间\"与\"企业空间\"，企业空间统一管控工作数据，守护企业数据安全；个人空间处理对外工作、个人事务等，平衡了企业数据安全与员",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/alliance/document/cn/harmonyos-guides/enterprisespace-introduction"
+        },
+        {
+          "id": "kit.enterprise.mdm-kit",
+          "title": "MDM",
+          "content": "* **EnterpriseAdminExtensionAbility开发指南**",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/mdm-kit",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-file-transfer-control",
+          "title": "文件外发管控",
+          "content": "从API版本6.0.0(20)开始，支持设置和获取审批信息、配置空间互传单双通策略的能力。 支持在文件传输场景中，通过设置空间的单通或双通策略，灵活配置应用文件在空间间的外发权限，实现安全可控的跨空间文件共享。当文件外发需纳入审批流程管控时，系统支持配置相关审批信息。同时，通过调用审批状态同步接口，实时获取审批结果，确保外发流程的安全与合规。 单通模式下，仅允许个人空间向企业空间发送文件，禁止反向传输。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-file-transfer-control",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-lifecycle-management",
+          "title": "工作空间管理",
+          "content": "从API版本6.0.0(20)开始，支持应用开启双空间功能并创建、查询、删除工作空间的能力。 从API版本26.0.0开始，支持查询设备双空间状态、判断工作空间是否为企业空间，以及切换工作空间。 Enterprise Space Kit为应用提供启用双空间功能及管理工作空间的能力。应用需要先使能工作空间，然后才能创建个人空间。同时，提供查询、移除工作空间的功能。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-lifecycle-management",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-workspace-configuration",
+          "title": "工作空间配置",
+          "content": "从API版本6.0.0(20)开始，支持设置工作空间信息、资料照片的能力。 从API版本6.0.2(22)开始，支持设置和查询工作空间策略的能力。 从API版本6.1.0(23)开始，支持设置工作空间本地名称、状态栏图标的能力。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-workspace-configuration",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-event-subscription",
+          "title": "空间事件订阅",
+          "content": "从API版本6.0.0(20)开始，支持订阅和取消订阅空间事件的能力。 Enterprise Space Kit为应用提供订阅空间事件的能力。订阅空间切换事件后，应用将在空间切换时收到通知，并执行预设的自定义动作。同时，也提供取消订阅空间事件的能力，支持应用在特定场景下灵活管理空间事件的订阅状态。 1.导入空间事件订阅API模块相关依赖。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-event-subscription",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-process-access-restricti",
+          "title": "进程访问限制",
+          "content": "从API版本6.0.1(21)开始，支持应用配置系统服务进程对后台用户数据的访问控制。 Enterprise Space Kit支持应用设置系统服务进程不可访问后台用户数据的能力，同时支持获取系统服务进程管控不可访问后台用户数据的状态。另外，支持应用提供获取、新增和删除不可访问后台用户数据的系统服务进程列表的能力。 1.导入进程访问限制API模块相关依赖。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-process-access-restriction",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-lockdown-exemptionapps",
+          "title": "深度冻结策略",
+          "content": "从API版本6.0.2(22)开始，支持设置和查询深度冻结豁免名单的能力。 Enterprise Space Kit为企业应用提供设备在深度冻结模式下的应用豁免管理能力，支持设置豁免应用，使其在后台正常运行。同时，支持查询深度冻结豁免的应用名单。 1.导入深度冻结策略API模块相关依赖。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-lockdown-exemptionapps",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-workspace-authentication",
+          "title": "企业账号认证",
+          "content": "从API版本6.1.0(23)开始，支持企业认证和获取企业应用令牌的能力。 Enterprise Space Kit为企业应用提供企业账号认证的能力。在企业空间初始化阶段，实现企业用户的账号认证。同时支持获取企业应用令牌的能力。 1.导入企业账号认证API模块相关依赖。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-workspace-authentication",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.enterprisespace-cross-space-notification",
+          "title": "跨空间消息提醒",
+          "content": "从API版本26.0.0开始，支持跨空间消息提醒的能力。 Enterprise Space Kit为应用提供跨空间消息提醒的能力，支持企业空间与个人空间之间的双向通知互通：企业应用可主动触达个人空间，个人空间的应用也能将关键信息同步至企业空间。 企业管理员可调用配置接口控制\"设置 > 通知和状态栏 > 通知管理\"路径下的开关，以及是否隐藏通知内容，同时还能通过查询接口实时获取当前的配置状态。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/enterprisespace-cross-space-notification",
+          "enriched": true
+        },
+        {
+          "id": "kit.enterprise.ide-device-file-explorer#section97531131",
+          "title": "公共目录",
+          "content": "开发者可以使用Device File Browser，在DevEco Studio上如PC端操作一样，对设备文件进行新建、删除、上传、下载等操作，而无需使用命令行，提升开发效率，当前支持普通文件视图与应用沙箱视图两种模式。 * 从PC本地上传文件到设备上，从设备上下载文件到PC本地。 * 不支持访问无权限目录，新建、删除、上传、下载文件受设备权限约束。",
+          "code": "",
+          "source": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ide-device-file-explorer#section975311314172",
+          "enriched": true
+        }
+      ],
+      "note": "仅保留官方指南章节（无则退回参考文献并过滤内部标题）"
+    }
+  }
+}

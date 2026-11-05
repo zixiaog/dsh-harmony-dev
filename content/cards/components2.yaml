@@ -1,0 +1,408 @@
+# 组件卡批次 3（14 张）：选择 / 输入 / 反馈类。since 未核 apidiff 的标「待校准」。
+- id: comp.select
+  domain: component
+  title: Select 下拉选择
+  summary: 从预设选项中选择一项；选项 3~10 个时优于单选组。
+  designClass: selection
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: selected, type: number, default: 0, desc: 当前选中项索引 }
+    - { name: value, type: string, default: "", desc: 当前选中文本 }
+  events:
+    - { name: onSelect, params: "(index: number, value: string) => void", desc: 选择回调 }
+  sections:
+    usage: 3~10 个选项用 Select；少于 3 个用分段按钮；超过 10 个用半模态列表。
+    example: "Select([{ value: 'A' }, { value: 'B' }])\n  .selected(this.index)\n  .onSelect((index) => { this.index = index })"
+    pitfalls: [选项过多仍用下拉, 选中态与数据不同步]
+    a11y: [需要可读标签]
+    adapt: [宽屏可改为并列按钮组]
+    perf: [选项数据避免在 build 中重建]
+  tokens: [radius.button, color.font_secondary]
+  version_note: "since 待 apidiff 校准"
+  sources:
+    - { title: 下拉按钮（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/select-0000001957001873.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.checkbox
+  domain: component
+  title: Checkbox 勾选
+  summary: 多选或「确认后再提交」的二元选项，与 Toggle 的即时生效语义区分。
+  designClass: selection
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: name, type: string, default: "", desc: 分组名 }
+    - { name: group, type: string, default: "", desc: 所属复选组 }
+  events:
+    - { name: onChange, params: "(value: boolean) => void", desc: 勾选变化 }
+  sections:
+    usage: 多选用 Checkbox，即时生效用 Toggle；协议勾选必须可点击文字区域。
+    example: "Checkbox({ name: 'agree', group: 'terms' })\n  .select(this.agree)\n  .onChange((value) => { this.agree = value })"
+    pitfalls: [勾选框与文字分离导致热区过小, 把多选做成 Toggle]
+    a11y: [勾选项需可读文本，热区覆盖文字]
+    adapt: [宽屏下多项可并排]
+    perf: [避免每组都重建选项]
+  tokens: [color.brand, radius.button]
+  version_note: ""
+  sources:
+    - { title: 勾选（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/checkbox-0000001957012561.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.radio
+  domain: component
+  title: Radio 单选
+  summary: 一组互斥选项中选择一项，选项少且需要全部可见时使用。
+  designClass: selection
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: value, type: string, default: "", desc: 该项值 }
+    - { name: group, type: string, default: "", desc: 所属单选组 }
+  events:
+    - { name: onChange, params: "(isChecked: boolean) => void", desc: 选中变化 }
+  sections:
+    usage: 2~3 个互斥选项用 Radio；更多用 Select 或半模态。
+    example: "Radio({ value: 'a', group: 'plan' })\n  .checked(this.plan === 'a')\n  .onChange((checked) => { if (checked) this.plan = 'a' })"
+    pitfalls: [选项超过 5 个仍平铺, 默认未选中]
+    a11y: [整行可点击，文字即标签]
+    adapt: [宽屏可横向排列]
+    perf: [选项静态时避免动态生成]
+  tokens: [color.brand, space.elements.gapNormal]
+  version_note: ""
+  sources:
+    - { title: 单选框（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/radio-0000001929853288.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.slider
+  domain: component
+  title: Slider 滑动条
+  summary: 在连续或离散区间取值，拖动即时反馈数值。
+  designClass: selection
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: value, type: number, default: 0, desc: 当前值 }
+    - { name: min, type: number, default: 0, desc: 最小值 }
+    - { name: max, type: number, default: 100, desc: 最大值 }
+    - { name: step, type: number, default: 1, desc: 步长 }
+  events:
+    - { name: onChange, params: "(value: number, mode: SliderChangeMode) => void", desc: 拖动变化 }
+  sections:
+    usage: 连续调节用 Slider；精确输入配合 TextInput，避免只靠拖动。
+    example: "Slider({ value: this.volume, min: 0, max: 100, step: 1 })\n  .onChange((value) => { this.volume = value })"
+    pitfalls: [无当前值展示, 步长与刻度不符]
+    a11y: [需可读名称与当前值]
+    adapt: [PC 上支持键盘方向键微调]
+    perf: [拖动中避免每帧落库]
+  tokens: [color.brand, color.font_secondary]
+  version_note: ""
+  sources:
+    - { title: 滑动条（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/slider-0000001957012565.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.search
+  domain: component
+  title: Search 搜索框
+  summary: 页内检索入口，带占位提示、清除与搜索建议。
+  designClass: input
+  codeClass: text-input
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: placeholder, type: ResourceStr, default: null, desc: 占位提示 }
+    - { name: searchButton, type: string, default: "搜索", desc: 搜索按钮文案 }
+  events:
+    - { name: onSubmit, params: "(value: string) => void", desc: 提交搜索 }
+    - { name: onChange, params: "(value: string) => void", desc: 输入变化（可做建议） }
+  sections:
+    usage: 搜索框圆角取按钮档位；历史与建议用半模态或下拉浮层。
+    example: "Search({ placeholder: '搜索文档', searchButton: '搜索' })\n  .onSubmit((value) => { this.query = value })"
+    pitfalls: [无清除按钮, 输入即发请求无防抖]
+    a11y: [搜索框需可读标签，结果数量需播报]
+    adapt: [宽屏下可固定在页头]
+    perf: [建议请求做 200ms 防抖]
+  tokens: [radius.button, color.font_secondary]
+  version_note: ""
+  sources:
+    - { title: 搜索框（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/search-0000001956852741.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.textarea
+  domain: component
+  title: TextArea 多行文本
+  summary: 多行输入，需处理换行、字数上限与键盘避让。
+  designClass: input
+  codeClass: text-input
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: placeholder, type: ResourceStr, default: null, desc: 占位提示 }
+    - { name: maxLength, type: number, default: null, desc: 最大字数 }
+  events:
+    - { name: onChange, params: "(value: string) => void", desc: 输入变化 }
+  sections:
+    usage: 长文本用 TextArea，圆角取卡片档位；字数上限旁展示计数。
+    example: "TextArea({ placeholder: '请输入反馈' })\n  .maxLength(200)\n  .onChange((value) => { this.text = value })"
+    pitfalls: [不显示剩余字数, 键盘遮挡输入区]
+    a11y: [需可读标签与字数提示]
+    adapt: [宽屏下可加宽并保持行长可读]
+    perf: [onChange 中避免同步重计算]
+  tokens: [radius.card, color.font_secondary]
+  version_note: ""
+  sources:
+    - { title: 文本框（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/textinput-0000001957012557.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.menu
+  domain: component
+  title: Menu 菜单
+  summary: 上下文操作集合，浮层展示，需明确层级与关闭行为。
+  designClass: operation
+  codeClass: container
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: options, type: MenuOptions, default: null, desc: 菜单配置 }
+  events:
+    - { name: onSelect, params: "(value: string) => void", desc: 选中项 }
+  sections:
+    usage: 菜单圆角取浮层档位 32vp；危险操作放最后并标红。
+    example: "Menu() {\n  MenuItem({ content: '删除' }).onClick(() => {})\n}"
+    pitfalls: [菜单项过多不分组, 危险操作无二次确认]
+    a11y: [菜单需可键盘导航与 Esc 关闭]
+    adapt: [PC 支持右键唤出]
+    perf: [菜单内容懒构建]
+  tokens: [radius.sheet, color.alert, color.font_primary]
+  version_note: ""
+  sources:
+    - { title: 菜单（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/menu-0000001957001877.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.alertdialog
+  domain: component
+  title: AlertDialog 警告弹窗
+  summary: 需要用户确认的关键操作，含标题、说明与按钮。
+  designClass: container
+  codeClass: dialog
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: title, type: string, default: "", desc: 标题 }
+    - { name: message, type: string, default: "", desc: 说明文本 }
+    - { name: autoCancel, type: boolean, default: true, desc: 点击遮罩是否关闭 }
+  events:
+    - { name: onAction, params: "(action: DialogButtonStyle) => void", desc: 按钮回调 }
+  sections:
+    usage: 破坏性操作必须确认；按钮文案用动词（删除/取消），不用「确定/取消」。
+    example: "AlertDialog.show({\n  title: '删除这条记录？',\n  message: '删除后不可恢复',\n  primaryButton: { value: '取消', action: () => {} },\n  secondaryButton: { value: '删除', fontColor: $r('app.color.alert'), action: () => {} },\n})"
+    pitfalls: [弹窗嵌套弹窗, 遮罩误触关闭关键确认]
+    a11y: [弹窗需聚焦并支持 Esc / 返回关闭]
+    adapt: [宽屏下限制弹窗宽度]
+    perf: [避免在弹窗打开时同步加载大数据]
+  tokens: [radius.sheet, color.alert, color.font_primary]
+  version_note: ""
+  sources:
+    - { title: 弹出框（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/dialog-0000001957012569.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.customdialog
+  domain: component
+  title: CustomDialog 自定义弹窗
+  summary: 需要自定义内容布局的模态弹窗，负责焦点与关闭管理。
+  designClass: container
+  codeClass: dialog
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: builder, type: CustomDialogControllerOptions, default: null, desc: 内容构建器 }
+  events:
+    - { name: onWillDismiss, params: "(action: DismissDialogAction) => void", desc: 关闭前回调 }
+  sections:
+    usage: 自定义弹窗圆角 32vp；内容区滚动需固定头尾。
+    example: "@CustomDialog\nstruct ConfirmDialog {\n  controller?: CustomDialogController\n  build() { Column() { ... }.borderRadius(32) }\n}"
+    pitfalls: [内容溢出无滚动, 未监听返回键]
+    a11y: [首焦点落在弹窗内，关闭后焦点归还]
+    adapt: [宽屏限制最大宽度]
+    perf: [弹窗内容轻量，避免内嵌长列表]
+  tokens: [radius.sheet, color.font_primary]
+  version_note: ""
+  sources:
+    - { title: 弹出框（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/dialog-0000001957012569.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.toast
+  domain: component
+  title: Toast 即时反馈
+  summary: 轻量非阻塞提示，用于操作结果反馈，不承载需要决策的信息。
+  designClass: display
+  codeClass: feedback
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: message, type: ResourceStr, default: "", desc: 提示文本 }
+    - { name: duration, type: number, default: 2000, desc: 展示时长 ms }
+  events: []
+  sections:
+    usage: 用 promptAction.showToast；失败提示带原因，避免只弹「操作失败」。
+    example: "promptAction.showToast({ message: '已保存', duration: 2000 })"
+    pitfalls: [用 Toast 承载需确认的操作, 连续弹多个覆盖]
+    a11y: [Toast 需被读屏播报]
+    adapt: [PC 上用 SnackBar 更合适]
+    perf: [避免高频重复弹同一条]
+  tokens: [color.font_primary, motion.duration.simple]
+  version_note: ""
+  sources:
+    - { title: 即时反馈（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/toast-0000001929656648.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.badge
+  domain: component
+  title: Badge 新事件标记
+  summary: 在图标/文字上角标数量或小红点，提示未读与新内容。
+  designClass: display
+  codeClass: feedback
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: count, type: number, default: 0, desc: 数量，0 不显示 }
+    - { name: maxCount, type: number, default: 99, desc: 显示上限，超出显示 99+ }
+  events: []
+  sections:
+    usage: 数字角标用于未读数，纯红点用于「有新内容但无数量」。
+    example: "Badge({ count: this.unread, maxCount: 99 }) { Image($r('app.media.bell')) }"
+    pitfalls: [数量与真实未读不一致, 小图标上叠大角标]
+    a11y: [未读数需可通过读屏获取]
+    adapt: [宽屏下可改为文字提示]
+    perf: [避免频繁重建角标]
+  tokens: [color.alert, color.font_on_primary, radius.tag]
+  version_note: ""
+  sources:
+    - { title: 新事件标记（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/badge-0000001929816016.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.progress
+  domain: component
+  title: Progress 进度条
+  summary: 展示确定性或不确定性的任务进度。
+  designClass: display
+  codeClass: feedback
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: value, type: number, default: 0, desc: 当前进度 0~100 }
+    - { name: total, type: number, default: 100, desc: 总量 }
+    - { name: type, type: ProgressType, default: ProgressType.Linear, desc: 线形/环形 }
+  events: []
+  sections:
+    usage: 有明确进度用 value；未知时长用 LoadingProgress，不用假进度。
+    example: "Progress({ value: this.percent, total: 100, type: ProgressType.Linear })"
+    pitfalls: [无进度仍假装 99%, 进度条无文字说明]
+    a11y: [进度需可读播报]
+    adapt: [宽屏下线形更合适]
+    perf: [高频更新合并到动画帧]
+  tokens: [color.brand, color.font_secondary]
+  version_note: ""
+  sources:
+    - { title: 进度条（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/progress-0000001929656644.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.rating
+  domain: component
+  title: Rating 评分条
+  summary: 星级评分输入/展示，支持半星与只读模式。
+  designClass: selection
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: rating, type: number, default: 0, desc: 当前评分 }
+    - { name: indicator, type: boolean, default: false, desc: 只读展示 }
+    - { name: stepSize, type: number, default: 0.5, desc: 步长 }
+  events:
+    - { name: onChange, params: "(value: number) => void", desc: 评分变化 }
+  sections:
+    usage: 评分项≥5 星；只读展示时用 indicator 避免误触。
+    example: "Rating({ rating: this.score, indicator: false, stepSize: 0.5 })\n  .onChange((value) => { this.score = value })"
+    pitfalls: [展示态可被误点, 无评分文字说明]
+    a11y: [评分需可读数值]
+    adapt: [宽屏下与文字并排]
+    perf: [静态展示避免重绘]
+  tokens: [color.brand, color.font_secondary]
+  version_note: ""
+  sources:
+    - { title: 评分条（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/rating-0000001929853906.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.swiper
+  domain: component
+  title: Swiper 轮播
+  summary: 横向翻页容器，需配导航点与自动播放节制。
+  designClass: container
+  codeClass: container
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: index, type: number, default: 0, desc: 当前页 }
+    - { name: autoPlay, type: boolean, default: false, desc: 是否自动播放 }
+    - { name: interval, type: number, default: 3000, desc: 自动播放间隔 }
+  events:
+    - { name: onChange, params: "(index: number) => void", desc: 翻页回调 }
+  sections:
+    usage: 轮播页数 ≤5；配 Swiper 导航点；自动播放提供暂停能力。
+    example: "Swiper({ index: this.page, autoPlay: false }) {\n  Image($r('app.media.b1'))\n  Image($r('app.media.b2'))\n}\n.indicator(true)"
+    pitfalls: [自动播放过快, 无导航点不知页数]
+    a11y: [轮播内容需可读，自动播放可暂停]
+    adapt: [宽屏下限制轮播高度]
+    perf: [图片懒加载]
+  tokens: [radius.card, motion.duration.standard]
+  version_note: ""
+  sources:
+    - { title: 导航点（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/swiper-0000001956947629.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

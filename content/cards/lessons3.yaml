@@ -1,0 +1,415 @@
+# 高阶与实战课程（第 29~46 讲）。与 lessons.yaml 同 schema。
+- id: lesson.29
+  domain: tutorial
+  title: "第 29 讲：Canvas 图形绘制"
+  summary: 自绘图表与图形，处理 DPI、刷新与无障碍替代文本。
+  level: 进阶
+  order: 29
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：画出可用图表。知识点：Canvas 上下文、按 density 缩放、局部重绘、文本用 Text 保证可读。
+    example: "Canvas(this.ctx)\n  .onReady(() => {\n    this.ctx.fillStyle = $r('app.color.brand');\n    this.ctx.fillRect(0, 0, 100, 100);\n  })"
+    pitfalls: [画布内画文本导致不可读, 每帧全量重绘]
+  checkpoints:
+    - 能画出柱状图并标注数值
+    - 能解释为何文本不该画在 Canvas 里
+  exercise: 用 Canvas 画一个 7 日步数柱状图
+  tokens: [color.brand]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.30
+  domain: tutorial
+  title: "第 30 讲：音视频深入"
+  summary: AVPlayer 状态机、AVRecorder 录制与后台播放。
+  level: 进阶
+  order: 30
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：播放与录制都稳定。知识点：idle→prepared→playing 状态机、错误监听、seek、释放、后台任务声明。
+    example: "player.on('stateChange', (s) => { this.state = s; });\nplayer.on('error', (e) => { this.toast(e.message); });"
+    pitfalls: [未等 prepared 就 play, 退出不 release]
+  checkpoints:
+    - 能画出播放器状态机
+    - 能处理后台播放被中断
+  exercise: 实现一个带进度条与错误提示的播放器
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.31
+  domain: tutorial
+  title: "第 31 讲：ArkWeb 进阶"
+  summary: Cookie、离线缓存、JS 注入与安全边界。
+  level: 进阶
+  order: 31
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：网页与原生深度协作。知识点：registerJavaScriptProxy、runJavaScript、Cookie 管理、域名白名单、调试开关。
+    example: "this.controller.registerJavaScriptProxy({ getToken: () => this.token }, 'bridge', ['getToken']);"
+    pitfalls: [桥接方法不校验入参, 生产环境开调试]
+  checkpoints:
+    - 能实现双向 JS 通信
+    - 能说明白名单与调试开关的安全要求
+  exercise: 让网页通过桥接拿到用户信息
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.32
+  domain: tutorial
+  title: "第 32 讲：分布式数据对象"
+  summary: 跨设备共享对象与同步状态管理。
+  level: 进阶
+  order: 32
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：多设备共享同一份数据。知识点：分布式数据对象创建、会话加入、变更监听、冲突策略。
+    example: "const obj = distributedDataObject.create(this.context, { draft: '' });\nobj.on('change', (sessionId, fields) => { /* ... */ });"
+    pitfalls: [网络断开无提示, 冲突无处理策略]
+  checkpoints:
+    - 能说清「分布式 KV」与「数据对象」的差别
+    - 能处理同步冲突
+  exercise: 实现两台设备的草稿同步
+  tokens: []
+  version_note: "需设备与权限支持"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.33
+  domain: tutorial
+  title: "第 33 讲：应用间跳转与分享"
+  summary: 拉起其他应用、系统分享与 App Linking。
+  level: 进阶
+  order: 33
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：与系统和其他应用协作。知识点：startAbility、系统分享面板、App Linking 直达、失败降级。
+    example: "await context.startAbility({ bundleName: 'com.other', abilityName: 'EntryAbility' });"
+    pitfalls: [目标应用未安装无降级, 未配置可见性]
+  checkpoints:
+    - 能拉起另一个应用并处理失败
+    - 能接入系统分享
+  exercise: 把一条内容分享到系统分享面板
+  tokens: []
+  version_note: "应用可见性见官方文档"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.34
+  domain: tutorial
+  title: "第 34 讲：权限与隐私合规深入"
+  summary: 最小权限、运行时申请、权限说明与隐私政策一致性。
+  level: 进阶
+  order: 34
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：权限用得少、说得清。知识点：最小权限原则、reason 文案、拒绝兜底、权限与隐私声明逐项对齐。
+    example: "const res = await atManager.requestPermissionsFromUser(ctx, ['ohos.permission.CAMERA']);\nif (res.authResults[0] !== 0) this.showCameraGuide();"
+    pitfalls: [申请了不用的权限, 拒绝后功能直接崩]
+  checkpoints:
+    - 能列出一个功能的必要权限
+    - 能写出拒绝后的降级方案
+  exercise: 为「扫码」功能写权限申请与降级
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.35
+  domain: tutorial
+  title: "第 35 讲：动画性能与局部刷新"
+  summary: 只改必要属性、局部刷新、避免整树重建。
+  level: 进阶
+  order: 35
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：复杂页面也顺滑。知识点：拆分状态粒度、@Reusable、局部刷新、减少嵌套、避免动画期间重建。
+    example: "// 只更新变化的子组件状态，而不是整页数据"
+    pitfalls: [大对象整体刷新, 动画里改列表数据]
+  checkpoints:
+    - 能定位一次重绘的范围
+    - 能说出 3 个减少重绘的手段
+  exercise: 把整页刷新改成局部刷新
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.36
+  domain: tutorial
+  title: "第 36 讲：折叠屏适配实战"
+  summary: 折痕避让、悬停态、展开态布局与三折叠。
+  level: 进阶
+  order: 36
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：折叠设备上不别扭。知识点：折叠/展开状态监听、折痕位置、悬停分区、宽高比变化处理。
+    example: "// 监听折叠状态变化后切换到分栏布局"
+    pitfalls: [展开后布局仍单列, 关键内容在折痕]
+  checkpoints:
+    - 能给展开态设计双栏
+    - 能处理悬停态分区
+  exercise: 给列表页做展开态双栏
+  tokens: [layout.breakpoints]
+  version_note: ""
+  sources:
+    - { title: 折叠屏设计原则, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-principles-0000001957023989.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.37
+  domain: tutorial
+  title: "第 37 讲：主题切换实现"
+  summary: 浅色/深色/跟随系统三态与资源切换。
+  level: 进阶
+  order: 37
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：用户可切换且状态持久化。知识点：$r 双套资源、app.colorMode 设置、PersistenceV2 存偏好、切换后刷新。
+    example: "this.getUIContext().getHostContext()?.getApplicationContext().setColorMode(ColorMode.DARK);"
+    pitfalls: [切换后部分页面不刷新, 只做两套但不跟随系统]
+  checkpoints:
+    - 能实现三态切换并持久化
+    - 能检查深色下所有页面
+  exercise: 实现「浅色/深色/跟随系统」
+  tokens: [color.background_primary]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.38
+  domain: tutorial
+  title: "第 38 讲：国际化与时区"
+  summary: 多语言资源、日期数字格式化与时区处理。
+  level: 进阶
+  order: 38
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：出海不出错。知识点：string.json 多语言、intl 格式化、UTC 存储本地展示、长语言布局留白。
+    example: "const fmt = new intl.DateTimeFormat(locale, { dateStyle: 'medium' });"
+    pitfalls: [本地时间直接入库, 硬编码中文]
+  checkpoints:
+    - 能正确换算时区
+    - 能完成一份英文资源
+  exercise: 给应用加英文语言包
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.39
+  domain: tutorial
+  title: "第 39 讲：列表性能诊断"
+  summary: 定位掉帧：key 不稳定、项内重计算、图片解码。
+  level: 进阶
+  order: 39
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：把列表调到 60fps。知识点：keyGenerator 稳定性、项内避免复杂计算、图片缩略图、复用组件。
+    example: "LazyForEach(this.ds, (item) => ListItem() { RowItem({ item }) }, (item) => item.id)"
+    pitfalls: [key 用 index, 项内做 JSON 解析]
+  checkpoints:
+    - 能判断掉帧来自渲染还是数据
+    - 能优化一版列表
+  exercise: 把 1000 条列表优化到滑动流畅
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.40
+  domain: tutorial
+  title: "第 40 讲：包体与资源优化"
+  summary: 图片压缩、按需加载、HAR 拆分与包体分析。
+  level: 进阶
+  order: 40
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：包体可控。知识点：图片格式与尺寸、按 density 出图、未用资源清理、模块拆分、包体分析工具。
+    example: "// 按需加载非首屏模块，减少初始包体"
+    pitfalls: [一套高清图通吃, 资源未压缩]
+  checkpoints:
+    - 能找出包体前 5 大文件
+    - 能把图片体积降一半
+  exercise: 分析并优化一次包体
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.41
+  domain: tutorial
+  title: "第 41 讲：崩溃与异常处理"
+  summary: 全局异常捕获、错误边界与日志上报。
+  level: 进阶
+  order: 41
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：异常可观测可恢复。知识点：errorManager 捕获、Promise 未处理拒绝、页面级错误态、日志脱敏上报。
+    example: "errorManager.on('error', (err) => { report(err); });"
+    pitfalls: [catch 后静默吞掉, 日志含用户隐私]
+  checkpoints:
+    - 能接入全局异常捕获
+    - 能设计页面级降级
+  exercise: 给应用加一个全局错误兜底页
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.42
+  domain: tutorial
+  title: "第 42 讲：接口设计与 Mock"
+  summary: 契约先行、Mock 数据与联调切换。
+  level: 进阶
+  order: 42
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：前后端并行开发。知识点：接口契约（字段/错误码）、Mock 层开关、超时与错误模拟、契约测试。
+    example: "// mock 开关：开发读本地 JSON，联调读接口"
+    pitfalls: [Mock 与真实契约偏离, 错误码不统一]
+  checkpoints:
+    - 能写出契约文档
+    - 能一键切换 Mock/真实接口
+  exercise: 为一个列表页设计接口契约与 Mock
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.43
+  domain: tutorial
+  title: "第 43 讲：组件库与 token 体系"
+  summary: 把设计 token 固化为代码常量，组件只引用常量。
+  level: 进阶
+  order: 43
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：团队统一视觉。知识点：token 常量文件、组件库分层（基础/业务）、禁止魔法值、组件文档。
+    example: "export const Space = { screenMargin: 16, cardGap: 12, gapLarge: 16 };"
+    pitfalls: [组件内写死颜色, 组件名与设计稿不一致]
+  checkpoints:
+    - 能建一份 token 常量
+    - 能让组件库 0 魔法值
+  exercise: 把设置页组件全部 token 化
+  tokens: [space.screenMargin, radius.card]
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.44
+  domain: tutorial
+  title: "第 44 讲：规范走查方法"
+  summary: 用 L1 静态 / L2 UI 树 / L3 截图三层方法验收。
+  level: 进阶
+  order: 44
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：把「看起来对」变成「量出来对」。知识点：L1 token/规则检查、L2 dumpLayout 量边距与间距、L3 截图对比度与圆角、豁免申报。
+    example: "hdc shell uitest dumpLayout -p /data/local/tmp/layout.json"
+    pitfalls: [只靠肉眼验收, 静态规则漏检运行时布局]
+  checkpoints:
+    - 能跑一次 L1 规则检查
+    - 能用 dumpLayout 量出间距
+  exercise: 对设置页做一次三层走查
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.45
+  domain: tutorial
+  title: "第 45 讲：实战项目（一）需求与架构"
+  summary: 从需求到目录、数据流与页面路由的完整设计。
+  level: 实战
+  order: 45
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：做出可交付的架子。知识点：功能清单与优先级、目录结构（pages/components/model/service）、数据流（UI→Service→存储）、路由表、token 体系。
+    example: "pages/  components/  model/  service/  common/tokens.ets  common/router.ets"
+    pitfalls: [先写页面后补架构, 数据流跨层耦合]
+  checkpoints:
+    - 能画出页面与数据流
+    - 能定出目录与命名规范
+  exercise: 输出「饮水提醒」App 的架构文档
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.46
+  domain: tutorial
+  title: "第 46 讲：实战项目（二）上架检查清单"
+  summary: 上架前 12 项自检，从权限到包体到隐私。
+  level: 实战
+  order: 46
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：一次过审。知识点：签名证书、包名版本、权限与隐私声明一致、图标与截图、启动页、崩溃率、包体、隐私政策链接、适龄提示、元数据、测试账号、灰度计划。
+    example: "- [ ] 权限说明与实际调用一致\n- [ ] 隐私政策可访问\n- [ ] 包体与资源已优化\n- [ ] 全量页面深色模式走查"
+    pitfalls: [权限说明与实际调用不一致, 截图与真机不符]
+  checkpoints:
+    - 能独立完成 12 项自检
+    - 能列出驳回常见原因
+  exercise: 用清单自查「饮水提醒」App
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04

@@ -1,0 +1,235 @@
+# M0 首批组件卡（3 张）。字段契约见设计方案 §6.1。
+# url 为 null 表示官方精确页待补（M1 用 llms 索引补齐后填）。
+- id: comp.list
+  domain: component
+  title: List 列表
+  summary: 可滚动线性列表容器，支持懒加载、分组与滑动操作。
+  designClass: container
+  codeClass: list-scroll
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: listDirection, type: Axis, default: Axis.Vertical, desc: 列表方向 }
+    - { name: space, type: number, default: 0, desc: 列表项间距，应取 spacing token }
+    - { name: divider, type: DividerStyle, default: null, desc: 列表分割线，颜色用 comp_divider }
+  events:
+    - { name: onScrollIndex, params: "{ start, end, center }", desc: 滚动到可视区首位时回调 }
+  sections:
+    usage: 长列表、分组列表用 List；瀑布流用 WaterFlow；单屏滚动用 Scroll。
+    example: |
+      List({ space: Space.gapNormal }) {
+        LazyForEach(this.ds, (item: Item) => {
+          ListItem() { Text(item.title) }
+        }, (item: Item) => item.id)
+      }
+      .divider({ strokeWidth: 1, color: $r('app.color.comp_divider') })
+    pitfalls:
+      - 大量数据必须用 LazyForEach，否则一次全量构建
+      - 嵌套滚动需处理手势冲突
+      - ListItem 内不要再套 Scroll
+    a11y: [ListItem 需提供可读文本]
+    adapt: [平板建议双栏，分栏阈值 vp≥600]
+    perf: [避免在 build 中做重计算]
+  topics:
+    - id: list.create
+      title: 创建列表
+      content: |
+        List 是线性列表容器，子项只能是 ListItem/ListItemGroup。方向上用 listDirection 控制；
+        间距必须走 spacing token；分割线用 divider，颜色取 comp_divider，不要写 #E5E5E5。
+      code: |
+        List({ space: Space.gapNormal }) {
+          ForEach(this.items, (item: Item) => {
+            ListItem() { Text(item.title) }
+          }, (item: Item) => item.id)
+        }
+        .listDirection(Axis.Vertical)
+        .divider({ strokeWidth: 1, color: $r('app.color.comp_divider') })
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-list"
+    - id: list.scroll-event
+      title: 监听滚动事件
+      content: |
+        onScroll 每帧触发，只做轻量计算；需要"滚到第几条"时用 onScrollIndex（回调 start/end/center）。
+        滚动事件里不要 setState 改布局尺寸，容易触发重复测量；需要时用节流或标记位。
+      code: |
+        List() { /* items */ }
+          .onScrollIndex((start: number, end: number) => {
+            this.visibleStart = start
+            if (end > this.items.length - 3) this.loadMore()
+          })
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/ndk-add-component-events"
+    - id: list.lazy
+      title: 使用懒加载（LazyForEach / NodeAdapter）
+      content: |
+        大数据量必须懒加载：ArkTS 侧用 LazyForEach + IDataSource，必须提供稳定 keyGenerator，
+        数据变化通过 listeners 通知，不要整体重建数组。NDK 侧用 NodeAdapter 替代 LazyForEach，
+        可用于 List/ListItemGroup/Grid/WaterFlow/Swiper，需在 NODE_ADAPTER_EVENT_ON_REMOVE_NODE_FROM_ADAPTER
+        中释放或缓存组件，否则节点泄漏。
+      code: |
+        class Source implements IDataSource {
+          totalCount(): number { return this.data.length }
+          getData(index: number): Item { return this.data[index] }
+        }
+        List() {
+          LazyForEach(this.source, (item: Item) => {
+            ListItem() { Text(item.title) }
+          }, (item: Item) => item.id)
+        }
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-rendering-control-lazyforeach"
+    - id: list.scroll-position
+      title: 控制滚动位置
+      content: |
+        用 Scroller 绑定 List：scrollTo 滚到偏移、scrollToIndex 滚到条目、scrollEdge 到首尾、scrollBy 相对滚动。
+        注意 scrollToIndex 只在组件已布局后有效；频繁调用合并到一次，避免与惯性滚动打架。
+      code: |
+        private scroller: Scroller = new Scroller()
+
+        List({ scroller: this.scroller }) { /* items */ }
+
+        this.scroller.scrollToIndex(20)
+        this.scroller.scrollTo({ xOffset: 0, yOffset: 320, animation: true })
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-scroll"
+    - id: list.swipe-delete
+      title: ListItem 横划删除
+      content: |
+        ListItem.swipeAction 配置 start/end 两个方向的操作区（SwipeActionItem），end 为左滑露出。
+        删除要同时更新数据源与 key，否则复用错位；按钮点击里做删除后要给用户撤销入口。
+      code: |
+        ListItem() { Text(item.title) }
+          .swipeAction({
+            end: {
+              builder: () => {
+                Button('删除')
+                  .backgroundColor($r('app.color.alert'))
+                  .onClick(() => this.remove(item.id))
+              }
+            }
+          })
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-listitem"
+    - id: list.group
+      title: 分组列表
+      content: |
+        分组用 ListItemGroup：header/footer 可选，配合 List.sticky(StickyStyle.Header) 实现吸顶。
+        分组本身也可懒加载；组内 ListItem 不能再嵌套 List。
+      code: |
+        List() {
+          ForEach(this.groups, (group: Group) => {
+            ListItemGroup({ header: this.headerBuilder(group.title) }) {
+              ForEach(group.items, (item: Item) => {
+                ListItem() { Text(item.title) }
+              }, (item: Item) => item.id)
+            }
+          }, (group: Group) => group.id)
+        }
+        .sticky(StickyStyle.Header)
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-container-listitemgroup"
+    - id: list.vs-waterflow
+      title: 使用瀑布流（WaterFlow）
+      content: |
+        瀑布流用 WaterFlow + FlowItem，等宽但高度不等，按最短列插入；列表是等行高、单一方向。
+        瀑布流同样必须 LazyForEach；列数用 columnsTemplate（如 '1fr 1fr'），随断点变化。
+      code: |
+        WaterFlow() {
+          LazyForEach(this.source, (item: Item) => {
+            FlowItem() { Card({ item }) }
+          }, (item: Item) => item.id)
+        }
+        .columnsTemplate('1fr 1fr')
+        .columnsGap(Space.elements.cardGap)
+        .rowsGap(Space.elements.cardGap)
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-waterflow"
+    - id: list.vs-grid
+      title: 使用网格（Grid）
+      content: |
+        网格用 Grid + GridItem，行列尺寸由 columnsTemplate/rowsTemplate 决定，支持跨行跨列。
+        等宽等高卡片选 Grid；内容高度差异大选 WaterFlow；单列线性信息流选 List。
+      code: |
+        Grid() {
+          ForEach(this.items, (item: Item) => {
+            GridItem() { Card({ item }) }
+              .columnStart(0).columnEnd(1)
+          }, (item: Item) => item.id)
+        }
+        .columnsTemplate('1fr 1fr 1fr')
+        .columnsGap(Space.elements.gapNormal)
+        .rowsGap(Space.elements.gapNormal)
+      source: "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-layout-development-create-grid"
+  tokens: [space.elements.gapNormal, color.comp_divider, radius.card]
+  version_note: ""
+  sources:
+    - { title: 列表（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/list-0000001929853910.md", fetched: 2026-11-04 }
+    - { title: List 组件参考（API 页待核）, url: null, fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.button
+  domain: component
+  title: Button 按钮
+  summary: 触发单一操作的交互控件，圆角取 20vp，高度遵循屏幕网格。
+  designClass: operation
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: type, type: ButtonType, default: ButtonType.Capsule, desc: 按钮形态 }
+    - { name: stateEffect, type: boolean, default: true, desc: 按压态动效 }
+    - { name: height, type: number, default: 40, desc: 标准按钮高度 40vp }
+  events:
+    - { name: onClick, params: "(event: ClickEvent) => void", desc: 点击回调 }
+  sections:
+    usage: 主操作每屏最多一个；次级操作使用文字按钮或 Chip。
+    example: |
+      Button('保存')
+        .type(ButtonType.Capsule)
+        .height(Space.levels[20])
+        .borderRadius(Radius.button)
+        .backgroundColor($r('app.color.brand'))
+        .fontColor($r('app.color.font_on_primary'))
+        .fontSize(Font.Body_M.size)
+    pitfalls:
+      - 圆角不能随手写 12，按钮档位是 20vp
+      - 点击区不足 40vp 时要扩热区
+    a11y: [纯图标按钮必须设置 accessibilityText]
+    adapt: [PC 上按钮高度可略增，需按断点校验]
+    perf: [避免在 onClick 内做重计算]
+  tokens: [radius.button, color.brand, color.font_on_primary, font.Body_M]
+  version_note: ""
+  sources:
+    - { title: 按钮（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/button-0000001929683228.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: comp.toggle
+  domain: component
+  title: Toggle 开关
+  summary: 二态开关，用于即时生效的设置项；状态变化即时反馈。
+  designClass: selection
+  codeClass: basic
+  applies_to: [phone, tablet, 2in1]
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  props:
+    - { name: type, type: ToggleType, default: ToggleType.Switch, desc: 形态（Switch/Checkbox/Button） }
+    - { name: isOn, type: boolean, default: false, desc: 当前状态 }
+  events:
+    - { name: onChange, params: "(isOn: boolean) => void", desc: 状态变化回调 }
+  sections:
+    usage: 设置项即时生效用 Toggle；需要「保存后生效」用 Checkbox + 保存按钮。
+    example: |
+      Toggle({ type: ToggleType.Switch, isOn: this.isDark })
+        .onChange((isOn: boolean) => { this.isDark = isOn })
+    pitfalls:
+      - 不要用 Toggle 承载多选
+    a11y: [开关需有可读标签]
+    adapt: [横排设置项在宽屏下可改为左右布局]
+    perf: [onChange 内避免同步重 IO]
+  tokens: [color.brand, radius.button]
+  version_note: ""
+  sources:
+    - { title: 开关（设计规范）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/toggleswitch-0000001956852745.md", fetched: 2026-11-04 }
+  updated: 2026-11-04

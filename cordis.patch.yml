@@ -1,0 +1,5 @@
+# dsh-harmony-dev bundle patch
+# 只插入本插件一行；华为知识库 MCP 由 profile 侧单独配置（dsh-mcp-harmonyos）。
+- insert:
+    - id: dsh-harmony-dev
+      name: 'dsh-harmony-dev'

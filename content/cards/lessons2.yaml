@@ -1,0 +1,418 @@
+# 进阶课程（第 11~28 讲）。与 lessons.yaml 同 schema。
+- id: lesson.11
+  domain: tutorial
+  title: "第 11 讲：自定义组件与复用"
+  summary: 抽取可复用组件，@Builder/@Reusable 与参数设计。
+  level: 进阶
+  order: 11
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：把重复 UI 抽成组件。知识点：@ComponentV2 自定义组件、@Builder 片段、@Reusable 复用池、@Param 设计。
+    example: "@ComponentV2\nstruct CardItem {\n  @Param title: string = '';\n  @Param onClick: () => void = () => {};\n  build() { Row() { Text(this.title) }.onClick(this.onClick) }\n}"
+    pitfalls: [组件参数过多难维护, "@Reusable 未重置状态"]
+  checkpoints:
+    - 能判断何时抽组件、何时用 @Builder
+    - 能解释 @Reusable 的复用条件
+  exercise: 把设置页的列表项抽成可复用组件
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.12
+  domain: tutorial
+  title: "第 12 讲：动效与转场"
+  summary: animateTo、transition、弹簧曲线与可打断动效。
+  level: 进阶
+  order: 12
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：做出自然的动效。知识点：animateTo 参数、页面转场 350ms、弹性曲线 springMotion、打断与速度继承。
+    example: "animateTo({ duration: 300, curve: Curve.Standard }, () => {\n  this.scale = 1.2;\n});"
+    pitfalls: [时长/曲线随手写, 动画队列堆积]
+  checkpoints:
+    - 能说出标准/减速曲线适用场景
+    - 能实现可打断的拖拽动画
+  exercise: 实现卡片按压放大 + 松手回弹
+  tokens: [motion.duration.complex, motion.curves.standard]
+  version_note: ""
+  sources:
+    - { title: 动效属性, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/animation-attributes-0000001797117229.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.13
+  domain: tutorial
+  title: "第 13 讲：一多适配"
+  summary: 断点、分栏、媒体查询与多设备布局策略。
+  level: 进阶
+  order: 13
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：一套代码适配手机/折叠/平板/PC。知识点：600/840vp 断点、4/8/12 列栅格、分栏 vp≥600、宽高比挪移。
+    example: "const listener = mediaquery.matchMediaSync('(840vp<=width)');\nlistener.on('change', (res) => { this.isWide = res.matches; });"
+    pitfalls: [用屏幕宽而非窗口宽, 只适配一种形态]
+  checkpoints:
+    - 能按 4/8/12 列切换布局
+    - 能实现列表-详情分栏
+  exercise: 同一个页面做手机单列 + 平板双列
+  tokens: [layout.breakpoints]
+  version_note: ""
+  sources:
+    - { title: 布局基础, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/design-layout-basics-0000001795579413.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.14
+  domain: tutorial
+  title: "第 14 讲：模块化与 HAR/HSP"
+  summary: HAP/HSP/HAR 的区别、依赖规则与多模块工程。
+  level: 进阶
+  order: 14
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：把工程拆成可维护模块。知识点：HAP（安装包）、HAR（静态共享库）、HSP（动态共享包）、oh-package.json5 依赖。
+    example: "// entry/oh-package.json5\n{ \"dependencies\": { \"@demo/common\": \"file:../common\" } }"
+    pitfalls: [HAR/HSP 选型错误, 循环依赖]
+  checkpoints:
+    - 能说出 HAR 与 HSP 的差异
+    - 能拆出一个 common 模块
+  exercise: 把工具函数与通用组件拆到 HAR
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.15
+  domain: tutorial
+  title: "第 15 讲：性能优化"
+  summary: 启动耗时、列表流畅度、内存与包体。
+  level: 进阶
+  order: 15
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：把性能指标做进验收。知识点：启动阶段轻量化、LazyForEach、图片按需解码、避免 build 重计算、内存泄漏排查。
+    example: "// 首屏只加载必要数据，其余懒加载\nLazyForEach(this.ds, ...)"
+    pitfalls: [大图同步解码, 监听不注销]
+  checkpoints:
+    - 能列出 3 个启动优化手段
+    - 能用 DevEco 工具定位卡顿
+  exercise: 把 1000 条列表做到滑动不掉帧
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.16
+  domain: tutorial
+  title: "第 16 讲：无障碍实现"
+  summary: accessibilityText、焦点顺序、大字体与对比度。
+  level: 进阶
+  order: 16
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：让读屏用户能用。知识点：可读文本、焦点顺序、最小触控区、fp 字号、对比度 ≥3:1。
+    example: "Image($r('app.media.back'))\n  .width(24).height(24)\n  .accessibilityText('返回上一页')\n  .onClick(() => this.pathStack.pop())"
+    pitfalls: [图标按钮无文本, 固定高度裁切大字体]
+  checkpoints:
+    - 所有可点元素都有可读文本
+    - 焦点顺序与视觉顺序一致
+  exercise: 用读屏走一遍设置页
+  tokens: []
+  version_note: ""
+  sources:
+    - { title: 应用 UX 体验标准（通用）, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-general-0000001760708152.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.17
+  domain: tutorial
+  title: "第 17 讲：网络进阶"
+  summary: 超时与重试、错误分类、缓存与并发控制。
+  level: 进阶
+  order: 17
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：让网络层可维护。知识点：请求封装、错误分类（网络/HTTP/业务）、指数退避重试、弱网提示、并发限制。
+    example: "async function withRetry<T>(fn: () => Promise<T>, n = 2): Promise<T> {\n  try { return await fn(); }\n  catch (e) { if (n <= 0) throw e; return withRetry(fn, n - 1); }\n}"
+    pitfalls: [所有错误都提示「网络异常」, 无重试上限]
+  checkpoints:
+    - 能区分网络错误与业务错误
+    - 能实现带退避的重试
+  exercise: 封装一个带重试与超时的请求工具
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.18
+  domain: tutorial
+  title: "第 18 讲：数据进阶"
+  summary: RDB 事务、版本迁移、加密与大数据量分页。
+  level: 进阶
+  order: 18
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：数据层可演进。知识点：事务批量写、schema 版本迁移、敏感字段加密（HUKS）、分页查询。
+    example: "store.beginTransaction();\ntry { for (const item of list) await store.insert('t', item); store.commit(); }\ncatch (e) { store.rollBack(); throw e; }"
+    pitfalls: [升级不迁移导致旧数据丢失, 全表查询再内存分页]
+  checkpoints:
+    - 能写事务并处理回滚
+    - 能设计一次 schema 迁移
+  exercise: 给待办表加一个字段并迁移旧数据
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.19
+  domain: tutorial
+  title: "第 19 讲：状态管理进阶"
+  summary: "@Monitor/@Computed、AppStorageV2、PersistenceV2 与性能。"
+  level: 进阶
+  order: 19
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: V2
+  deprecated: false
+  sections:
+    usage: 目标：状态清晰、重绘可控。知识点：派生状态 @Computed、副作用 @Monitor、应用级 AppStorageV2、持久化 PersistenceV2、避免大对象整体刷新。
+    example: "@Computed\nget total() { return this.items.reduce((s, i) => s + i.price, 0); }"
+    pitfalls: ["@Monitor 里改自身字段造成循环", 大对象导致全量重绘]
+  checkpoints:
+    - 能区分 @Computed 与普通方法
+    - 能把用户配置持久化
+  exercise: 实现「主题 + 语言」持久化设置
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.20
+  domain: tutorial
+  title: "第 20 讲：分布式能力"
+  summary: 跨设备流转、分布式数据与设备发现。
+  level: 进阶
+  order: 20
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：理解跨端协同。知识点：分布式 KV、跨设备迁移、设备发现与认证、数据一致性边界。
+    example: "// 分布式 KV 写入后由系统按策略同步\nawait kv.put('draft', JSON.stringify(draft));"
+    pitfalls: [假设网络始终可用, 不做冲突处理]
+  checkpoints:
+    - 能说出跨设备同步的两种方式
+    - 能处理离线冲突
+  exercise: 把草稿同步到另一台设备
+  tokens: []
+  version_note: "需设备与权限支持"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.21
+  domain: tutorial
+  title: "第 21 讲：上架与合规"
+  summary: AGC 上架流程、隐私政策、权限说明与审核要点。
+  level: 进阶
+  order: 21
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：一次过审。知识点：AGC 建应用、包体规范、隐私政策、权限使用说明、上架前体检、常见驳回原因。
+    example: "// 上架前：DevEco 应用体检 + 隐私声明逐项核对"
+    pitfalls: [权限说明与实际调用不一致, 隐私政策缺失]
+  checkpoints:
+    - 能列出上架前必查的 5 项
+    - 能写一份权限使用说明
+  exercise: 用体检清单自查一个待上架工程
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.22
+  domain: tutorial
+  title: "第 22 讲：签名与证书"
+  summary: 调试/发布签名、自动签名与证书管理。
+  level: 进阶
+  order: 22
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：搞清 p12/csr/profile 的关系。知识点：调试证书 vs 发布证书、自动签名、Profile 绑定包名与证书、密钥库备份。
+    example: "// AGC 生成发布证书与 Profile，DevEco 配置签名"
+    pitfalls: [密钥库丢失无法更新, 发布用调试证书]
+  checkpoints:
+    - 能解释三个证书文件的作用
+    - 能配置一次发布签名
+  exercise: 走通一次调试→发布签名切换
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.23
+  domain: tutorial
+  title: "第 23 讲：元服务"
+  summary: 元服务与 App 的差异、服务卡片与状态机卡片。
+  level: 进阶
+  order: 23
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：理解免安装形态。知识点：元服务工程差异、卡片渲染、状态机卡片、能力受限清单、包体限制。
+    example: "// 元服务：卡片 + 直达核心服务，不做全量功能"
+    pitfalls: [直接复用 App 全量代码]
+  checkpoints:
+    - 能说出元服务不支持的能力
+    - 能设计一张服务卡片
+  exercise: 为「喝水提醒」做一张服务卡片
+  tokens: []
+  version_note: ""
+  sources:
+    - { title: 元服务设计原则, url: "https://developer.huawei.com/consumer/cn/doc/doccenter-ux-design/ux-guidelines-overview-0000001900378248.md", fetched: 2026-11-04 }
+  updated: 2026-11-04
+
+- id: lesson.24
+  domain: tutorial
+  title: "第 24 讲：Web 组件与 JS 桥接"
+  summary: 内嵌网页、JS 桥接、Cookie 与安全策略。
+  level: 进阶
+  order: 24
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：安全地嵌入网页。知识点：Web 组件、WebviewController、registerJavaScriptProxy、域名白名单、加载态与错误页。
+    example: "this.controller.registerJavaScriptProxy({ getToken: () => this.token }, 'bridge', ['getToken']);"
+    pitfalls: [桥接不校验参数, 加载失败白屏]
+  checkpoints:
+    - 能实现 JS 调用原生
+    - 能处理加载失败降级
+  exercise: 让内嵌网页拿到原生登录态
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.25
+  domain: tutorial
+  title: "第 25 讲：相机与媒体"
+  summary: 拍照/录像、相册选择与音视频播放。
+  level: 进阶
+  order: 25
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：打通媒体链路。知识点：CAMERA 权限、CameraKit 会话、PhotoViewPicker、AVPlayer 生命周期与释放。
+    example: "const player = await media.createAVPlayer();\nplayer.url = url;\nawait player.prepare();\nawait player.play();"
+    pitfalls: [权限拒绝后不降级, 播放器不 release]
+  checkpoints:
+    - 能实现拍照并预览
+    - 能正确释放播放器
+  exercise: 做一个拍照 + 预览页
+  tokens: []
+  version_note: "权限：CAMERA / 媒体读取"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.26
+  domain: tutorial
+  title: "第 26 讲：定位与地图"
+  summary: 定位权限、精度选择与地图展示边界。
+  level: 进阶
+  order: 26
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：合规获取位置。知识点：LOCATION 权限、精度与频率、定位开关判断、逆地理编码、隐私说明。
+    example: "const loc = await geoLocationManager.getCurrentLocation({ priority: geoLocationManager.LocationRequestPriority.FIRST_FIX });"
+    pitfalls: [频繁定位耗电, 未说明用途]
+  checkpoints:
+    - 能按场景选精度
+    - 能处理定位关闭
+  exercise: 做一个「附近门店」定位列表
+  tokens: []
+  version_note: "权限：LOCATION"
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.27
+  domain: tutorial
+  title: "第 27 讲：通知与推送"
+  summary: 本地通知、推送 token、点击路由与后台任务。
+  level: 进阶
+  order: 27
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：把消息送达用户。知识点：通知权限、通知渠道、点击跳转路由、推送 token 上报、后台任务限制。
+    example: "await notificationManager.publish({ id: 1, content: { /* ... */ } });"
+    pitfalls: [通知点击无路由, 后台任务被系统限制]
+  checkpoints:
+    - 能实现通知点击跳转
+    - 能说明何时该用推送而非轮询
+  exercise: 实现「定时提醒 + 点击进入详情」
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04
+
+- id: lesson.28
+  domain: tutorial
+  title: "第 28 讲：测试与规范自检"
+  summary: Hypium 单测、UI 测试与交付前规范检查。
+  level: 进阶
+  order: 28
+  since: "—"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: 目标：交付前有据可查。知识点：Hypium 用例结构、UI 测试、hvigorw test、规范自检清单（token/断点/无障碍/深色）。
+    example: "describe('calc', () => {\n  it('adds', () => { expect(add(1, 2)).assertEquals(3); });\n});"
+    pitfalls: [只测 happy path, 不做规范自检]
+  checkpoints:
+    - 能写一个 Hypium 用例
+    - 能跑通规范自检清单
+  exercise: 给工具函数补 3 个单测
+  tokens: []
+  version_note: ""
+  sources: []
+  updated: 2026-11-04

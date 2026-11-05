@@ -1,0 +1,1176 @@
+{
+  "updated": "2026-11-05",
+  "source": "https://developer.huawei.com/consumer/cn/llms/docs-references.txt",
+  "note": "由 enrich_api_sources.mjs 自动匹配；method=llms-index 表示来自官方索引，需抽检",
+  "entries": {
+    "api.net.http.createHttp": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.http.request": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.http.destroy": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.connection.getDefaultNet": {
+      "title": "@ohos.net.connection (网络连接管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-net-connection.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-net-connection"
+    },
+    "api.data.preferences.getPreferences": {
+      "title": "@ohos.data.preferences (用户首选项)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-data-preferences"
+    },
+    "api.data.preferences.ops": {
+      "title": "@ohos.data.preferences (用户首选项)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-data-preferences"
+    },
+    "api.data.relationalstore.getRdbStore": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-data-relationalstore"
+    },
+    "api.data.relationalstore.executeSql": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-data-relationalstore"
+    },
+    "api.data.relationalstore.predicates": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-data-relationalstore"
+    },
+    "api.router.pushUrl": {
+      "title": "@ohos.router (页面路由)(不推荐)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-router.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-router"
+    },
+    "api.promptaction.showToast": {
+      "title": "@ohos.promptAction (弹窗)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-promptaction.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-promptaction"
+    },
+    "api.promptaction.showDialog": {
+      "title": "@ohos.promptAction (弹窗)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-promptaction.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-promptaction"
+    },
+    "api.accessctrl.createAtManager": {
+      "title": "@ohos.abilityAccessCtrl (程序访问控制管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-abilityaccessctrl.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-abilityaccessctrl"
+    },
+    "api.accessctrl.requestPermissionsFromUser": {
+      "title": "@ohos.abilityAccessCtrl (程序访问控制管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-abilityaccessctrl.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-abilityaccessctrl"
+    },
+    "api.commonEvent.publish": {
+      "title": "@ohos.commonEventManager (公共事件模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-commoneventmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-commoneventmanager"
+    },
+    "api.commonEvent.subscribe": {
+      "title": "@ohos.commonEventManager (公共事件模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-commoneventmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-commoneventmanager"
+    },
+    "api.ability.uiability": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.ability.want": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.window.loadContent": {
+      "title": "@ohos.window (窗口)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-window.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-window"
+    },
+    "api.mediaquery.matchMediaSync": {
+      "title": "@ohos.mediaquery (媒体查询)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-mediaquery.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-mediaquery"
+    },
+    "api.resource.getResourceManager": {
+      "title": "@ohos.resourceManager (资源管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-resource-manager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-resource-manager"
+    },
+    "api.resource.getStringSync": {
+      "title": "@ohos.resourceManager (资源管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-resource-manager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-resource-manager"
+    },
+    "api.util.textencoder": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.kvstore.createKVManager": {
+      "title": "@ohos.data.distributedKVStore (分布式键值数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-distributedkvstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-distributedkvstore"
+    },
+    "api.filepicker.select": {
+      "title": "@ohos.file.picker (选择器)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-file-picker.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-file-picker"
+    },
+    "api.file.fs.openSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.readTextSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.image.createImageSource": {
+      "title": "@ohos.multimedia.image (图片处理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-image.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-image"
+    },
+    "api.media.createAVPlayer": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.camera.getCameraManager": {
+      "title": "@ohos.multimedia.camera (相机管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-camera.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-camera"
+    },
+    "api.geo.getCurrentLocation": {
+      "title": "@ohos.geoLocationManager (位置服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-geolocationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-geolocationmanager"
+    },
+    "api.notification.publish": {
+      "title": "@ohos.notificationManager (NotificationManager模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-notificationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-notificationmanager"
+    },
+    "api.vibrator.startVibration": {
+      "title": "@ohos.vibrator (振动)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-vibrator.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-vibrator"
+    },
+    "api.sensor.on": {
+      "title": "@ohos.sensor (传感器)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-sensor.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-sensor"
+    },
+    "api.display.getDefaultDisplaySync": {
+      "title": "@ohos.display (屏幕属性)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-display.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-display"
+    },
+    "api.i18n.getSystemLocale": {
+      "title": "I18n)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-i18n.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-i18n"
+    },
+    "api.intl.datetimeformat": {
+      "title": "Intl)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-intl.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-intl"
+    },
+    "api.zlib.compressFile": {
+      "title": "zlib",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/zlib.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "zlib"
+    },
+    "api.crypto.createCipher": {
+      "title": "@ohos.security.cryptoFramework (加解密算法库框架)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-cryptoframework.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-cryptoframework"
+    },
+    "api.data.preferences.putSync": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "api.data.preferences.getSync": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "api.data.preferences.flushSync": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "api.data.preferences.delete": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "api.data.preferences.has": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "api.data.preferences.onChange": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "api.data.rdb.insert": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "relationalstore"
+    },
+    "api.data.rdb.update": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "relationalstore"
+    },
+    "api.data.rdb.delete": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "relationalstore"
+    },
+    "api.data.rdb.transaction": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "relationalstore"
+    },
+    "api.data.rdb.querySql": {
+      "title": "@ohos.data.relationalStore (关系型数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-data-relationalstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "relationalstore"
+    },
+    "api.data.kvstore.getKVStore": {
+      "title": "@ohos.data.distributedKVStore (分布式键值数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-distributedkvstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-distributedkvstore"
+    },
+    "api.data.kvstore.put": {
+      "title": "@ohos.data.distributedKVStore (分布式键值数据库)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-distributedkvstore.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-distributedkvstore"
+    },
+    "api.net.http.onHeaders": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.http.offHeaders": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.connection.createNetConnection": {
+      "title": "@ohos.net.connection (网络连接管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-net-connection.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "connection"
+    },
+    "api.net.connection.unregister": {
+      "title": "@ohos.net.connection (网络连接管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-net-connection.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "connection"
+    },
+    "api.net.socket.tcp": {
+      "title": "@ohos.net.socket (Socket连接)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-socket.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-socket"
+    },
+    "api.net.request.upload": {
+      "title": "@ohos.request (上传下载)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-request.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-request"
+    },
+    "api.net.request.download": {
+      "title": "@ohos.request (上传下载)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-request.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-request"
+    },
+    "api.file.fs.closeSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.writeSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.mkdirSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.readdirSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.statSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.unlinkSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.copyFileSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.env.getUserDownloadDir": {
+      "title": "@ohos.file.environment (目录环境能力)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-file-environment.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-file-environment"
+    },
+    "api.file.env.getFilesDir": {
+      "title": "VoIPExtensionContext（应用内通话消息扩展Context）（已废弃）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/push-voip-context.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "context"
+    },
+    "api.file.picker.photoSelect": {
+      "title": "选择器（Picker）公共接口",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ts-picker-common.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "picker"
+    },
+    "api.file.picker.docSave": {
+      "title": "选择器（Picker）公共接口",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ts-picker-common.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "picker"
+    },
+    "api.util.uuid": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.util.base64": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.util.textdecoder": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.util.urlparse": {
+      "title": "@ohos.url (URL字符串解析)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-url.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-url"
+    },
+    "api.util.buffer": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.ability.abilitystage": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.ability.onNewWant": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.ability.bundleinfo": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.ability.permissionVerify": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.ability.commonEvent.unsubscribe": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.ability.commonEvent.createSubscriber": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "api.notification.cancel": {
+      "title": "@ohos.notificationManager (NotificationManager模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-notificationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-notificationmanager"
+    },
+    "api.notification.requestEnable": {
+      "title": "@ohos.notificationManager (NotificationManager模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-notificationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-notificationmanager"
+    },
+    "api.media.avplayer.prepare": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.avplayer.play": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.avplayer.pause": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.avplayer.release": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.image.packer": {
+      "title": "@ohos.multimedia.image (图片处理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-image.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-image"
+    },
+    "api.web.loadUrl": {
+      "title": "@ohos.web.webview (Webview)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-webview.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-webview"
+    },
+    "api.web.runJavaScript": {
+      "title": "@ohos.web.webview (Webview)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-webview.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-webview"
+    },
+    "api.web.refresh": {
+      "title": "@ohos.web.webview (Webview)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-webview.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-webview"
+    },
+    "api.web.getTitle": {
+      "title": "@ohos.web.webview (Webview)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-webview.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-webview"
+    },
+    "api.window.setFullScreen": {
+      "title": "@ohos.window (窗口)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-window.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-window"
+    },
+    "api.window.systemBar": {
+      "title": "@ohos.window (窗口)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-window.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-window"
+    },
+    "api.display.onChange": {
+      "title": "@ohos.display (屏幕属性)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-display.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-display"
+    },
+    "api.geo.isEnabled": {
+      "title": "@ohos.geoLocationManager (位置服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-geolocationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-geolocationmanager"
+    },
+    "api.i18n.getSystemLanguage": {
+      "title": "I18n)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-i18n.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-i18n"
+    },
+    "api.sensor.off": {
+      "title": "@ohos.sensor (传感器)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-sensor.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-sensor"
+    },
+    "api.vibrator.stop": {
+      "title": "@ohos.vibrator (振动)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-vibrator.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-vibrator"
+    },
+    "api.clipboard.getPasteboard": {
+      "title": "@ohos.pasteboard (剪贴板)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-pasteboard.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-pasteboard"
+    },
+    "api.arkui.taskpool.execute": {
+      "title": "@ohos.taskpool (启动任务池)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-taskpool.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-taskpool"
+    },
+    "api.arkui.taskpool.task": {
+      "title": "@ohos.taskpool (启动任务池)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-taskpool.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-taskpool"
+    },
+    "api.arkui.worker.threadworker": {
+      "title": "@ohos.worker (启动一个Worker)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-worker.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-worker"
+    },
+    "api.arkui.focuscontrol.requestFocus": {
+      "title": "手势控制",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/gesture-control.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "control"
+    },
+    "api.arkui.uicontext.showAlertDialog": {
+      "title": "UI上下文错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-uicontext.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "uicontext"
+    },
+    "api.media.avplayer.statechange": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.avplayer.seek": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.avplayer.volume": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.media.avplayer.error": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.net.http.requestInStream": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.http.dataReceive": {
+      "title": "@ohos.net.http (数据请求)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-http.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-http"
+    },
+    "api.net.websocket.create": {
+      "title": "@ohos.net.webSocket (WebSocket连接)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-websocket.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-websocket"
+    },
+    "api.net.websocket.connect": {
+      "title": "@ohos.net.webSocket (WebSocket连接)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-websocket.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-websocket"
+    },
+    "api.net.websocket.send": {
+      "title": "@ohos.net.webSocket (WebSocket连接)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-websocket.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-websocket"
+    },
+    "api.net.websocket.close": {
+      "title": "@ohos.net.webSocket (WebSocket连接)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-websocket.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-websocket"
+    },
+    "api.net.connection.onNetLost": {
+      "title": "@ohos.net.connection (网络连接管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-net-connection.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "connection"
+    },
+    "api.net.connection.onNetAvailable": {
+      "title": "@ohos.net.connection (网络连接管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-net-connection.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "connection"
+    },
+    "api.file.fs.accessSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.renameSync": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fs.truncate": {
+      "title": "@ohos.fileio (文件管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-fileio.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-fileio"
+    },
+    "api.file.fileuri.getUri": {
+      "title": "@ohos.file.fileuri (文件URI)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-file-fileuri.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-file-fileuri"
+    },
+    "api.util.urlsearchparams": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.util.bufferalloc": {
+      "title": "@ohos.util (util工具函数)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-util.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-util"
+    },
+    "api.context.startAbility": {
+      "title": "UIAbilityContext",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-inner-application-uiabilitycontext.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "uiabilitycontext"
+    },
+    "api.context.getApplicationContext": {
+      "title": "VoIPExtensionContext（应用内通话消息扩展Context）（已废弃）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/push-voip-context.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "context"
+    },
+    "api.window.keepScreenOn": {
+      "title": "@ohos.window (窗口)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-window.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-window"
+    },
+    "api.window.brightness": {
+      "title": "@ohos.window (窗口)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-window.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-window"
+    },
+    "api.display.getAllDisplays": {
+      "title": "@ohos.display (屏幕属性)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-display.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-display"
+    },
+    "api.notification.isEnabled": {
+      "title": "@ohos.notificationManager (NotificationManager模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-notificationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-notificationmanager"
+    },
+    "api.notification.cancelAll": {
+      "title": "@ohos.notificationManager (NotificationManager模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-notificationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-notificationmanager"
+    },
+    "api.intl.numberformat": {
+      "title": "Intl)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-intl.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-intl"
+    },
+    "api.intl.collator": {
+      "title": "Intl)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-intl.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-intl"
+    },
+    "api.device.deviceinfo.model": {
+      "title": "@ohos.enterprise.deviceInfo (设备信息管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-enterprise-deviceinfo.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "deviceinfo"
+    },
+    "api.device.battery.soc": {
+      "title": "@ohos.batteryInfo (电量信息)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-battery-info.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "batteryinfo"
+    },
+    "api.clipboard.getData": {
+      "title": "@ohos.pasteboard (剪贴板)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-pasteboard.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-pasteboard"
+    },
+    "api.clipboard.hasData": {
+      "title": "@ohos.pasteboard (剪贴板)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-pasteboard.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-pasteboard"
+    },
+    "api.sensor.getList": {
+      "title": "@ohos.sensor (传感器)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-sensor.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-sensor"
+    },
+    "api.location.onChange": {
+      "title": "@ohos.geoLocationManager (位置服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-geolocationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-geolocationmanager"
+    },
+    "api.location.off": {
+      "title": "@ohos.geoLocationManager (位置服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-geolocationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-geolocationmanager"
+    },
+    "api.web.registerProxy": {
+      "title": "@ohos.web.webview (Webview)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-webview.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-webview"
+    },
+    "api.media.avplayer.pause2": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "api.data.preferences.clear": {
+      "title": "用户首选项错误码",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/errorcode-preferences.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "preferences"
+    },
+    "kit.ability": {
+      "title": "ability",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/ability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "ability"
+    },
+    "kit.arkui": {
+      "title": "@ohos.app.ability.UIAbility (带界面的应用组件)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-app-ability-uiability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "uiability"
+    },
+    "kit.arkweb": {
+      "title": "@ohos.web.webview (Webview)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-webview.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-webview"
+    },
+    "kit.media": {
+      "title": "@ohos.multimedia.media (媒体服务)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-media.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-media"
+    },
+    "kit.camera": {
+      "title": "@ohos.multimedia.camera (相机管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-camera.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-camera"
+    },
+    "kit.image": {
+      "title": "@ohos.multimedia.image (图片处理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-image.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-image"
+    },
+    "kit.notification": {
+      "title": "@ohos.notificationManager (NotificationManager模块)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-notificationmanager.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-notificationmanager"
+    },
+    "kit.push": {
+      "title": "Push Kit（推送服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/push-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "push"
+    },
+    "kit.arkgraphics2d": {
+      "title": "画布绘制",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/canvas-drawing.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "drawing"
+    },
+    "kit.arkgraphics3d": {
+      "title": "画布绘制",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/canvas-drawing.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "drawing"
+    },
+    "kit.crypto": {
+      "title": "@ohos.security.cryptoFramework (加解密算法库框架)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-cryptoframework.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "crypto"
+    },
+    "kit.huks": {
+      "title": "@ohos.security.huks (通用密钥库系统)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-huks.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-huks"
+    },
+    "kit.avsession": {
+      "title": "@ohos.multimedia.avsession (媒体会话管理)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-avsession.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-avsession"
+    },
+    "kit.account": {
+      "title": "Account Kit（华为账号服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/account-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "account"
+    },
+    "kit.iap": {
+      "title": "IAP Kit（应用内支付服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/iap-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "iap"
+    },
+    "kit.payment": {
+      "title": "Payment Kit（鸿蒙支付服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/payment-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "payment"
+    },
+    "kit.share": {
+      "title": "Share Kit（分享服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/share-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "share"
+    },
+    "kit.applinking": {
+      "title": "ArkTS API",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/applinking-arkts-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "applinking"
+    },
+    "kit.scan": {
+      "title": "@ohos.scan (扫描)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-scan.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-scan"
+    },
+    "kit.remote": {
+      "title": "rcp.h",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/rcp_8h.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "rcp"
+    },
+    "kit.connectivity": {
+      "title": "@ohos.bluetooth (蓝牙)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-bluetooth.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "js-apis-bluetooth"
+    },
+    "kit.form": {
+      "title": "Form Kit（卡片开发服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/form-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "form"
+    },
+    "kit.uidesign": {
+      "title": "@ohos.app.ability.UIAbility (带界面的应用组件)",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/js-apis-app-ability-uiability.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "uiability"
+    },
+    "kit.speech": {
+      "title": "Speech Kit（场景化语音服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/speech-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "speech"
+    },
+    "kit.vision": {
+      "title": "Vision Kit（场景化视觉服务）",
+      "url": "https://developer.huawei.com/consumer/cn/doc/doccenter-references/api/vision-api.md",
+      "fetched": "2026-11-05",
+      "method": "llms-index",
+      "matchedBy": "vision"
+    }
+  }
+}

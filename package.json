@@ -1,0 +1,69 @@
+{
+  "name": "dsh-harmony-dev",
+  "version": "0.1.0",
+  "description": "dsh-harmony-dev（鸿蒙开发台）：鸿蒙原生开发规范、组件卡与规则校验，含 5 个工具与全量内容面板",
+  "type": "module",
+  "license": "MIT",
+  "author": "zixiaog",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "harmonyos",
+    "arkts",
+    "arkui",
+    "harmonyos-design",
+    "mcp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zixiaog/dsh-harmony-dev.git"
+  },
+  "homepage": "https://github.com/zixiaog/dsh-harmony-dev#readme",
+  "bugs": {
+    "url": "https://github.com/zixiaog/dsh-harmony-dev/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "client.template.js",
+    "cordis.patch.yml",
+    "lib/*.js",
+    "locale/*.json",
+    "icon.svg",
+    "data/*.json",
+    "scripts/build-client.mjs",
+    "content/tokens.json",
+    "content/catalog.json",
+    "content/topics/*.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:data": "python scripts/build_data.py",
+    "build:client": "node scripts/build-client.mjs",
+    "prepare": "node scripts/build-client.mjs",
+    "test": "node scripts/test_m0.mjs",
+    "test:rules": "python scripts/check_rules.py",
+    "test:golden": "node scripts/run_golden.mjs",
+    "test:e2e": "node scripts/e2e.mjs",
+    "check:package": "node scripts/check_package.mjs"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+    }
+  }
+}

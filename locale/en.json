@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "title": "HarmonyOS Dev Kit",
+    "description": "HarmonyOS native development specs, component cards and rule checks: tokens, rules, components; generated code is gated by spec rules."
+  },
+  "panel": {
+    "title": "HarmonyOS Dev Kit",
+    "subtitle": "M0 preview: 3 component cards · 34 rules · design token snapshot",
+    "tabs": { "tokens": "Tokens", "rules": "Rules", "cards": "Components" },
+    "searchPlaceholder": "Search tokens / rules / components",
+    "empty": "No matches",
+    "baseline": "Baseline"
+  }
+}

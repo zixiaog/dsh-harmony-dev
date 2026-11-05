@@ -1,0 +1,400 @@
+# API 卡批次 2（20 条）：资源 / 工具 / 动画 / 存储 / 文件 / 媒体 / 能力。
+- id: api.resource.getResourceManager
+  domain: api
+  title: "资源管理 · context.resourceManager"
+  summary: 读取应用资源（字符串/颜色/媒体），是访问 string.json 的入口。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "const rm = getContext(this).resourceManager; 也可用 getResourceManager()。"
+    example: "const rm = getContext(this).resourceManager;\nconst name = rm.getStringSync($r('app.string.app_name').id);"
+    pitfalls: [硬编码中文文案, 取颜色用字符串而非 $r]
+    a11y: []
+    adapt: [文案走资源文件以支持多语言]
+    perf: [批量读取时缓存结果]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.resource.getStringSync
+  domain: api
+  title: "资源管理 · getStringSync"
+  summary: 同步读取字符串资源，适合少量文案。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getStringSync(resId: number): string；resId 来自 $r(...).id"
+    example: "const title = rm.getStringSync($r('app.string.title').id);"
+    pitfalls: [资源不存在抛错未捕获]
+    a11y: []
+    adapt: []
+    perf: [大量文案用异步接口]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.util.textencoder
+  domain: api
+  title: "@ohos.util · TextEncoder"
+  summary: 字符串与字节数组互转，处理编码边界。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "encodeInto(input: string): Uint8Array；TextDecoder 反向。"
+    example: "import { util } from '@kit.ArkTS';\nconst bytes = new util.TextEncoder().encodeInto('你好');"
+    pitfalls: [中文按 1 字节处理, 忽略 BOM]
+    a11y: []
+    adapt: []
+    perf: [复用 encoder 实例]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.animate.animateTo
+  domain: api
+  title: "全局 animateTo"
+  summary: 显式动画入口，时长与曲线必须取动效 token。
+  since: "API 7"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "animateTo(value: AnimateParam, event: () => void): void"
+    example: "animateTo({ duration: 300, curve: Curve.Standard }, () => {\n  this.scale = 1.2;\n});"
+    pitfalls: [duration 250/曲线随手写, 在动画回调里做重 IO]
+    a11y: []
+    adapt: []
+    perf: [动画只改属性，避免重建组件]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.kvstore.createKVManager
+  domain: api
+  title: "@ohos.data.distributedKVStore · createKVManager"
+  summary: 创建分布式键值库管理器，用于跨设备数据同步。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "createKVManager(config): KVManager；再 getKVStore(storeId, options)。"
+    example: "import { distributedKVStore } from '@kit.ArkData';\nconst mgr = distributedKVStore.createKVManager({ context: this.context, bundleName: 'com.demo' });"
+    pitfalls: [不设同步策略导致数据不落地, 多设备冲突无处理]
+    a11y: []
+    adapt: []
+    perf: [小数据才用 KV，结构化数据用 RDB]
+  tokens: []
+  version_note: "权限与跨设备能力按场景申请；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.filepicker.select
+  domain: api
+  title: "@ohos.file.picker · DocumentViewPicker.select"
+  summary: 系统文件选择器，返回所选文件 URI。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "const picker = new picker.DocumentViewPicker(context); await picker.select(options)"
+    example: "import { picker } from '@kit.CoreFileKit';\nconst vp = new picker.DocumentViewPicker(this.context);\nconst uris = await vp.select({ maxSelectNumber: 1 });"
+    pitfalls: [直接拼文件路径绕过 picker, uri 未授权直接读]
+    a11y: []
+    adapt: []
+    perf: [只取需要的文件数]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.file.fs.openSync
+  domain: api
+  title: "@ohos.file.fs · openSync"
+  summary: 同步打开文件，返回 File 句柄；记得 close。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "openSync(path: string, mode?: number): File"
+    example: "import { fileIo as fs } from '@kit.CoreFileKit';\nconst file = fs.openSync(path, fs.OpenMode.READ_ONLY);\n// ...\nfs.closeSync(file);"
+    pitfalls: [忘记 close 泄漏句柄, 主线程做大文件同步 IO]
+    a11y: []
+    adapt: []
+    perf: [大文件用流式读写]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.file.fs.readTextSync
+  domain: api
+  title: "@ohos.file.fs · readTextSync"
+  summary: 同步读取文本文件内容，适合小文件。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "readTextSync(filePath: string, options?): string"
+    example: "const text = fs.readTextSync(path);"
+    pitfalls: [大文件一次性读入内存]
+    a11y: []
+    adapt: []
+    perf: [结合 stat 先判断大小]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.image.createImageSource
+  domain: api
+  title: "@ohos.multimedia.image · createImageSource"
+  summary: 从文件/缓冲区创建图片源，用于解码与缩略图。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "createImageSource(uri | fd): Promise<ImageSource>"
+    example: "import { image } from '@kit.ImageKit';\nconst src = image.createImageSource(fd);\nconst pixelMap = await src.createPixelMap({ desiredSize: { width: 300, height: 300 } });"
+    pitfalls: [原图直接解码导致内存暴涨, 不释放 PixelMap]
+    a11y: []
+    adapt: []
+    perf: [按显示尺寸解码缩略图]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.media.createAVPlayer
+  domain: api
+  title: "@ohos.multimedia.media · createAVPlayer"
+  summary: 创建音视频播放器，监听状态机后准备与播放。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "createAVPlayer(): Promise<AVPlayer>；设置 url 后 prepare()/play()。"
+    example: "import { media } from '@kit.MediaKit';\nconst player = await media.createAVPlayer();\nplayer.url = 'https://example.com/a.mp4';\nawait player.prepare();\nawait player.play();"
+    pitfalls: [未等 prepared 就 play, 退出不释放播放器]
+    a11y: []
+    adapt: []
+    perf: [预加载首帧，控制缓冲]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.camera.getCameraManager
+  domain: api
+  title: "@ohos.multimedia.camera · getCameraManager"
+  summary: 相机管理入口，配合权限与预览/拍照会话使用。
+  since: "API 10"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getCameraManager(context): CameraManager；先申请 CAMERA 权限。"
+    example: "import { camera } from '@kit.CameraKit';\nconst mgr = camera.getCameraManager(this.context);"
+    pitfalls: [未申请权限直接调用, 会话不复用导致打开慢]
+    a11y: []
+    adapt: []
+    perf: [按需创建会话]
+  tokens: []
+  version_note: "权限：ohos.permission.CAMERA；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.geo.getCurrentLocation
+  domain: api
+  title: "@ohos.geoLocationManager · getCurrentLocation"
+  summary: 获取当前定位，需定位权限与定位开关。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getCurrentLocation(request): Promise<Location>"
+    example: "import { geoLocationManager } from '@kit.LocationKit';\nconst loc = await geoLocationManager.getCurrentLocation({ priority: geoLocationManager.LocationRequestPriority.FIRST_FIX });"
+    pitfalls: [定位关闭无兜底, 频繁请求耗电]
+    a11y: []
+    adapt: []
+    perf: [按需定位，优先缓存]
+  tokens: []
+  version_note: "权限：ohos.permission.LOCATION / APPROXIMATELY_LOCATION；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.notification.publish
+  domain: api
+  title: "@ohos.notificationManager · publish"
+  summary: 发布本地通知，需通知权限与渠道配置。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "publish(request: NotificationRequest): Promise<void>"
+    example: "import { notificationManager } from '@kit.NotificationKit';\nawait notificationManager.publish({\n  id: 1,\n  content: { notificationContentType: notificationManager.ContentType.NOTIFICATION_CONTENT_BASIC_TEXT, normal: { title: '提醒', text: '该喝水了' } },\n});"
+    pitfalls: [未申请通知权限, 通知 id 冲突覆盖]
+    a11y: []
+    adapt: []
+    perf: [合并同类通知]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.vibrator.startVibration
+  domain: api
+  title: "@ohos.vibrator · startVibration"
+  summary: 触觉反馈，常用于长按/开关切换的确认感。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "startVibration(effect: VibrateEffect, attribute: VibrateAttribute): Promise<void>"
+    example: "import { vibrator } from '@kit.SensorServiceKit';\nawait vibrator.startVibration({ type: 'time', duration: 30 }, { id: 0, usage: 'touch' });"
+    pitfalls: [无节制震动, 未申请震动权限]
+    a11y: []
+    adapt: []
+    perf: [短促一次即可]
+  tokens: []
+  version_note: "权限：ohos.permission.VIBRATE；API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.sensor.on
+  domain: api
+  title: "@ohos.sensor · on"
+  summary: 订阅传感器数据（加速度/陀螺仪等），退出必须 off。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "on(type: SensorId, callback): void；off(type) 取消。"
+    example: "import { sensor } from '@kit.SensorServiceKit';\nsensor.on(sensor.SensorId.ACCELEROMETER, (data) => { /* ... */ });\n// 销毁\nsensor.off(sensor.SensorId.ACCELEROMETER);"
+    pitfalls: [页面退出不 off 导致耗电, 高频回调做重计算]
+    a11y: []
+    adapt: []
+    perf: [降低采样频率或节流]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.display.getDefaultDisplaySync
+  domain: api
+  title: "@ohos.display · getDefaultDisplaySync"
+  summary: 获取默认屏幕信息（尺寸/density），用于换算 vp 与像素。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "getDefaultDisplaySync(): Display，含 width/height/densityDPI"
+    example: "import { display } from '@kit.ArkUI';\nconst d = display.getDefaultDisplaySync();\nconst density = d.densityDPI / 160;"
+    pitfalls: [假定 density=3, 用屏幕尺寸代替窗口尺寸]
+    a11y: []
+    adapt: [多窗/分屏时以窗口尺寸为准]
+    perf: [缓存 display 信息]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.i18n.getSystemLocale
+  domain: api
+  title: "@ohos.i18n · getSystemLocale"
+  summary: 获取系统语言与地区，用于文案与格式化。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "i18n.System.getSystemLocale(): string，如 zh-Hans-CN"
+    example: "import { i18n } from '@kit.LocalizationKit';\nconst locale = i18n.System.getSystemLocale();"
+    pitfalls: [硬编码 zh-CN 判断]
+    a11y: []
+    adapt: [多语言资源需同步维护]
+    perf: []
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.intl.datetimeformat
+  domain: api
+  title: "@ohos.intl · DateTimeFormat"
+  summary: 按地区格式化日期时间，避免手拼格式。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "new Intl.DateTimeFormat(locale, options).format(date)"
+    example: "import { intl } from '@kit.LocalizationKit';\nconst fmt = new intl.DateTimeFormat('zh-CN', { dateStyle: 'medium', timeStyle: 'short' });\nconst text = fmt.format(new Date());"
+    pitfalls: [手拼 'YYYY-MM-DD' 忽略地区差异]
+    a11y: []
+    adapt: [按 locale 切换格式]
+    perf: [复用 formatter 实例]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.zlib.compressFile
+  domain: api
+  title: "@ohos.zlib · compressFile"
+  summary: 压缩文件/目录为 zip，用于导出与日志打包。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "compressFile(inFile, outFile, options): Promise<void>"
+    example: "import { zlib } from '@kit.BasicServicesKit';\nawait zlib.compressFile(srcPath, destPath, { level: zlib.CompressLevel.COMPRESS_LEVEL_DEFAULT_COMPRESSION, memLevel: zlib.MemLevel.MEM_LEVEL_DEFAULT });"
+    pitfalls: [路径不存在未捕获, 大文件阻塞 UI]
+    a11y: []
+    adapt: []
+    perf: [放任务线程执行]
+  tokens: []
+  version_note: "API 参考页待补"
+  sources: []
+  updated: 2026-11-04
+
+- id: api.crypto.createCipher
+  domain: api
+  title: "@ohos.security.cryptoFramework · createCipher"
+  summary: 对称加密入口，按算法创建加解密对象。
+  since: "API 9"
+  baseline: "6.1.1(24)"
+  state_mgmt: "—"
+  deprecated: false
+  sections:
+    usage: "cryptoFramework.createCipher(algName: string): Cipher"
+    example: "import { cryptoFramework } from '@kit.CryptoArchitectureKit';\nconst cipher = cryptoFramework.createCipher('AES128|GCM|PKCS7');"
+    pitfalls: [硬编码密钥, 用 ECB 模式]
+    a11y: []
+    adapt: []
+    perf: [密钥存 HUKS，不落明文]
+  tokens: []
+  version_note: "API 参考页待补；密钥应使用 HUKS 管理"
+  sources: []
+  updated: 2026-11-04

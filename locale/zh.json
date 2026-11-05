@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "title": "鸿蒙开发台",
+    "description": "鸿蒙原生开发规范、组件卡与规则校验：查 token、查规则、查组件；生成代码按规范闸门校验。"
+  },
+  "panel": {
+    "title": "鸿蒙开发台",
+    "subtitle": "M0 预览：3 张组件卡 · 34 条规则 · 设计 token 快照",
+    "tabs": { "tokens": "设计 token", "rules": "规则", "cards": "组件卡" },
+    "searchPlaceholder": "搜 token / 规则 / 组件（如：间距、魔法值、List）",
+    "empty": "没有匹配项",
+    "baseline": "基线"
+  }
+}
