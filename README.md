@@ -92,7 +92,7 @@ node scripts/check_package.mjs     # 打包检查
 
 ## 安装
 
-### 方式 1：GitHub 仓库地址（推荐给开源用户）
+### 方式 1：GitHub 仓库地址
 
 在 Harness 的「插件」→「添加插件」里直接填仓库地址：
 
@@ -108,7 +108,7 @@ dsh plugin add https://github.com/zixiaog/dsh-harmony-dev
 
 安装时会直接使用仓库里已提交的构建产物（`data/*.json`、`client.js`），不执行任何构建脚本、不需要 Python。首次安装约 15 秒（下载 npm 包）。
 
-### 方式 2：npm 包名（发布后）
+### 方式 2：npm 包名
 
 ```
 dsh-harmony-dev
@@ -117,7 +117,7 @@ dsh-harmony-dev
 > 维护者发布：`npm login && npm publish --access public`（包名当前未被占用）。
 > 发布后「添加插件」里填 `dsh-harmony-dev` 即可安装。
 
-### 方式 3：本地目录（开发调试）
+### 方式 3：本地目录
 
 让 harness 的 `plugin_manager` 用 **绝对目录** 安装：
 
