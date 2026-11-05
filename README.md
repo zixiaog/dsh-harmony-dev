@@ -106,13 +106,16 @@ https://github.com/zixiaog/dsh-harmony-dev
 dsh plugin add https://github.com/zixiaog/dsh-harmony-dev
 ```
 
-安装时 `prepare` 会自动生成面板数据（`client.js`），无需 Python。
+安装时会直接使用仓库里已提交的构建产物（`data/*.json`、`client.js`），不执行任何构建脚本、不需要 Python。首次安装约 15 秒（下载 npm 包）。
 
 ### 方式 2：npm 包名（发布后）
 
 ```
 dsh-harmony-dev
 ```
+
+> 维护者发布：`npm login && npm publish --access public`（包名当前未被占用）。
+> 发布后「添加插件」里填 `dsh-harmony-dev` 即可安装。
 
 ### 方式 3：本地目录（开发调试）
 
