@@ -3,6 +3,22 @@
 所有值得记录的变更都会写入这里。格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 版本号遵循 [SemVer](https://semver.org/lang/zh-CN/)。
 
+## [0.1.1] - 2026-11-07
+
+### Fixed
+
+- **npm 包缺少 `content/versions.json`，从 npm 安装后启用即报 ENOENT**：
+  `package.json` 的 `files` 白名单漏掉了 `content/versions.json`，而 `index.js` 与
+  `lib/check.js` 在模块加载时强制读取该文件（0.1.0 的 npm tarball 只有 22 个文件，
+  `content/` 下仅有 catalog/tokens/topics）。已将 `content/versions.json` 加入 files。
+- **打包检查新增「运行时读取必须被 files 覆盖」门禁**：`check_package.mjs` 现在会
+  静态扫描 `index.js` 与 `lib/*.js` 里的 `readJson(...)` / `join(ROOT, ...)` 字面量
+  读取，并逐条核对是否被 `files` 覆盖，防止此类带病发布再次发生。
+
+### Added
+
+- `package.json` 增加 `publishConfig`（npm 官方源 + public），避免误发到镜像源。
+
 ## [0.1.0] - 2026-11-05
 
 首个公开版本。

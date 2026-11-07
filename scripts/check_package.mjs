@@ -51,6 +51,39 @@ for (const pattern of pkg.files ?? []) {
   if (!hasAny(pattern)) note(`files 项无匹配：${pattern}`);
 }
 
+// 4b) 运行时读取的字面量文件必须被 files 覆盖。
+// 0.1.0 曾漏掉 content/versions.json：npm 安装后启用插件即 ENOENT。
+const escapeRe = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const matchesFilesEntry = (rel, entry) => {
+  const norm = entry.replace(/\\/g, '/').replace(/^\.\//, '');
+  if (norm.includes('*')) {
+    const re = new RegExp('^' + norm.split('*').map(escapeRe).join('[^/]*') + '$');
+    return re.test(rel);
+  }
+  return rel === norm || rel.startsWith(norm.replace(/\/$/, '') + '/');
+};
+const coveredByFiles = (rel) => (pkg.files ?? []).some((entry) => matchesFilesEntry(rel, entry));
+
+const runtimeSources = [join(ROOT, 'index.js')];
+if (existsSync(join(ROOT, 'lib'))) {
+  for (const name of readdirSync(join(ROOT, 'lib'))) {
+    if (name.endsWith('.js')) runtimeSources.push(join(ROOT, 'lib', name));
+  }
+}
+const literalReads = new Set();
+for (const file of runtimeSources) {
+  if (!existsSync(file)) continue;
+  const source = readFileSync(file, 'utf8');
+  for (const match of source.matchAll(/readJson\(\s*['"]([^'"]+)['"]/g)) literalReads.add(match[1].replace(/\\/g, '/'));
+  for (const match of source.matchAll(/join\(\s*ROOT\s*,\s*((?:\s*['"][^'"]+['"]\s*,?)+)\s*\)/g)) {
+    const parts = [...match[1].matchAll(/['"]([^'"]+)['"]/g)].map((piece) => piece[1]);
+    if (parts.length > 0) literalReads.add(parts.join('/').replace(/\\/g, '/'));
+  }
+}
+for (const rel of [...literalReads].sort()) {
+  if (!coveredByFiles(rel)) note(`运行时读取但 files 未覆盖：${rel}`);
+}
+
 // 5) 图标
 const iconRef = pkg.icon ?? pkg.exports?.['./icon'];
 if (!iconRef) note('缺少 icon');

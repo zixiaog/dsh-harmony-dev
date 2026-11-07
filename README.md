@@ -115,7 +115,7 @@ dsh plugin add https://github.com/zixiaog/dsh-harmony-dev
 dsh-harmony-dev
 ```
 
-已发布到 npm：<https://www.npmjs.com/package/dsh-harmony-dev>（当前 `latest = 0.1.0`）。
+已发布到 npm：<https://www.npmjs.com/package/dsh-harmony-dev>（当前 `latest = 0.1.1`）。
 在「添加插件」里填 `dsh-harmony-dev` 即可安装（实测通过）。
 
 ### 方式 3：本地目录

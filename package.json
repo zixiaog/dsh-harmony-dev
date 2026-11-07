@@ -1,6 +1,6 @@
 {
   "name": "dsh-harmony-dev",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "dsh-harmony-dev（鸿蒙开发台）：鸿蒙原生开发规范、组件卡与规则校验，含 5 个工具与全量内容面板",
   "type": "module",
   "license": "MIT",
@@ -44,6 +44,7 @@
     "scripts/build-client.mjs",
     "content/tokens.json",
     "content/catalog.json",
+    "content/versions.json",
     "content/topics/*.json",
     "README.md",
     "LICENSE"
@@ -56,6 +57,10 @@
     "test:golden": "node scripts/run_golden.mjs",
     "test:e2e": "node scripts/e2e.mjs",
     "check:package": "node scripts/check_package.mjs"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "dsh": {
     "bundle": { "patch": "./cordis.patch.yml" },
