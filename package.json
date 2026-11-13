@@ -1,6 +1,6 @@
 {
   "name": "dsh-harmony-dev",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "dsh-harmony-dev（鸿蒙开发台）：鸿蒙原生开发规范、组件卡与规则校验，含 5 个工具与全量内容面板",
   "type": "module",
   "license": "MIT",
@@ -67,11 +67,15 @@
       "category": "skill",
       "summary": "鸿蒙开发台：内置鸿蒙原生开发规范、组件卡与规则校验，提供 5 个开发工具和全量内容面板，供 ArkTS/ArkUI 开发时按需查阅与检查。"
     },
-    "bundle": { "patch": "./cordis.patch.yml" },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
     "client": {
       "platform": "web",
       "immediately": true,
-      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
     }
   }
 }
