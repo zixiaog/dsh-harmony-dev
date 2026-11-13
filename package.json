@@ -63,6 +63,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dsh": {
+    "catalog": {
+      "category": "skill",
+      "summary": "鸿蒙开发台：内置鸿蒙原生开发规范、组件卡与规则校验，提供 5 个开发工具和全量内容面板，供 ArkTS/ArkUI 开发时按需查阅与检查。"
+    },
     "bundle": { "patch": "./cordis.patch.yml" },
     "client": {
       "platform": "web",
